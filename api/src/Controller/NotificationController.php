@@ -16,6 +16,7 @@ class NotificationController extends SQLController{
 		echo 'Jour : '.$momentOfWeek."<br/>Heure : ".$Hour."<br/><br/>";
 
 		// traitement horloge
+		$momentOfDay = 'none';
 		if( 7 < $Hour && $Hour < 9){
 			$momentOfDay = '0';
 		}if( 11 < $Hour && $Hour < 13){
