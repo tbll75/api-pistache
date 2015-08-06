@@ -262,10 +262,6 @@ class NotificationController extends SQLController{
 
 		if(!empty($notifchildren)){
 
-			echo "<pre>";
-			print_r($notifchildren);
-			echo "</pre>";
-
 			$childChore = array();
 			foreach ($notifchildren as $notifchild) {
 
@@ -469,21 +465,12 @@ class NotificationController extends SQLController{
 		if (!$fp)
 			exit("Failed to connect: $err $errstr" . PHP_EOL);
 
-		echo "<br/>".$message;
-		echo "<br/>".$title;
-		echo "<br/>".$nbNotif;
-		// echo 'Connected to APNS<br/>' . PHP_EOL;
-
 		// Create the payload body
 		$body['aps'] = array(
 			'alert' => array('body' => $message, 'title' => $title),
 			'sound' => 'default',
 			'badge' => $nbNotif
 			);
-
-		echo "<pre>";
-		print_r($body);
-		echo "</pre>";
 
 		// Encode the payload as JSON
 		$payload = json_encode($body);
