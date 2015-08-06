@@ -132,6 +132,7 @@
 	$router->post('/notification/clear', 'Notification#clear'); // efface la bdd notif par famille.
 	// Routing pour l'acces du cron.
 	$router->get('/task/recurrent', 'Notification#recurrent');
+	$router->get('/task/tryme', 'Notification#tryme');
 	$router->get('/task/punctual', 'Notification#punctual');
 
 // ************
