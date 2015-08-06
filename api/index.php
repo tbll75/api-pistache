@@ -130,6 +130,9 @@
 	$router->post('/notification/checkmission', 'Notification#checkmission'); // envoie notif pour les mission du matin/midi/gouter/soir -recurrente-
 	$router->get('/notification/checkpunctual', 'Notification#checkpunctual'); // envoie mission de la journée (date précise) -ponctuelle-
 	$router->post('/notification/clear', 'Notification#clear'); // efface la bdd notif par famille.
+	// Routing pour l'acces du cron.
+	$router->get('/task/recurrent', 'Notification#recurrent');
+	$router->get('/task/punctual', 'Notification#punctual');
 
 // ************
 
