@@ -118,6 +118,10 @@ class NotificationController extends SQLController{
 			// on rentre la nouvelle entrée dans le tableau général.
 			$childrenToNotif[] = $childToNotif;
 		}
+
+		echo "<pre>";
+		print_r($childrenToNotif);
+		echo "</pre>";
 		
 		foreach ($childrenToNotif as $childToNotif) {
 			if($childToNotif['nbChore'] >= 2){
