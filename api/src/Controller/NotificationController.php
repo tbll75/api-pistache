@@ -147,7 +147,7 @@ class NotificationController extends SQLController{
 			}
 		}
 
-		echo '<br/><br/>Toutes les notification à envoyer on été envoyer.<br/>Nombre de notification : '.$nbNotifSend."<br/>Nombre total d'alerte : ".$totalNotif;
+		echo '<br/><br/>Toutes les notification à envoyer on été envoyées.<br/>Nombre de notification : '.$nbNotifSend."<br/>Nombre total d'alerte : ".$totalNotif;
 
 	}
 	
