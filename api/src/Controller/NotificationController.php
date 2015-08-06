@@ -39,17 +39,26 @@ class NotificationController extends SQLController{
 			$result = curl_exec($ch );
 			curl_close( $ch );
 		}else{
-			echo 'Pas de notification lancée pour les tâches recurrentes !<br/>Error : <i>momentOfDay</i> n\'est pas definie.<br/>Message : Ce n\'est pas le moment.';
+			echo 'Pas de notification lancée pour les tâches recurrentes !<br/><br/>Error : <i>momentOfDay</i> n\'est pas definie.<br/>Message : Ce n\'est pas le moment.';
 		}
 	}
 
 	public function punctual(){
 
 		date_default_timezone_set('Europe/Paris');
-		
-		$url = $_SERVER['SERVER_NAME']."/notification/checkpunctual";
-		// On vérifie l'heure.
+
 		$Hour = date('G');
+
+		if(10 < $Hour && $Hour < 12){
+			$ch = curl_init();
+			curl_setopt( $ch,CURLOPT_URL, $_SERVER['SERVER_NAME'].'/notification/checkpunctual' );
+			curl_setopt( $ch,CURLOPT_POST, true );
+			// curl_setopt( $ch,CURLOPT_POSTFIELDS, array('json' => $json) );
+			$result = curl_exec($ch );
+			curl_close( $ch );
+		}else{
+			echo 'Pas de notification lancée pour les tâches ponctuelles !<br/><br/>Error : <i>Hour</i> ne correcpond pas au créneau.<br/>Message : Ce n\'est pas le moment.';
+		}
 	}
 
 
