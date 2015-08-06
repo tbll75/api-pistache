@@ -15,10 +15,9 @@ class NotificationController extends SQLController{
 	        $_SERVER['HTTP_HOST'] = $list[0];
 	        $_SERVER['SERVER_NAME']=$list[1];
 	  }
-	  echo $_SERVER['HTTP_X_FORWARDED_HOST']."<br/><br/>";
-	  echo $_SERVER['HTTP_HOST'];
-	  echo "<br>";
-	  echo $_SERVER['SERVER_NAME'];
+	  echo '<pre>';
+	  print_r($_SERVER);
+	  echo '</pre>';
 /*
 		$momentOfWeek = date('N') - 1;
 		$Hour = date('G');
