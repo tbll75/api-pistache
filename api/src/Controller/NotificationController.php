@@ -118,11 +118,9 @@ class NotificationController extends SQLController{
 			// on rentre la nouvelle entrée dans le tableau général.
 			$childrenToNotif[] = $childToNotif;
 		}
-
-		echo "<pre>";
-		print_r($childrenToNotif);
-		echo "</pre>";
 		
+		$nbNotifSend = 0;
+		$totalNotif = 0;
 		foreach ($childrenToNotif as $childToNotif) {
 			if($childToNotif['nbChore'] >= 2){
 				// Notif de type "Aujourd'hui tu as X missions en attente"
@@ -134,6 +132,8 @@ class NotificationController extends SQLController{
 						$this->update($sqlUpChore);
 					}
 				}
+				$nbNotifSend++;
+				$totalNotif += $childToNotif['nbChore'];
 			}elseif($childToNotif['nbChore'] == 1){
 				// Notif de type "N'oublis pas ta mission : {titreMission}"
 				$result = $this->oneMission($childToNotif['name'], $childToNotif['chore'][0]['name'], 4, $childToNotif['idFamily']);
@@ -142,8 +142,12 @@ class NotificationController extends SQLController{
 					$sqlUpChore = "UPDATE api_ChoreRec SET isActive = 0 WHERE idChoreRec = ".$childToNotif['chore'][0]['idChoreRec'];
 					$this->update($sqlUpChore);
 				}
+				$nbNotifSend++;
+				$totalNotif += $childToNotif['nbChore'];
 			}
 		}
+
+		echo '<br/><br/>Toutes les notification à envoyer on été envoyer.<br/>Nombre de notification : '.$nbNotifSend."<br/>Nombre total d'alerte : ".$totalNotif;
 
 	}
 	
