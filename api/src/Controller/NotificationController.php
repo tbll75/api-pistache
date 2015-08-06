@@ -10,6 +10,8 @@ class NotificationController extends SQLController{
 
 	public function recurrent(){
 
+		date_default_timezone_set('Europe/Paris');
+
 		$momentOfWeek = date('N') - 1;
 		$Hour = date('G');
 
@@ -37,10 +39,18 @@ class NotificationController extends SQLController{
 			$result = curl_exec($ch );
 			curl_close( $ch );
 		}else{
-			echo 'momentOfDay n\'est pas definie : Pas de notification lancée pour les tâches recurrentes !<br/>';
+			echo 'Pas de notification lancée pour les tâches recurrentes !<br/>Error : <i>momentOfDay</i> n\'est pas definie.<br/>Message : Ce n\'est pas le moment.';
 		}
 	}
 
+	public function punctual(){
+
+		date_default_timezone_set('Europe/Paris');
+		
+		$url = $_SERVER['SERVER_NAME']."/notification/checkpunctual";
+		// On vérifie l'heure.
+		$Hour = date('G');
+	}
 
 
 	/**
