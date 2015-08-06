@@ -373,6 +373,8 @@ class NotificationController extends SQLController{
 			$notifInfo['text'] = str_replace($valeurs[0][2], $missionName, $notifInfo['text']);
 		}
 
+		echo "<br/>".$notifInfo['text'];
+
 		// Une fois la notif prète, on récupère les infos de supports visés
 		$sqlsupp = "SELECT deviceToken, os FROM api_Support WHERE Family_idFamily = ".$idFamily;
 		$reqsupp = $this->select($sqlsupp);
@@ -468,6 +470,9 @@ class NotificationController extends SQLController{
 		if (!$fp)
 			exit("Failed to connect: $err $errstr" . PHP_EOL);
 
+		echo "<br/>".$message;
+		echo "<br/>".$title;
+		echo "<br/>".$nbNotif;
 		// echo 'Connected to APNS<br/>' . PHP_EOL;
 
 		// Create the payload body
