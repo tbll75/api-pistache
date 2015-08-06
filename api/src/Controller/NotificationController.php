@@ -373,8 +373,6 @@ class NotificationController extends SQLController{
 			$notifInfo['text'] = str_replace($valeurs[0][2], $missionName, $notifInfo['text']);
 		}
 
-		echo "<br/>".$notifInfo['text'];
-
 		// Une fois la notif prète, on récupère les infos de supports visés
 		$sqlsupp = "SELECT deviceToken, os FROM api_Support WHERE Family_idFamily = ".$idFamily;
 		$reqsupp = $this->select($sqlsupp);
@@ -449,6 +447,7 @@ class NotificationController extends SQLController{
 		// Put your device token here (without spaces):
 		// $deviceToken = '7b811ae2fc509af1ae85f6234743c2b795d9b060a7eef4bb52465b909b4394c9';
 
+
 		// Put your private key's passphrase here:
 		$passphrase = 'Bob110891'; // prod
 		// $passphrase = 'pistache42'; // dev
@@ -481,6 +480,10 @@ class NotificationController extends SQLController{
 			'sound' => 'default',
 			'badge' => $nbNotif
 			);
+
+		echo "<pre>";
+		print_r($body);
+		echo "</pre>";
 
 		// Encode the payload as JSON
 		$payload = json_encode($body);
