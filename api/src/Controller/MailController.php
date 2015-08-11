@@ -25,7 +25,7 @@ class MailController{
 		curl_close($template);
 
 		echo "<pre>";
-		print_r($tmpResult);
+		print_r($tmpResult['slug']);
 		echo "</pre>";
 
 		// traitement
