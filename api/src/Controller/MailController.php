@@ -39,7 +39,7 @@ class MailController{
 		curl_setopt($ch, CURLOPT_USERPWD, 'api:'.$mgClient);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-		$plain = strip_tags(br2nl($message));
+		$plain = preg_replace("/\<br\s*\/?\>/i", "\n", $message);
 
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 		curl_setopt($ch, CURLOPT_URL, 'https://api.mailgun.net/v3/'.$domain.'/messages');
