@@ -8,16 +8,17 @@ class MailController{
 
 		$server = 'https://mandrillapp.com/api/1.0';
 
-		$fields = '{"key": "FbUINsewlDpp_WAZV-a04w"}';
+		$fields = array('key' => "FbUINsewlDpp_WAZV-a04w");
 
 		$mail = curl_init();
 		curl_setopt( $mail,CURLOPT_URL, $server.'/users/info.json' );
 		curl_setopt( $mail,CURLOPT_POST, true );
 		curl_setopt( $mail,CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $mail,CURLOPT_SSL_VERIFYPEER, false );
-		curl_setopt( $mail,CURLOPT_POSTFIELDS, json_encode( $fields ) );
-		$result = curl_exec($mail );
-		curl_close( $mail );
+		curl_setopt( $mail,CURLOPT_POSTFIELDS, json_encode($fields) );
+		$result = curl_exec($mail);
+		curl_close($mail);
+
+		print_r($result);
 
 
 	}
