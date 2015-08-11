@@ -24,6 +24,10 @@ class MailController{
 		$tmpResult = curl_exec($template);
 		curl_close($template);
 
+		echo "<pre>";
+		print_r($tmpResult);
+		echo "</pre>";
+
 		// traitement
 		if(!empty($tmpResult['publish_code'])) {
 			$html = $tmpResult['publish_code'];
