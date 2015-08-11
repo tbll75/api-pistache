@@ -25,6 +25,7 @@ class MailController{
 
 	public function welcome(){*/
 
+		$mgClient = 'key-e71c0195d23e0930cae6e89f7078f360';
 		$domain = "sandboxffbbdca0be4c417d8af478152afb81d8.mailgun.org";
 		$from = 'postmaster@'.$domain;
 
@@ -35,7 +36,7 @@ class MailController{
 		$ch = curl_init();
 
 		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-		curl_setopt($ch, CURLOPT_USERPWD, 'api:'.MAILGUN_API);
+		curl_setopt($ch, CURLOPT_USERPWD, 'api:'.$mgClient);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
 		$plain = strip_tags(br2nl($message));
