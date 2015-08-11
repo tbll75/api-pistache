@@ -18,7 +18,9 @@ class MailController{
 		$result = curl_exec($mail);
 		curl_close($mail);
 
+		echo '<pre>';
 		print_r($result);
+		echo '</pre>';
 
 
 	}
