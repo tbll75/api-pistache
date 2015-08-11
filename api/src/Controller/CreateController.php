@@ -206,7 +206,7 @@ class CreateController extends SQLController{
 		}else{ $childId = ""; }
 
 		$sql = "INSERT INTO api_ChoreRec (Family_idFamily, childId, xpToWin, name, text, state, imageName, energy, validation, date, lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche, matin, dejeuner, gouter, diner, isRecurrent) VALUES
-('$idFamily', '$childId', '$xpToWin', '$name', '$text', '$state', '$imageName', '$energy', '$validtion', '$date', '$lundi', '$mardi', '$mercredi', '$jeudi', '$vendredi', '$samedi', '$dimanche', '$matin', '$dej', '$gouter', '$diner', '$isRecurrent')";
+('$idFamily', '$childId', '$xpToWin', '$name', '$text', '$state', '$imageName', '$energy', '$validation', '$date', '$lundi', '$mardi', '$mercredi', '$jeudi', '$vendredi', '$samedi', '$dimanche', '$matin', '$dej', '$gouter', '$diner', '$isRecurrent')";
 		$rep = $this->insert($sql);
 
 		$sqlget = "SELECT * FROM api_ChoreRec ORDER BY idChoreRec DESC LIMIT 1";
