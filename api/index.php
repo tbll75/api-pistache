@@ -124,7 +124,8 @@
 	$router->get('/partner/isabletoplay/:idChild', "Partner#isAbleToPlay")->with('idChild', '[0-9]+');
 	$router->get('/partner/gainxp/:idChild/:gain', "Partner#gainXp")->with('idChild', '[0-9]+')->with('gain', '[0-9]+');
 
-
+// MAIL
+	$router->get('/mail/welcome', 'Mail#welcome');
 
 // NOTIFICATION
 	$router->post('/notification/checkmission', 'Notification#checkmission'); // envoie notif pour les mission du matin/midi/gouter/soir -recurrente-
