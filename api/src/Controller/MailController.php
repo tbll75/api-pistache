@@ -24,10 +24,6 @@ class MailController{
 		$tmpResult = json_decode(curl_exec($template), true);
 		curl_close($template);
 
-		echo "<pre>";
-		print_r($tmpResult);
-		echo "</pre>";
-
 		// traitement
 		if(!empty($tmpResult['publish_code'])) {
 			$html = $tmpResult['publish_code'];
