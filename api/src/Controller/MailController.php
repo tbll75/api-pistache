@@ -12,11 +12,11 @@ class MailController{
 
 		$fields = array(
 			"key" => "FbUINsewlDpp_WAZV-a04w",
-			"template_name": "welcome",
-		    "template_content": array(
+			"template_name" => "welcome",
+		    "template_content" => array(
 		        array(
-		            "name": "welcome",
-		            "content": "example content"
+		            "name" => "welcome",
+		            "content" => "example content"
 		        )
 		    ),
 		    "message" => array(
