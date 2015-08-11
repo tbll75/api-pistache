@@ -4,7 +4,7 @@ namespace App\Controller;
 
 class MailController{
 
-	public function welcome($sendTo){
+	public function welcome(){
 
 		$server = 'https://mandrillapp.com/api/1.0';
 		$mandrillKey = "FbUINsewlDpp_WAZV-a04w";
@@ -46,8 +46,8 @@ class MailController{
 		        "from_name" => "Pistache",
 		        "to" => array(
 		            array(
-		                "email" => $sendTo,
-		                // "name" => "Orazio Locchi",
+		                "email" => "orazio.locchi@live.fr",
+		                "name" => "Orazio Locchi",
 		                "type" => "to"
 		            )
 		        ),
