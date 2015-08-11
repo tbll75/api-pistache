@@ -12,6 +12,13 @@ class MailController{
 
 		$fields = array(
 			"key" => "FbUINsewlDpp_WAZV-a04w",
+			"template_name": "welcome",
+		    "template_content": array(
+		        array(
+		            "name": "welcome",
+		            "content": "example content"
+		        )
+		    ),
 		    "message" => array(
 		        "html" => "<p>Example HTML content</p>",
 		        "text" => "Example text content",
@@ -19,11 +26,6 @@ class MailController{
 		        "from_email" => "contact@pistache-app.com",
 		        "from_name" => "Piastache",
 		        "to" => array(
-		            array(
-		                "email" => "orazio.locchi@live.fr",
-		                "name" => "Orazio Locchi",
-		                "type" => "to"
-		            ),
 		            array(
 		                "email" => "orazio.locchi@live.fr",
 		                "name" => "Orazio Locchi",
