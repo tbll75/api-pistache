@@ -60,7 +60,7 @@ class MailController{
 
 		print_r($j);
 	}
-
-}*/
+*/
+}
 
  ?>
