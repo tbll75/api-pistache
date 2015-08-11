@@ -221,8 +221,8 @@ class CreateController extends SQLController{
 		if(!empty($json['Children_idChildren'])){ $Children_idChildren = $json['Children_idChildren']; }else{ $Children_idChildren = ""; }
 		if(!empty($json['isValidated'])){ $isValidated = $json['isValidated']; }else{ $isValidated = ""; }
 		if(!empty($json['isCompleted'])){ $isCompleted = $json['isCompleted']; }else{ $isCompleted = ""; }
-		if(!empty($json['momentOfWeek'])){ $momentOfWeek = $json['momentOfWeek']; }else{ $momentOfWeek = ""; }
-		if(!empty($json['momentOfDay'])){ $momentOfDay = $json['momentOfDay']; }else{ $momentOfDay = ""; }
+		if(!empty($json['momentOfWeek'] || $json['momentOfWeek'] == '0')){ $momentOfWeek = $json['momentOfWeek']; }else{ $momentOfWeek = ""; }
+		if(!empty($json['momentOfDay'] || $json['momentOfDay'] == '0')){ $momentOfDay = $json['momentOfDay']; }else{ $momentOfDay = ""; }
 		if(!empty($json['dueDate'])){ $dueDate = $json['dueDate']; }else{ $dueDate = ""; }
 		if(!empty($json['timeCompleted'])){ $timeCompleted = $json['timeCompleted']; }else{ $timeCompleted = ""; }
 
