@@ -25,13 +25,19 @@ class MailController{
 		curl_close($template);
 
 		// traitement
-		if(!empty($tmpResult['publish_code'])
+		if(!empty($tmpResult['publish_code']){
 			$html = $tmpResult['publish_code'];
-		if(!empty($tmpResult['publish_text'])
+		}elseif(!empty($tmpResult['code'])) {
+			$html = $tmpResult['code'];
+		}
+		if(!empty($tmpResult['publish_text']){
 			$text = $tmpResult['publish_text'];
+		}elseif(!empty($tmpResult['text'])) {
+			$text = $tmpResult['text'];
+		}
 
 		// prepare
-			$api = '/messages/send.json';
+		$api = '/messages/send.json';
 		$fields = array(
 			"key" => "FbUINsewlDpp_WAZV-a04w",
 			"template_name" => "welcome",
