@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-class AccueilController{
+class MailController{
 
-	public function index(){
+	public function welcome(){
 
 		echo "<h1>La vie est belle avec Pistache !</h1>";
 
