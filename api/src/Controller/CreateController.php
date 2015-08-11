@@ -176,7 +176,7 @@ class CreateController extends SQLController{
 		$text = htmlspecialchars($json['text'], ENT_QUOTES);
 		$xpToWin = $json['xpToWin'];
 		$state = $json['state'];
-		$imageName = $json['ImageName'];
+		$imageName = $json['imageName'];
 		$energy = $json['energy'];
 		$validation = $json['validation'];
 		$isRecurrent = $json['isRecurrent'];
@@ -205,7 +205,7 @@ class CreateController extends SQLController{
 			$childId = substr($childId, 0, -2);
 		}else{ $childId = ""; }
 
-		$sql = "INSERT INTO api_ChoreRec (Family_idFamily, childId, xpToWin, name, text, state, ImageName, energy, validation, date, lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche, matin, dejeuner, gouter, diner, isRecurrent) VALUES
+		$sql = "INSERT INTO api_ChoreRec (Family_idFamily, childId, xpToWin, name, text, state, imageName, energy, validation, date, lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche, matin, dejeuner, gouter, diner, isRecurrent) VALUES
 ('$idFamily', '$childId', '$xpToWin', '$name', '$text', '$state', '$imageName', '$energy', '$validtion', '$date', '$lundi', '$mardi', '$mercredi', '$jeudi', '$vendredi', '$samedi', '$dimanche', '$matin', '$dej', '$gouter', '$diner', '$isRecurrent')";
 		$rep = $this->insert($sql);
 
