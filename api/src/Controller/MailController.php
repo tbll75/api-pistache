@@ -25,12 +25,12 @@ class MailController{
 		curl_close($template);
 
 		// traitement
-		if(!empty($tmpResult['publish_code']){
+		if(!empty($tmpResult['publish_code'])) {
 			$html = $tmpResult['publish_code'];
 		}elseif(!empty($tmpResult['code'])) {
 			$html = $tmpResult['code'];
 		}
-		if(!empty($tmpResult['publish_text']){
+		if(!empty($tmpResult['publish_text'])) {
 			$text = $tmpResult['publish_text'];
 		}elseif(!empty($tmpResult['text'])) {
 			$text = $tmpResult['text'];
