@@ -21,11 +21,11 @@ class MailController{
 		curl_setopt( $template,CURLOPT_POST, true );
 		curl_setopt( $template,CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $template,CURLOPT_POSTFIELDS, json_encode($templateFields) );
-		$tmpResult = curl_exec($template);
+		$tmpResult = json_decode(curl_exec($template), true);
 		curl_close($template);
 
 		echo "<pre>";
-		print_r($tmpResult['slug']);
+		print_r($tmpResult);
 		echo "</pre>";
 
 		// traitement
