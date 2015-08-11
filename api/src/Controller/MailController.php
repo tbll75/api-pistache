@@ -9,7 +9,7 @@ class MailController{
 		$server = 'https://mandrillapp.com/api/1.0';
 		$mandrillKey = "FbUINsewlDpp_WAZV-a04w";
 
-		// Request vers le serveur pour avoir le template
+		// Requete vers le serveur pour avoir le template
 		$api = "/templates/info.json";
 		$templateFields = array(
 			"key" => $mandrillKey, 
@@ -24,14 +24,14 @@ class MailController{
 		$tmpResult = curl_exec($template);
 		curl_close($template);
 
-		$html = $tmpResult['publish_code'];
-		$text = $tmpResult['publish_text'];
+		// traitement
+		if(!empty($tmpResult['publish_code'])
+			$html = $tmpResult['publish_code'];
+		if(!empty($tmpResult['publish_text'])
+			$text = $tmpResult['publish_text'];
 
-		echo '<pre>';
-		print_r($tmpResult);
-		echo '</pre>';
-
-
+		// prepare
+			$api = '/messages/send.json';
 		$fields = array(
 			"key" => "FbUINsewlDpp_WAZV-a04w",
 			"template_name" => "welcome",
@@ -44,13 +44,13 @@ class MailController{
 		    "message" => array(
 		        "html" => $html,
 		        "text" => $text,
-		        "subject" => "Bienvenu chez Pistache!",
+		        "subject" => "Bienvenue chez Pistache!",
 		        "from_email" => "contact@pistache-app.com",
 		        "from_name" => "Pistache",
 		        "to" => array(
 		            array(
 		                "email" => "orazio.locchi@live.fr",
-		                "name" => "Orazio Locchi",
+		                // "name" => "Orazio Locchi",
 		                "type" => "to"
 		            )
 		        ),
@@ -102,18 +102,17 @@ class MailController{
 		    ),
 		    "async" => false
 		);
-
+		// envoit
 		$mail = curl_init();
-		curl_setopt( $mail,CURLOPT_URL, $server.'/messages/send.json' );
+		curl_setopt( $mail,CURLOPT_URL, $server.$api );
 		curl_setopt( $mail,CURLOPT_POST, true );
 		curl_setopt( $mail,CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $mail,CURLOPT_POSTFIELDS, json_encode($fields) );
 		$result = curl_exec($mail);
 		curl_close($mail);
 
-		echo '<pre>';
-		print_r(json_decode($result, true));
-		echo '</pre>';
+		// retour
+		echo 'Send';
 
 
 	}
