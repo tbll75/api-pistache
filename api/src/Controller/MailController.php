@@ -23,7 +23,7 @@ class MailController{
 
 	}
 
-	public function welcome(){*/v
+	public function welcome(){*/
 
 		$mgClient = 'key-e71c0195d23e0930cae6e89f7078f360';
 		$domain = "sandboxffbbdca0be4c417d8af478152afb81d8.mailgun.org";
