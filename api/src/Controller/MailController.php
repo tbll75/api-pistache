@@ -27,6 +27,9 @@ class MailController{
 		$html = $tmpResult['publish_code'];
 		$text = $tmpResult['publish_text'];
 
+		echo '<pre>';
+		print_r($tmpResult);
+		echo '</pre>';
 
 
 		$fields = array(
