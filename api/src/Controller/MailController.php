@@ -6,24 +6,23 @@ class MailController{
 
 	public function welcome(){
 
-		/*# Include the Autoloader (see "Libraries" for install instructions)
-		require 'vendor/autoload.php';
-		use Mailgun\Mailgun;
+		$server = 'https://mandrillapp.com/api/1.0';
 
-		# Instantiate the client.
-		$mgClient = new Mailgun('key-e71c0195d23e0930cae6e89f7078f360');
-		$domain = "sandboxffbbdca0be4c417d8af478152afb81d8.mailgun.org";
+		$fields = '{"key": "FbUINsewlDpp_WAZV-a04w"}';
 
-		# Make the call to the client.
-		$result = $mgClient->sendMessage("$domain",
-		                  array('from'    => 'Mailgun Sandbox <postmaster@sandboxffbbdca0be4c417d8af478152afb81d8.mailgun.org>',
-		                        'to'      => 'Orazio Locchi <orazio.locchi@gmail.com>',
-		                        'subject' => 'Hello Orazio Locchi',
-		                        'text'    => 'Congratulations Orazio Locchi, you just sent an email with Mailgun!  You are truly awesome!  You can see a record of this email in your logs: https://mailgun.com/cp/log .  You can send up to 300 emails/day from this sandbox server.  Next, you should add your own domain so you can send 10,000 emails/month for free.'));
+		$mail = curl_init();
+		curl_setopt( $mail,CURLOPT_URL, $server.'/users/info.json' );
+		curl_setopt( $mail,CURLOPT_POST, true );
+		curl_setopt( $mail,CURLOPT_RETURNTRANSFER, true );
+		curl_setopt( $mail,CURLOPT_SSL_VERIFYPEER, false );
+		curl_setopt( $mail,CURLOPT_POSTFIELDS, json_encode( $fields ) );
+		$result = curl_exec($mail );
+		curl_close( $mail );
+
 
 	}
 
-	public function welcome(){*/
+/*	public function welcome(){
 
 		$mgClient = 'key-e71c0195d23e0930cae6e89f7078f360';
 		$domain = "sandboxffbbdca0be4c417d8af478152afb81d8.mailgun.org";
@@ -61,6 +60,6 @@ class MailController{
 		print_r($j);
 	}
 
-}
+}*/
 
  ?>
