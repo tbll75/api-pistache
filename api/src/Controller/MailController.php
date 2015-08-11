@@ -113,7 +113,7 @@ class MailController{
 		curl_close($mail);
 
 		echo '<pre>';
-		print_r(json_decode($result), true);
+		print_r(json_decode($result, true));
 		echo '</pre>';
 
 
