@@ -58,7 +58,7 @@ class MailController{
 
 		curl_close($ch);
 
-		return $j;
+		print_r($j);
 	}
 
 }
