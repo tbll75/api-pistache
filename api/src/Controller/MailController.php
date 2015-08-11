@@ -59,7 +59,7 @@ class MailController{
 		        "from_name" => "Pistache",
 		        "to" => array(
 		            array(
-		                "email" => "orazio.locchi@gmail.com",
+		                "email" => "thibault@pistache-app.com",
 		                // "name" => "Orazio Locchi",
 		                "type" => "to"
 		            ),
@@ -74,7 +74,7 @@ class MailController{
 		        ),
 		         "merge_vars" => array(
 		            array(
-		                "rcpt" => "orazio.locchi@gmail.com",
+		                "rcpt" => "thibault@pistache-app.com",
 		                "vars" => array(
 		                    array(
 		                        "name" => "PSWD",
