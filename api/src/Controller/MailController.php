@@ -4,8 +4,8 @@ namespace App\Controller;
 
 class MailController{
 
-	private $server = 'https://mandrillapp.com/api/1.0';
-	private $mandrillKey = "FbUINsewlDpp_WAZV-a04w";
+	private var $server = 'https://mandrillapp.com/api/1.0';
+	private var $mandrillKey = "FbUINsewlDpp_WAZV-a04w";
 
 	public function welcome(){
 
