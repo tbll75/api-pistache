@@ -144,6 +144,28 @@ class FamilyController extends SQLController{
 		}
 
 		echo json_encode($family);
+	}	
+
+
+	public function askPass(){
+		$hashmail = $_POST['hash'];
+
+		// on récupere les mails
+		$req = $this->select("SELECT mail, idFamily FROM api_Family");
+
+		$mails = "";
+		foreach ($req as $famille) {
+			$mails[$famille['idFamily']] = hash_hmac('sha256', $famille['mail'], 'secret', false);
+		}
+
+		// on compare dans la liste de la bdd
+		if(in_array($hashmail, $mails)){
+			// On peut générer le mdp et tout ca.
+			return true;
+		}else{
+			echo '{"error":"Hash invalide"}';
+			return false;
+		}
 	}
 
 }

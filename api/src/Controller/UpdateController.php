@@ -435,27 +435,7 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 
 	}
 
-	public function askPass($hashmail){
-		// on récupere les mails
-		$req = $this->select("SELECT mail, idFamily FROM api_Family");
 
-		$mails = "";
-		foreach ($req as $famille) {
-			$mails[$famille['idFamily']] = hash_hmac('sha256', $famille['mail'], 'secret', false);
-		}
-
-		// on compare dans la liste de la bdd
-		if(in_array($hashmail, $mails)){
-			echo 'YES';
-			die();
-		}else{
-			echo '{"error":"Email invalide"}';
-			echo '<pre>';
-			print_r($mails);
-			echo '</pre>';
-			die();
-		}
-	}
 
 	public function pass(){
 		// On check les données
