@@ -7,16 +7,57 @@ class MailController extends SQLController{
 	private $server = 'https://mandrillapp.com/api/1.0';
 	private $mandrillKey = "FbUINsewlDpp_WAZV-a04w";
 
-	public function welcome($mail, $pass){
+
+/**
+	Fonctions de traitement : Welcome, newMdp, 
+**/
+	public function example($params1, $params2){
 
 		// Requete vers le serveur pour avoir le template
-		$api = "/templates/info.json";
+		$api = "/templates/info.json"; // lien de l'api pour chercher les infos du template 
 		$templateFields = array(
 			"key" => $this->mandrillKey, 
-			"name" => "welcome"
+			"name" => "slug" // Template Slug dans Mandrill->Outbound->Templates-> etle template
 			);
 
-		$result = $this->curlMail($api, $templateFields);
+		$result = $this->curlMail($api, $templateFields); // en gros c'est la requete pour choper les infos
+
+		// récupération contenu Template
+		if(!empty($result['publish_code'])) { $html = $result['publish_code']; }elseif(!empty($result['code'])) { $html = $result['code']; } 
+		if(!empty($result['publish_text'])) { $text = $result['publish_text']; }elseif(!empty($result['text'])) { $text = $result['text']; }
+
+		// params mail
+		$title = "Titre";
+		$from = "contact@pistache-app.com";
+		$reply = "thibault@pistache-app.com";
+
+		// Toutes les infos dynamique doivent se retrouver dans un tableau comme celui-ci.
+		$mergeTo = array(
+			array(
+                "rcpt" => "mail.du@destinataire",
+                "vars" => array(
+                    array(
+                        "name" => "NOMDEMAVAR", // nom de la variable sur le template (les variable sur le template s'écrive *|NOMDEMAVAR|*)
+                        "content" => $valeurDeMaVar
+                    )
+                )
+            )
+        );
+
+		$result = $this->sendMessage($title, $html, $text, $from, $reply, $mergeTo);
+
+	}
+
+		public function welcome($mail, $pass){
+
+		// Requete vers le serveur pour avoir le template
+		$api = "/templates/info.json"; // lien de l'api pour chercher les infos du template 
+		$templateFields = array(
+			"key" => $this->mandrillKey, 
+			"name" => "welcome" // Template Slug dans Mandrill->Outbound->Templates-> etle template
+			);
+
+		$result = $this->curlMail($api, $templateFields); // en gros c'est la requete pour choper les infos
 
 		// récupération contenu Template
 		if(!empty($result['publish_code'])) { $html = $result['publish_code']; }elseif(!empty($result['code'])) { $html = $result['code']; } 
@@ -27,24 +68,25 @@ class MailController extends SQLController{
 		$from = "contact@pistache-app.com";
 		$reply = "thibault@pistache-app.com";
 		// prepare
-		$mergeTo = array(array(
-		                "rcpt" => $mail,
-		                "vars" => array(
-		                    array(
-		                        "name" => "PSWD",
-		                        "content" => $pass
-		                    )
-		                )
-		            ));
+		$mergeTo = array(
+			array(
+                "rcpt" => $mail,
+                "vars" => array(
+                    array(
+                        "name" => "PSWD",
+                        "content" => $pass
+                    )
+                )
+            )
+        );
 
 		$result = $this->sendMessage($title, $html, $text, $from, $reply, $mergeTo);
 
-		// retour
-		echo 'Send';
-
-
 	}
 
+/**
+	Fonctions d'envoi
+**/
 	public function sendMessage($title, $html, $text, $from, $reply, $mergeTo){
 		// api Mandrill à envoyer
 		$api = '/messages/send.json';
