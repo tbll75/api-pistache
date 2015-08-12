@@ -467,14 +467,10 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 		$passHash = hash_hmac('sha256', $pass, 'secret', false);
 		// on update le mdp hashé.
 		$rep = $this->update("UPDATE api_Family SET masterPassword = '$passHash' WHERE idFamily = ".$idFamily);
-		echo $pass."<br/>";
-		echo hash_hmac('sha256', $pass, 'secret', false);
 
 		// on envoit le mail avec le mdp.
 		$rep = $this->select("SELECT mail FROM api_Family WHERE idFamily = '$idFamily'");
-		print_r($rep);
-		die();
-		$this->newPass($rep['mail'], $pass);
+		$this->newPass($rep[0]['mail'], $pass);
 	}
 
 }
