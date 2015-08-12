@@ -161,7 +161,8 @@ class FamilyController extends SQLController{
 		// on compare dans la liste de la bdd
 		if(in_array($hashmail, $mails)){
 			// On peut générer le mdp et tout ca.
-			return true;
+			echo 'oui';
+			return $hashmail;
 		}else{
 			echo '{"error":"Hash invalide"}';
 			return false;
