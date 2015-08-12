@@ -16,7 +16,7 @@ class MailController{
 			"name" => "welcome"
 			);
 
-		$resutl = curlMail($api, $templateFields);
+		$resutl = $this->curlMail($api, $templateFields);
 
 		// traitement
 		if(!empty($tmpResult['publish_code'])) {
@@ -107,7 +107,7 @@ class MailController{
 		);
 
 		// envoie
-		$result = curlMail($api, $fields);
+		$result = $this->curlMail($api, $fields);
 
 		// retour
 		echo 'Send';
