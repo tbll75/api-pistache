@@ -65,6 +65,7 @@
 	$router->post('/update/unlockobject', 'Update#unlockobject');
 	$router->post('/update/alldata', 'Update#alldata');
 	$router->post('/update/password', 'Update#pass');
+	$router->get('/update/password/:email', 'Update#askPass');
 
 // DELETE
 	$router->post('/delete', 'Delete#entity');

@@ -435,6 +435,23 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 
 	}
 
+	public function askPass($hashmail){
+		// on récupere les mails
+		$req = $this->select("SELECT mail FROM Family");
+		echo '<pre>';
+		print_r($req);
+		echo '</pre>';
+
+		die();
+		// on compare dans la liste de la bdd
+		if(in_array($hashmail, $mails)){
+
+		}else{
+			echo '{"error":"Email invalide"}';
+			die();
+		}
+	}
+
 	public function pass(){
 		// On check les données
 		$json = json_decode($_POST['json'], true);

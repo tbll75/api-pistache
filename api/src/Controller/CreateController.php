@@ -40,17 +40,19 @@ class CreateController extends MailController{
 				$idFamily = $rep2[0]['lastId'];
 
 				// On enregistre le(s) device(s) lié(s) à cette nouvelle famille.
-				$device = $json['device'];
-				if(!empty($device['deviceToken'])){
-					$deviceToken = $device['deviceToken'];
-					$os = $device['os'];
+				if(!empty($json['device'])){
+					$device = $json['device'];
+					if(!empty($device['deviceToken'])){
+						$deviceToken = $device['deviceToken'];
+						$os = $device['os'];
 
-					/**
-					// Vérifier que le token existe pas, si oui, supprimer les entrées, et ensuite la suite (insertion du support lié à une famille). 
-					**/
+						/**
+						// Vérifier que le token existe pas, si oui, supprimer les entrées, et ensuite la suite (insertion du support lié à une famille). 
+						**/
 
-					$sqldevice = "INSERT INTO api_Support (Family_idFamily, os, deviceToken) VALUES ('$idFamily', '$os', '$deviceToken')";
-					$reqdevice = $this->insert($sqldevice);
+						$sqldevice = "INSERT INTO api_Support (Family_idFamily, os, deviceToken) VALUES ('$idFamily', '$os', '$deviceToken')";
+						$reqdevice = $this->insert($sqldevice);
+					}
 				}
 				// return 
 				$json = $rep2[0];
