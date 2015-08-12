@@ -19,15 +19,15 @@ class MailController{
 		$resutl = $this->curlMail($api, $templateFields);
 
 		// traitement
-		if(!empty($tmpResult['publish_code'])) {
-			$html = $tmpResult['publish_code'];
-		}elseif(!empty($tmpResult['code'])) {
-			$html = $tmpResult['code'];
+		if(!empty($resutl['publish_code'])) {
+			$html = $resutl['publish_code'];
+		}elseif(!empty($resutl['code'])) {
+			$html = $resutl['code'];
 		}
-		if(!empty($tmpResult['publish_text'])) {
-			$text = $tmpResult['publish_text'];
-		}elseif(!empty($tmpResult['text'])) {
-			$text = $tmpResult['text'];
+		if(!empty($resutl['publish_text'])) {
+			$text = $resutl['publish_text'];
+		}elseif(!empty($resutl['text'])) {
+			$text = $resutl['text'];
 		}
 
 		// prepare
@@ -48,11 +48,11 @@ class MailController{
 		        "from_email" => "contact@pistache-app.com",
 		        "from_name" => "Pistache",
 		        "to" => array(
-		            array(
-		                "email" => "tbll75@gmail.com",
-		                // "name" => "Orazio Locchi",
-		                "type" => "to"
-		            ),
+		            // array(
+		            //     "email" => "tbll75@gmail.com",
+		            //     // "name" => "Orazio Locchi",
+		            //     "type" => "to"
+		            // ),
 		            array(
 		                "email" => "orazio.locchi@live.fr",
 		                // "name" => "Orazio Locchi",
@@ -63,15 +63,15 @@ class MailController{
 		            "Reply-To" => "tbll75@gmail.com"
 		        ),
 		         "merge_vars" => array(
-		            array(
-		                "rcpt" => "tbll75@gmail.com",
-		                "vars" => array(
-		                    array(
-		                        "name" => "PSWD",
-		                        "content" => "easy le paswd"
-		                    )
-		                )
-		            ),
+		            // array(
+		            //     "rcpt" => "tbll75@gmail.com",
+		            //     "vars" => array(
+		            //         array(
+		            //             "name" => "PSWD",
+		            //             "content" => "easy le paswd"
+		            //         )
+		            //     )
+		            // ),
 		            array(
 		                "rcpt" => "orazio.locchi@live.fr",
 		                "vars" => array(
