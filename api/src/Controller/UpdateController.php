@@ -440,17 +440,18 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 	public function pass(){
 		// On check les données
 		$json = json_decode($_POST['json'], true);
-		if(!empty($json['mail']))
-			$mail = $json['mail'];
+		if(!empty($json['idFamily']))
+			$idFamily = $json['idFamily'];
 		else{
-			echo '{"error":"pas de mail.", "code":"1"}';
+			echo '{"error":"pas de idFamily.", "code":"1"}';
 			die();
 		}
+		// un mdp est demandé ?
 		if(!empty($json['password']))
 			$pass = $json['password'];
 
 		// Si pas de mdp, on le génère
-		if($newPass == null){
+		if(!isset($pass)){
 			$nb_car = 6;
 			$chaine = 'azertyuiopqsdfghjklmwxcvbn';
 		    $nb_lettres = strlen($chaine) - 1;
@@ -458,16 +459,19 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 		    {
 		        $pos = mt_rand(0, $nb_lettres);
 		        $car = $chaine[$pos];
-		        $newPass .= $car;
+		        $pass .= $car;
 		    }
 		}
 		// on hash le mdp avec la clé secret.
-		$pass = hash_hmac('sha256', $newPass, 'secret', false);
+		$passHash = hash_hmac('sha256', $pass, 'secret', false);
 		// on update le mdp hashé.
-		$rep = $this->update("UPDATE api_family SET masterPassword = '$pass' WHERE mail = ".$mail);
+		$rep = $this->update("UPDATE api_family SET masterPassword = '$passHash' WHERE idFamily = ".$idFamily);
 
 		// on envoit le mail avec le mdp.
-		$this->newPass($mail, $masterPassword);
+		$rep = $this->select("SELECT mail FROM api_Family WHERE idFamily = '$idFamily'");
+		print_r($rep);
+		die();
+		$this->newPass($rep['mail'], $pass);
 	}
 
 }
