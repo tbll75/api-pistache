@@ -2,34 +2,25 @@
 
 namespace App\Controller;
 
-class MailController{
+class MailController extends SQLController{
 
 	private $server = 'https://mandrillapp.com/api/1.0';
 	private $mandrillKey = "FbUINsewlDpp_WAZV-a04w";
 
-	public function welcome(){
+	public function welcome($mail, $pass){
 
 		// Requete vers le serveur pour avoir le template
 		$api = "/templates/info.json";
-		$template = 'welcome';
 		$templateFields = array(
 			"key" => $this->mandrillKey, 
-			"name" => $template
+			"name" => "welcome"
 			);
 
 		$result = $this->curlMail($api, $templateFields);
 
 		// récupération contenu Template
-		if(!empty($result['publish_code'])) {
-			$html = $result['publish_code'];
-		}elseif(!empty($result['code'])) {
-			$html = $result['code'];
-		}
-		if(!empty($result['publish_text'])) {
-			$text = $result['publish_text'];
-		}elseif(!empty($result['text'])) {
-			$text = $result['text'];
-		}
+		if(!empty($result['publish_code'])) { $html = $result['publish_code']; }elseif(!empty($result['code'])) { $html = $result['code']; } 
+		if(!empty($result['publish_text'])) { $text = $result['publish_text']; }elseif(!empty($result['text'])) { $text = $result['text']; }
 
 		// params mail
 		$title = "Bienvenue chez Pistache!";
@@ -37,28 +28,16 @@ class MailController{
 		$reply = "thibault@pistache-app.com";
 		// prepare
 		$mergeTo = array(
-		            // array(
-		            //     "rcpt" => "tbll75@gmail.com",
-		            //     "rcptName" => "Thibault LOUIS-LUCAS",
-		            //     "vars" => array(
-		            //         array(
-		            //             "name" => "PSWD",
-		            //             "content" => "easy le paswd"
-		            //         )
-		            //     )
-		            // ),
-		            array(
-		                "rcpt" => "orazio.locchi@live.fr",
+		                "rcpt" => $mail,
 		                "vars" => array(
 		                    array(
 		                        "name" => "PSWD",
-		                        "content" => "tmtc"
+		                        "content" => $pass
 		                    )
 		                )
-		            )
 		            );
 
-		$result = $this->sendMessage($template, $title, $html, $text, $from, $reply, $mergeTo);
+		$result = $this->sendMessage($title, $html, $text, $from, $reply, $mergeTo);
 
 		// retour
 		echo 'Send';
@@ -66,7 +45,7 @@ class MailController{
 
 	}
 
-	public function sendMessage($template, $title, $html, $text, $from, $reply, $mergeTo){
+	public function sendMessage($title, $html, $text, $from, $reply, $mergeTo){
 		// api Mandrill à envoyer
 		$api = '/messages/send.json';
 		// traitement un pour l'envoi
@@ -80,7 +59,6 @@ class MailController{
 		// Content
 		$fields = array(
 			"key" => $this->mandrillKey, 
-			// "template_name" => $template,
 		    "message" => array(
 		        "html" => $html,
 		        "text" => $text,
@@ -91,7 +69,7 @@ class MailController{
 		        "headers" => array(
 		            "Reply-To" => $reply
 		        ),
-		        "merge_vars" => $mergeTo,
+		        "merge_vars" => array( $mergeTo ),
 		        "important" => false,
 		        "track_opens" => null,
 		        "track_clicks" => null,

@@ -2,27 +2,10 @@
 
 namespace App\Controller;
 
-class CreateController extends SQLController{
+class CreateController extends MailController{
 
 	public function family(){ 
-// Info reçues : 
-/*		{
-			"NbOfMember":0,
-			"MemberList":[],
-			"masterPassword":"a",
-			"mail":"a",
-			"deviceList":null,
-			"idFamily":0,
-			"name":null,
-			"Settings":
-				{
-				"MaxPlayTime":0
-				},
-			"activateTuto":true
-		}
-
-
-*/
+		
 		$json = json_decode($_POST['json'], true);
 		// On vérifie que les infos necessaires sont passées.
 		if(empty($json['mail'])){
@@ -44,14 +27,13 @@ class CreateController extends SQLController{
 			}else{
 				$masterPassword = $json['masterPassword'];
 				$mail = $json['mail'];
-				// ici on génère le premier mdp et on l'envoi par mail avant de le crypter dans la bdd.
-				// $mdp = $this->chaine_aleatoire(12);
 				// On envoit le mail qui va bien !
 				/**
 				// coucou le code d'envoi de mail !! (AVEC LE MDP)
 				**/
+				$this->welcome($mail, $masterPassword);
 				// On crypte le mdp
-				$pass = hash_hmac('sha256', $masterPassword, 'secret'); // sha256 est un algo de cryptage plutot badass, et 'secret' signifie qu'on masque ce parametre.
+				$pass = hash_hmac('sha256', $masterPassword, 'secret', false); // sha256 est un algo de cryptage plutot badass, et 'secret' c'est la clé de cryptage a partager.
 				$sql = "INSERT INTO api_Family  (mail, masterPassword) VALUES ('$mail', '$pass')";
 				$rep = $this->insert($sql);
 
