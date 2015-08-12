@@ -11,14 +11,15 @@ class MailController{
 
 		// Requete vers le serveur pour avoir le template
 		$api = "/templates/info.json";
+		$template = 'welcome';
 		$templateFields = array(
 			"key" => $this->mandrillKey, 
-			"name" => "welcome"
+			"name" => $template
 			);
 
-		$resutl = $this->curlMail($api, $templateFields);
+		$result = $this->curlMail($api, $templateFields);
 
-		// traitement
+		// récupération contenu Template
 		if(!empty($resutl['publish_code'])) {
 			$html = $resutl['publish_code'];
 		}elseif(!empty($resutl['code'])) {
@@ -30,41 +31,15 @@ class MailController{
 			$text = $resutl['text'];
 		}
 
+		// params mail
+		$title = "Bienvenue chez Pistache!";
+		$from = "contact@pistache-app.com";
+		$reply = "thibault@pistache-app.com"
 		// prepare
-		$api = '/messages/send.json';
-		$fields = array(
-			"key" => $this->mandrillKey,
-			"template_name" => "welcome",
-		    "template_content" => array(
-		        array(
-		            "name" => "welcome",
-		            "content" => "example content"
-		        )
-		    ),
-		    "message" => array(
-		        "html" => $html,
-		        "text" => $text,
-		        "subject" => "Bienvenue chez Pistache!",
-		        "from_email" => "contact@pistache-app.com",
-		        "from_name" => "Pistache",
-		        "to" => array(
-		            // array(
-		            //     "email" => "tbll75@gmail.com",
-		            //     // "name" => "Orazio Locchi",
-		            //     "type" => "to"
-		            // ),
-		            array(
-		                "email" => "orazio.locchi@live.fr",
-		                // "name" => "Orazio Locchi",
-		                "type" => "to"
-		            )
-		        ),
-		        "headers" => array(
-		            "Reply-To" => "tbll75@gmail.com"
-		        ),
-		         "merge_vars" => array(
+		$mergeTo = array(
 		            // array(
 		            //     "rcpt" => "tbll75@gmail.com",
+		            //     "rcptName" => "Thibault LOUIS-LUCAS",
 		            //     "vars" => array(
 		            //         array(
 		            //             "name" => "PSWD",
@@ -81,7 +56,42 @@ class MailController{
 		                    )
 		                )
 		            )
+		            );
+
+		$result = $this->sendMessage($template, $title, $html, $text, $from, $reply, $mergeTo);
+
+		// retour
+		echo 'Send';
+
+
+	}
+
+	public function sendMessage($template, $title, $html, $text, $from, $reply, $mergeTo){
+		// api Mandrill à envoyer
+		$api = '/messages/send.json';
+		// traitement un pour l'envoi
+		$to = '';
+		foreach ($mergeTo as $user) {
+			if(!empty($user['rcptName']))
+				$to[] = array("type" => "to", "email" => $user['rcpt'], "name" => $user['rcptName']);
+			else
+				$to[] = array("type" => "to", "email" => $user['rcpt']);
+		}
+		// Content
+		$fields = array(
+			"key" => $this->mandrillKey, 
+			"template_name" => $template,
+		    "message" => array(
+		        "html" => $html,
+		        "text" => $text,
+		        "subject" => $title,
+		        "from_email" => $from,
+		        "from_name" => "Pistache",
+		        "to" => $to,
+		        "headers" => array(
+		            "Reply-To" => $reply
 		        ),
+		        "merge_vars" => $mergeTo,
 		        "important" => false,
 		        "track_opens" => null,
 		        "track_clicks" => null,
@@ -91,7 +101,7 @@ class MailController{
 		        "url_strip_qs" => null,
 		        "preserve_recipients" => null,
 		        "view_content_link" => null,
-		        // "bcc_address" => "message.bcc_address@example.com",
+		        // "bcc_address" => "message.bcc_address@example.com", // mail pour la copy caché des mails.
 		        "tracking_domain" => null,
 		        "signing_domain" => null,
 		        "return_path_domain" => null/*,
@@ -108,11 +118,6 @@ class MailController{
 
 		// envoie
 		$result = $this->curlMail($api, $fields);
-
-		// retour
-		echo 'Send';
-
-
 	}
 
 	public function curlMail($api, $fields){
