@@ -452,6 +452,7 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 
 		// Si pas de mdp, on le génère
 		if(!isset($pass)){
+			$pass = '';
 			$nb_car = 6;
 			$chaine = 'azertyuiopqsdfghjklmwxcvbn';
 		    $nb_lettres = strlen($chaine) - 1;
