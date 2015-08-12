@@ -43,6 +43,7 @@ class NotificationController extends SQLController{
 		}
 	}
 	public function tryme(){
+		
 		date_default_timezone_set('Europe/Paris');
 
 		$momentOfWeek = date('N') - 1;
