@@ -20,15 +20,15 @@ class MailController{
 		$result = $this->curlMail($api, $templateFields);
 
 		// récupération contenu Template
-		if(!empty($resutl['publish_code'])) {
-			$html = $resutl['publish_code'];
-		}elseif(!empty($resutl['code'])) {
-			$html = $resutl['code'];
+		if(!empty($result['publish_code'])) {
+			$html = $result['publish_code'];
+		}elseif(!empty($result['code'])) {
+			$html = $result['code'];
 		}
-		if(!empty($resutl['publish_text'])) {
-			$text = $resutl['publish_text'];
-		}elseif(!empty($resutl['text'])) {
-			$text = $resutl['text'];
+		if(!empty($result['publish_text'])) {
+			$text = $result['publish_text'];
+		}elseif(!empty($result['text'])) {
+			$text = $result['text'];
 		}
 
 		// params mail
@@ -82,8 +82,8 @@ class MailController{
 			"key" => $this->mandrillKey, 
 			"template_name" => $template,
 		    "message" => array(
-		        "html" => $html,
-		        "text" => $text,
+		        // "html" => $html,
+		        // "text" => $text,
 		        "subject" => $title,
 		        "from_email" => $from,
 		        "from_name" => "Pistache",
