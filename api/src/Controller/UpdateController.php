@@ -439,19 +439,16 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 		// on récupere les mails
 		$req = $this->select("SELECT mail, idFamily FROM api_Family");
 
-		$families = "";
+		$mails = "";
 		foreach ($req as $famille) {
-			$families[$famille['idFamily']] = $famille['mail']; 
+			$mails[$famille['idFamily']] = hash_hmac('sha256', $famille['mail'], 'secret', false);
 		}
-
-		echo '<pre>';
-		print_r($families);
-		echo '</pre>';
 
 		die();
 		// on compare dans la liste de la bdd
 		if(in_array($hashmail, $mails)){
-
+			echo 'YES';
+			die();
 		}else{
 			echo '{"error":"Email invalide"}';
 			die();
