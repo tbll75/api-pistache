@@ -437,7 +437,7 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 
 	public function askPass($hashmail){
 		// on récupere les mails
-		$req = $this->select("SELECT mail FROM Family");
+		$req = $this->select("SELECT mail FROM api_Family");
 		echo '<pre>';
 		print_r($req);
 		echo '</pre>';
