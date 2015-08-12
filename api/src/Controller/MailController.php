@@ -4,15 +4,15 @@ namespace App\Controller;
 
 class MailController{
 
-	private var $server = 'https://mandrillapp.com/api/1.0';
-	private var $mandrillKey = "FbUINsewlDpp_WAZV-a04w";
+	private $server = 'https://mandrillapp.com/api/1.0';
+	private $mandrillKey = "FbUINsewlDpp_WAZV-a04w";
 
 	public function welcome(){
 
 		// Requete vers le serveur pour avoir le template
 		$api = "/templates/info.json";
 		$templateFields = array(
-			"key" => $mandrillKey, 
+			"key" => $this->mandrillKey, 
 			"name" => "welcome"
 			);
 
@@ -33,7 +33,7 @@ class MailController{
 		// prepare
 		$api = '/messages/send.json';
 		$fields = array(
-			"key" => $mandrillKey,
+			"key" => $this->mandrillKey,
 			"template_name" => "welcome",
 		    "template_content" => array(
 		        array(
@@ -118,7 +118,7 @@ class MailController{
 	public function curlMail($api, $fields){
 
 		$curl = curl_init();
-		curl_setopt( $curl,CURLOPT_URL, $server.$api );
+		curl_setopt( $curl,CURLOPT_URL, $this->server.$api );
 		curl_setopt( $curl,CURLOPT_POST, true );
 		curl_setopt( $curl,CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $curl,CURLOPT_POSTFIELDS, json_encode($fields) );
