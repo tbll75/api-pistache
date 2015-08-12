@@ -458,7 +458,7 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 		if(!empty($json['mail']))
 			$mail = $json['mail'];
 		else{
-			echo '{"error":"pas de mail.", "code":"1"}'
+			echo '{"error":"pas de mail.", "code":"1"}';
 			die();
 		}
 		if(!empty($json['password']))
