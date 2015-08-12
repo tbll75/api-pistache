@@ -444,13 +444,15 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 			$mails[$famille['idFamily']] = hash_hmac('sha256', $famille['mail'], 'secret', false);
 		}
 
-		die();
 		// on compare dans la liste de la bdd
 		if(in_array($hashmail, $mails)){
 			echo 'YES';
 			die();
 		}else{
 			echo '{"error":"Email invalide"}';
+			echo '<pre>';
+			print_r($mails);
+			echo '</pre>';
 			die();
 		}
 	}
