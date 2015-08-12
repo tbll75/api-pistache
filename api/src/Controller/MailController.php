@@ -34,7 +34,7 @@ class MailController{
 		// params mail
 		$title = "Bienvenue chez Pistache!";
 		$from = "contact@pistache-app.com";
-		$reply = "thibault@pistache-app.com"
+		$reply = "thibault@pistache-app.com";
 		// prepare
 		$mergeTo = array(
 		            // array(
@@ -115,6 +115,10 @@ class MailController{
 		    ),
 		    "async" => false
 		);
+
+		echo "<pre>";
+		print_r($fields);
+		echo "</pre>";
 
 		// envoie
 		$result = $this->curlMail($api, $fields);
