@@ -80,10 +80,10 @@ class MailController{
 		// Content
 		$fields = array(
 			"key" => $this->mandrillKey, 
-			"template_name" => $template,
+			// "template_name" => $template,
 		    "message" => array(
-		        // "html" => $html,
-		        // "text" => $text,
+		        "html" => $html,
+		        "text" => $text,
 		        "subject" => $title,
 		        "from_email" => $from,
 		        "from_name" => "Pistache",
