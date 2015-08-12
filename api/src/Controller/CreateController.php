@@ -28,9 +28,6 @@ class CreateController extends MailController{
 				$masterPassword = $json['masterPassword'];
 				$mail = $json['mail'];
 				// On envoit le mail qui va bien !
-				/**
-				// coucou le code d'envoi de mail !! (AVEC LE MDP)
-				**/
 				$this->welcome($mail, $masterPassword);
 				// On crypte le mdp
 				$pass = hash_hmac('sha256', $masterPassword, 'secret', false); // sha256 est un algo de cryptage plutot badass, et 'secret' c'est la clé de cryptage a partager.

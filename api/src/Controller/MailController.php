@@ -94,10 +94,6 @@ class MailController extends SQLController{
 		    "async" => false
 		);
 
-		echo "<pre>";
-		print_r($fields);
-		echo "</pre>";
-
 		// envoie
 		$result = $this->curlMail($api, $fields);
 	}
