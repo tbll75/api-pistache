@@ -64,6 +64,7 @@
 	$router->post('/update/choredone', 'Update#choredone');
 	$router->post('/update/unlockobject', 'Update#unlockobject');
 	$router->post('/update/alldata', 'Update#alldata');
+	$router->post('/update/password', 'Update#pass');
 
 // DELETE
 	$router->post('/delete', 'Delete#entity');
@@ -123,6 +124,8 @@
 	$router->get('/partner/familychildren/:mailFamily', "Partner#familychildren");//->with('mailFamily', '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
 	$router->get('/partner/isabletoplay/:idChild', "Partner#isAbleToPlay")->with('idChild', '[0-9]+');
 	$router->get('/partner/gainxp/:idChild/:gain', "Partner#gainXp")->with('idChild', '[0-9]+')->with('gain', '[0-9]+');
+
+
 
 
 // NOTIFICATION

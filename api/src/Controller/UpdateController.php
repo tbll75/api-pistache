@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-class UpdateController extends SQLController{
+class UpdateController extends MailController{
 
 	public function family(){
 /* La synthaxe sql ici nous arrange, on reçoit un json decode de la forme array(key => value) du coup une fois l'id trouvé, on parcours le tableau et on récupère 
@@ -433,6 +433,39 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 		echo 'true';
 		return 'true';
 
+	}
+
+	public function pass(){
+		// On check les données
+		$json = json_decode($_POST['json'], true);
+		if(!empty($json['mail']))
+			$mail = $json['mail'];
+		else{
+			echo '{"error":"pas de mail.", "code":"1"}'
+			die();
+		}
+		if(!empty($json['password']))
+			$pass = $json['password'];
+
+		// Si pas de mdp, on le génère
+		if($newPass == null){
+			$nb_car = 6;
+			$chaine = 'azertyuiopqsdfghjklmwxcvbn')
+		    $nb_lettres = strlen($chaine) - 1;
+		    for($i=0; $i < $nb_car; $i++)
+		    {
+		        $pos = mt_rand(0, $nb_lettres);
+		        $car = $chaine[$pos];
+		        $newPass .= $car;
+		    }
+		}
+		// on hash le mdp avec la clé secret.
+		$pass = hash_hmac('sha256', $newPass, 'secret', false);
+		// on update le mdp hashé.
+		$rep = $this->update("UPDATE api_family SET masterPassword = '$pass' WHERE mail = ".$mail);
+
+		// on envoit le mail avec le mdp.
+		$this->newPass($mail, $masterPassword);
 	}
 
 }
