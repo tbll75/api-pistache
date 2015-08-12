@@ -80,10 +80,10 @@ class MailController extends SQLController{
 		// on envoit à la fonction d'envoi les parametres.
 		$result = $this->sendMessage($title, $html, $text, $from, $reply, $mergeTo);
 	}
-**/
+
 
 	public function hebdomadaire(){
-		
+
 	}
 
 /*
