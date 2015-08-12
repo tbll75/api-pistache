@@ -4,10 +4,10 @@ namespace App\Controller;
 
 class MailController{
 
-	public function welcome(){
+	private $server = 'https://mandrillapp.com/api/1.0';
+	private $mandrillKey = "FbUINsewlDpp_WAZV-a04w";
 
-		$server = 'https://mandrillapp.com/api/1.0';
-		$mandrillKey = "FbUINsewlDpp_WAZV-a04w";
+	public function welcome(){
 
 		// Requete vers le serveur pour avoir le template
 		$api = "/templates/info.json";
@@ -16,13 +16,7 @@ class MailController{
 			"name" => "welcome"
 			);
 
-		$template = curl_init();
-		curl_setopt( $template,CURLOPT_URL, $server.$api );
-		curl_setopt( $template,CURLOPT_POST, true );
-		curl_setopt( $template,CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $template,CURLOPT_POSTFIELDS, json_encode($templateFields) );
-		$tmpResult = json_decode(curl_exec($template), true);
-		curl_close($template);
+		$resutl = curlMail($api, $templateFields);
 
 		// traitement
 		if(!empty($tmpResult['publish_code'])) {
@@ -39,7 +33,7 @@ class MailController{
 		// prepare
 		$api = '/messages/send.json';
 		$fields = array(
-			"key" => "FbUINsewlDpp_WAZV-a04w",
+			"key" => $mandrillKey,
 			"template_name" => "welcome",
 		    "template_content" => array(
 		        array(
@@ -100,47 +94,20 @@ class MailController{
 		        // "bcc_address" => "message.bcc_address@example.com",
 		        "tracking_domain" => null,
 		        "signing_domain" => null,
-		        "return_path_domain" => null,/*
+		        "return_path_domain" => null/*,
 		        "google_analytics_domains" => array(
 		            "example.com"
 		        ),
 		        "google_analytics_campaign" => "message.from_email@example.com",
 		        "metadata" => array(
 		            "website" => "www.example.com"
-		        ),
-		        "recipient_metadata" => array(
-		            array(
-		                "rcpt" => "orazio.locchi@live.fr",
-		                "values" => array(
-		                    "user_id" => 123456
-		                )
-		            )
-		        ),
-		        "attachments" => array(
-		            array(
-		                "type" => "text/plain",
-		                "name" => "myfile.txt",
-		                "content" => "Contenu du fichier texte!"
-		            )
-		        ),
-		        "images" => array(
-		            array(
-		                "type" => "image/png",
-		                "name" => "IMAGE",
-		                "content" => "qsgSDFg"
-		            )
 		        )*/
 		    ),
 		    "async" => false
 		);
-		// envoit
-		$mail = curl_init();
-		curl_setopt( $mail,CURLOPT_URL, $server.$api );
-		curl_setopt( $mail,CURLOPT_POST, true );
-		curl_setopt( $mail,CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $mail,CURLOPT_POSTFIELDS, json_encode($fields) );
-		$result = curl_exec($mail);
-		curl_close($mail);
+
+		// envoie
+		$result = curlMail($api, $fields);
 
 		// retour
 		echo 'Send';
@@ -148,8 +115,17 @@ class MailController{
 
 	}
 
-	public function weekly(){
-		// Envoi un mail aux parents avec les stats de l'enfant 
+	public function curlMail($api, $fields){
+
+		$curl = curl_init();
+		curl_setopt( $curl,CURLOPT_URL, $server.$api );
+		curl_setopt( $curl,CURLOPT_POST, true );
+		curl_setopt( $curl,CURLOPT_RETURNTRANSFER, true );
+		curl_setopt( $curl,CURLOPT_POSTFIELDS, json_encode($fields) );
+		$result = json_decode(curl_exec($curl), true);
+		curl_close($curl);
+
+		return $result;
 
 	}
 
