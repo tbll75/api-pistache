@@ -27,7 +27,7 @@ class MailController extends SQLController{
 		$from = "contact@pistache-app.com";
 		$reply = "thibault@pistache-app.com";
 		// prepare
-		$mergeTo = array(
+		$mergeTo = array(array(
 		                "rcpt" => $mail,
 		                "vars" => array(
 		                    array(
@@ -35,7 +35,7 @@ class MailController extends SQLController{
 		                        "content" => $pass
 		                    )
 		                )
-		            );
+		            ));
 
 		$result = $this->sendMessage($title, $html, $text, $from, $reply, $mergeTo);
 
@@ -69,7 +69,7 @@ class MailController extends SQLController{
 		        "headers" => array(
 		            "Reply-To" => $reply
 		        ),
-		        "merge_vars" => array( $mergeTo ),
+		        "merge_vars" => $mergeTo,
 		        "important" => false,
 		        "track_opens" => null,
 		        "track_clicks" => null,
