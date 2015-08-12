@@ -86,8 +86,15 @@ class MailController extends SQLController{
 
 	}
 
-/*
+
 	public function askNewPass($mail){
+
+		// d'abord on vérifie que le mail existe.
+		$rep = $this->select("SELECT mail FROM api_Family WHERE mail = '$mail'");
+		if(empty($rep)){
+			echo '{"error":"Mail non enregistre"}';
+			die();
+		}
 
 		// parametres globaux du mail
 		$title = "Demande de nouveau mot de passe Pistache";
@@ -109,7 +116,8 @@ class MailController extends SQLController{
 
 		// Génération du lien.
 		$key = hash_hmac('sha256', $mail, 'secret', false);
-		$link = $pistacheURL."/setting/parent?mdp=".$key;
+		$pistacheURL = "http://pistache-app.com";
+		$link = $pistacheURL."/setting/parent?hash=".$key;
 
 		// Toutes les infos dynamique doivent se retrouver dans un tableau comme celui-ci.
 		$mergeTo = array(
@@ -126,7 +134,8 @@ class MailController extends SQLController{
 
 		// on envoit à la fonction d'envoi les parametres.
 		$result = $this->sendMessage($title, $html, $text, $from, $reply, $mergeTo);
-	}*/
+	}
+
 
 	public function newPass($mail, $pass){
 

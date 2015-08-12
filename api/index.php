@@ -69,9 +69,6 @@
 // DELETE
 	$router->post('/delete', 'Delete#entity');
 
-	// Ask
-	$router->post('/newpass', 'Family#askPass');
-
 
 
 // GETTERS
@@ -139,6 +136,12 @@
 	$router->get('/task/recurrent', 'Notification#recurrent');
 	$router->get('/task/tryme', 'Notification#tryme');
 	$router->get('/task/punctual', 'Notification#punctual');
+
+
+// MAIL
+	$router->post('/newpass', 'Family#askPass'); // on redirige vers la famille
+	$router->get('/asknewpass/:mail', 'Mail#askNewPass');
+
 
 // ************
 
