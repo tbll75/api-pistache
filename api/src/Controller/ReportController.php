@@ -135,6 +135,9 @@ public function selectRec($momentOfWeek){
 		echo "----------------------------------------------------------------------------------------------------<br/>";
 		echo "UP REPORT HIER";
 		$report = $this->sortChore($choreMissed, $done);
+		echo '<pre>';
+		print_r($report);
+		echo '</pre>';
 	}
 
 
