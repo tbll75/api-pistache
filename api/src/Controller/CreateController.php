@@ -314,15 +314,11 @@ class CreateController extends MailController{
 		return array_merge($recurrentRec, $punctualRec);
 	}
 
-	public function todayReport(){
-		// today		
-		$momentOfWeek = date('N') - 1;
-		$today = strtotime(date('d-m-Y'));
-		$yesterday = $today - 60*60*24;
-		$tomorrow = $today + 60*60*24;
+	public function selectDone($momentOfWeek){
 
-		$rec = $this->selectRec($momentOfWeek);
-
+		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
+		$diffDay = date('N')-$momentOfWeek;
+		$today = strtotime(date('d-m-Y')) - $diffDay*60*60*24;
 		// select recurrent DONE
 		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE momentOfWeek = '$momentOfWeek' /*AND dueDate > $today AND dueDate < $yesterday */");
 		// generate chore Done of the day
@@ -335,6 +331,20 @@ class CreateController extends MailController{
 			if($choreTimeStamp > $today && $choreTimeStamp < $tomorrow)
 				$done[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']/*, "done" => 1*/); 
 		}
+
+		return $done;
+
+	}
+
+	public function todayReport(){
+		// today		
+		$momentOfWeek = date('N') - 1;
+		$today = strtotime(date('d-m-Y'));
+		$yesterday = $today - 60*60*24;
+		$tomorrow = $today + 60*60*24;
+
+		$rec = $this->selectRec($momentOfWeek);
+		$done = $this->selectDone($me);
 
 		$report = $this->sortChore($rec, $done);
 
@@ -358,12 +368,11 @@ class CreateController extends MailController{
 			echo '</pre>';
 		}
 
-		$recYesterday = $this->selectRec($momentOfWeek);
+		$done = $this->selectDone($momentOfWeek);
 
 		echo '<pre>';
-		print_r($recYesterday);
+		print_r($done);
 		echo '</pre>';
-
 	}
 
 	public function dailyReport(){
