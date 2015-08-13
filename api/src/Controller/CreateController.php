@@ -319,18 +319,17 @@ class CreateController extends MailController{
 		// print_r($rec);
 		// echo '</pre>';
 
-		$e = new DateTime('1439471394000');
-		print_r($e);
 
+		// select recurrent DONE
+		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE momentOfWeek = '$momentOfWeek' /*AND dueDate > $today AND dueDate < $yesterday */");
+		// generate chore Done of the day
+		$recurrentDone = '';
+		foreach ($rep as $choreDone){
+			$choreTimeStamp = str_replace('000', '', intval($choreDone['date']));
+			echo "<br/>".$choreTimeStamp;
+			$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']); // 4 -> toute la journée
 
-		// // select recurrent DONE
-		// $rep = $this->select("SELECT * FROM api_ChoreDone WHERE momentOfWeek = '$momentOfWeek' /*AND dueDate > $today AND dueDate < $yesterday */");
-		// // generate chore Done of the day
-		// $recurrentDone = '';
-		// foreach ($rep as $choreDone){
-		// 	$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']); // 4 -> toute la journée
-
-		// }
+		}
 
 	}
 
