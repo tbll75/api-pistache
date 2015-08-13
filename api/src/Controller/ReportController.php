@@ -112,7 +112,9 @@ public function selectRec($momentOfWeek){
 		$yesterday = $today - 60*60*24;
 		$tomorrow = $today + 60*60*24;
 
-		// On récupere les tahces non faites d'hier
+		echo "----------------------------------------------------------------------------------------------------";
+		echo "REPORT D'HIER";
+		// On récupere les taches non faites d'hier
 		$rep = $this->select("SELECT idChild, idChoreRec, today, day, moment FROM api_DailyReport WHERE today = $yesterday AND done = 0");
 		foreach ($rep as $choreMissed) {
 			echo '<pre>';
@@ -124,8 +126,7 @@ public function selectRec($momentOfWeek){
 
 
 		echo "----------------------------------------------------------------------------------------------------";
-		// echo "<br/>".$yesterday." - 1439369568 - ".$today;
-
+		echo "TACHE D'HIER FAITE AUJOURD'HUI";
 		echo '<pre>';
 		print_r($done);
 		echo '</pre>';
