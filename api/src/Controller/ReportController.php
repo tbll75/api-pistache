@@ -97,17 +97,18 @@ public function selectRec($momentOfWeek){
 		$today = strtotime(date('d-m-Y'));
 		$yesterday = $today - 60*60*24;
 		$tomorrow = $today + 60*60*24;
-
+		// select report missed hier
 		$rep = $this->select("SELECT idChild, idChoreRec, today, day, moment FROM api_DailyReport WHERE today = $yesterday AND done = 0");
 		foreach ($rep as $choreMissed) {
 			echo '<pre>';
 			print_r($choreMissed);
 			echo '</pre>';
 		}
-
+		// select done d'hier aujourd'hui
 		$done = $this->selectDone($momentOfWeek);
 
 		echo "------";
+		echo $yesterday." - 1439369568 - ".$today;
 
 		echo '<pre>';
 		print_r($done);
