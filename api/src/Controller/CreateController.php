@@ -21,7 +21,7 @@ class CreateController extends MailController{
 			"Chore" => "api_ChoreRec",
 			"ChoreChild" => "api_ChoreDone"
 			);
-		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$switcher[$entity]."'";
+		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$switcher[$entity]."'");
 		echo "<pre>";
 		print_r($rep);
 		echo "</pre>";
