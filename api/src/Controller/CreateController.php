@@ -316,15 +316,15 @@ class CreateController extends MailController{
 		// print_r($recurrentRec);
 		// echo '</pre>';
 
-		echo '<pre>';
-		print_r($punctualRec);
-		echo '</pre>';
-
-		// $rec = array_uintersect($recurrentRec, $punctualRec);
-
 		// echo '<pre>';
-		// print_r($rec);
+		// print_r($punctualRec);
 		// echo '</pre>';
+
+		$rec = array_uintersect($recurrentRec, $punctualRec);
+
+		echo '<pre>';
+		print_r($rec);
+		echo '</pre>';
 
 
 		// select recurrent DONE
