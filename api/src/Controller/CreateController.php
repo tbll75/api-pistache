@@ -6,9 +6,9 @@ class CreateController extends MailController{
 
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
-		$entity = json_decode($_POST['json']['entity'], true); 
-		$data = json_decode($_POST['json']['data'], true); 
-		// $ladata = json_decode($_POST['json']['date'], true); 
+		$entity = json_decode($_POST['json'], true)['entity']; 
+		$data = json_decode($_POST['json'], true)['data']; 
+		// $ladata = json_decode($_POST['json'], true)['date']; 
 
 		$dispatchTo = $this->entityTraitment($entity, $data);
 	}
