@@ -9,14 +9,13 @@ class CreateController extends MailController{
 		$entity = json_decode($_POST['json'], true)['entity']; 
 		$data = json_decode($_POST['json'], true)['data']; 
 		$savedDateTime = json_decode($_POST['json'], true)['savedDateTime']; 
-		echo "arrivé";
 
 		// On vérifie que tous les champs sont saisies
 		$tableBdd = $this->entityTraitment($entity, $data);
-		echo "table : ".$tableBdd;
+		echo "table : ".$tableBdd[0];
 
 		// On envoit le traitement vers la fonction d'insert
-		$isInsert = $this->dataInsertTraitment($tableBdd, $data);
+		$isInsert = $this->dataInsertTraitment($tableBdd, $tableBdd[1], $data);
 		echo "insertion valide.";
 
 		// Si l'insertion est bonne, on demande le dernier id de la table.
@@ -58,14 +57,13 @@ class CreateController extends MailController{
 
 
 
-	public function dataInsertTraitment($table, $data){
+	public function dataInsertTraitment($table, $columns, $data){
 		// on insert la data vers la bdd
 		$keys = '(';
 		$values = '(';
 		foreach ($data as $key => $value) {
-			if(!is_array($value)){
+			if(!is_array($value) && in_array($key, $columns)){
 				$keys .= $key.", ";
-				
 				$values .= "'".$value."', ";
 			}
 		}
@@ -102,7 +100,7 @@ class CreateController extends MailController{
 			echo '{"error":"Missing data : '.implode(', ', $missingField).'"}';
 			die();
 		}else{
-			return $switcher[$entity];
+			return array($switcher[$entity], $fields);
 		}
 
 	}
