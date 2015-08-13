@@ -351,7 +351,7 @@ class CreateController extends MailController{
 		$yesterday = $today - 60*60*24;
 		$tomorrow = $today + 60*60*24;
 
-		$rep = $this->select("SELECT idChild, idChoreRec, today, day, moment FROM api_DailyReport WHERE today = $today AND done = 0");
+		$rep = $this->select("SELECT idChild, idChoreRec, today, day, moment FROM api_DailyReport WHERE today = $yesterday AND done = 0");
 		foreach ($rep as $choreMissed) {
 			echo '<pre>';
 			print_r($choreMissed);
