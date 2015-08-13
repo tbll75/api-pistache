@@ -78,7 +78,7 @@ public function selectRec($momentOfWeek){
 		$tomorrow = $today + 60*60*24;
 
 		$rec = $this->selectRec($momentOfWeek);
-		$done = $this->selectDone($me);
+		$done = $this->selectDone($momentOfWeek);
 
 		$report = $this->sortChore($rec, $done);
 
