@@ -89,7 +89,7 @@ public function selectRec($momentOfWeek){
 		print_r($done);
 		echo '</pre>';
 
-		$report = $this->sortChore($rec, $done);
+		$report = $this->sortChore($rec, $done, true);
 
 		$dailyReport = "(".implode('), (', $report).")";
 		// On insert dans la bdd
@@ -134,10 +134,11 @@ public function selectRec($momentOfWeek){
 
 		echo "----------------------------------------------------------------------------------------------------<br/>";
 		echo "UP REPORT HIER";
-		$report = $this->sortChore($choreMissed, $done);
+		$report = $this->sortChore($choreMissed, $done, false);
 		echo '<pre>';
 		print_r($report);
 		echo '</pre>';
+		// $this->update("UPDATE api_DailyReport SET done = 1 WHERE");
 	}
 
 
@@ -156,7 +157,7 @@ public function selectRec($momentOfWeek){
 
 
 
-	function sortChore($rec, $done) {
+	function sortChore($rec, $done, $all) {
 		// CONSTRUIT LE TABLEAU AVEC LE PARAMETRE done A JOUR POUR CHAQUE TACHE
 		$result = NULL;
 		// pour chaque tache Rec
@@ -177,7 +178,8 @@ public function selectRec($momentOfWeek){
 	    	// sinon..
 	    	}elseif($isIn == 0){
 	    		$choreRec['done'] = 0;
-	    		$result[] = implode(', ',$choreRec);
+	    		if($null)
+	    			$result[] = implode(', ',$choreRec);
 	    	}
 		}
 		return $result;
