@@ -303,7 +303,7 @@ class CreateController extends MailController{
 		}
 
 		// select punctual REC
-		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 0 AND isActive = 1"); // FAIRE LA DATE ****************************** //
+		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 0 /*AND date = $today*/ AND isActive = 1"); // FAIRE LA DATE ****************************** //
 		// on place les infos dont on a besoin
 		$punctualRec = '';
 		foreach ($rep as $choreRec) {
@@ -315,19 +315,21 @@ class CreateController extends MailController{
 
 		$rec = array_merge($recurrentRec, $punctualRec);
 
-		echo date('d-m-Y', '1439557833000');
+		// echo '<pre>';
+		// print_r($rec);
+		// echo '</pre>';
 
-		echo '<pre>';
-		print_r($rec);
-		echo '</pre>';
+		$e = new DateTime(1439471394000);
+		echo $e;
 
 
-		// select recurrent DONE
-		// $rep = $this->select("SELECT * FROM api_ChoreDone WHERE isRecurrent = 1 AND momentOfWeek = '$momentOfWeek'");
-		// generate chore Done of the day
+		// // select recurrent DONE
+		// $rep = $this->select("SELECT * FROM api_ChoreDone WHERE momentOfWeek = '$momentOfWeek' /*AND dueDate > $today AND dueDate < $yesterday */");
+		// // generate chore Done of the day
 		// $recurrentDone = '';
 		// foreach ($rep as $choreDone){
-		// 	// $recurrentDone[] = 
+		// 	$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']); // 4 -> toute la journée
+
 		// }
 
 	}
