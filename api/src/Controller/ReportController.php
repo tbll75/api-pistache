@@ -93,6 +93,11 @@ public function selectRec($momentOfWeek){
 
 		$dailyReport = "(".implode('), (', $report).")";
 		// On insert dans la bdd
+		echo "----------------------------------------------------------------------------------------------------<br/>";
+		echo 'REPORT DU JOUR';
+		echo '<pre>';
+		print_r($report);
+		echo '</pre>';
 		// $this->insert("INSERT INTO api_DailyReport (idChild, idChoreRec, today, day, moment, done) VALUES $dailyReport");
 	}
 
