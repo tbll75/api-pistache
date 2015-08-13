@@ -64,9 +64,15 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 
 			$str = "";
 			foreach ($json as $key => $value) {
-				if(in_array($key, $field))
+				if(in_array($key, $field)){
+					if($key == 'birthday'){
+						preg_match('!\d+!', $value, $value);
+						$value =  substr($value[0], 0, -3);
+					}
 					$str .= $key." = '".$value."', ";
+				}
 			}
+
 			$str = substr($str, 0, -2);
 			$sql = "UPDATE api_Children SET $str WHERE idChildren = ".$json['idChildren'];
 			$req = $this->update($sql);
@@ -174,6 +180,10 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 
 			$str = "";
 			foreach ($json as $key => $value) {
+				if($key == 'date'){
+					preg_match('!\d+!', $value, $value);
+					$value =  substr($value[0], 0, -3);
+				}
 				if(in_array($key, $field) && $key != 'recMomentOfDay' && $key != 'recMomentOfWeek' && $key != 'choreChildren' && $key != 'idChoreRec'){
 					$str .= $key." = '".$value."', ";
 				}elseif($key == 'recMomentOfDay'){
@@ -216,6 +226,10 @@ une chaine de la forme "key = 'value'," On vérifiera aussi que les champs exist
 
 			$str = "";
 			foreach ($json as $key => $value) {
+				if($key == 'dueDate' || $key == 'timeCompleted'){
+					preg_match('!\d+!', $value, $value);
+					$value =  substr($value[0], 0, -3);
+				}
 				if(in_array($key, $field))
 					$str .= $key." = '".$value."', ";
 			}

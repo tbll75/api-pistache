@@ -166,6 +166,9 @@ class CreateController extends MailController{
 		$validation = $json['validation'];
 		$isRecurrent = $json['isRecurrent'];
 		$date = $json['date'];
+		// onprend que ceux d'ajd.
+		preg_match('!\d+!', $date, $date);
+		$date =  substr($date[0], 0, -3);
 
 		$recMomentOfWeek = $json['recMomentOfWeek'];
 		$lundi = $recMomentOfWeek[0];
@@ -208,8 +211,16 @@ class CreateController extends MailController{
 		if(!empty($json['isCompleted'])){ $isCompleted = $json['isCompleted']; }else{ $isCompleted = ""; }
 		if(!empty($json['momentOfWeek'] || $json['momentOfWeek'] == '0')){ $momentOfWeek = $json['momentOfWeek']; }else{ $momentOfWeek = ""; }
 		if(!empty($json['momentOfDay'] || $json['momentOfDay'] == '0')){ $momentOfDay = $json['momentOfDay']; }else{ $momentOfDay = ""; }
-		if(!empty($json['dueDate'])){ $dueDate = $json['dueDate']; }else{ $dueDate = ""; }
-		if(!empty($json['timeCompleted'])){ $timeCompleted = $json['timeCompleted']; }else{ $timeCompleted = ""; }
+		if(!empty($json['dueDate'])){ 
+			$dueDate = $json['dueDate']; 
+			preg_match('!\d+!', $duedate, $duedate);
+			$duedate =  substr($duedate[0], 0, -3);
+		}else{ $dueDate = ""; }
+		if(!empty($json['timeCompleted'])){ 
+			$timeCompleted = $json['timeCompleted']; 
+			preg_match('!\d+!', $timeCompleted, $timeCompleted);
+			$timeCompleted =  substr($timeCompleted[0], 0, -3);
+		}else{ $timeCompleted = ""; }
 
 
 		$sql = "INSERT INTO api_ChoreDone (ChoreRec_idChoreRec, Children_idChildren, isValidated, isCompleted, momentOfWeek, momentOfDay, dueDate, timeCompleted) VALUES ('$ChoreRec_idChoreRec', '$Children_idChildren', '$isValidated', '$isCompleted', '$momentOfWeek', '$momentOfDay', '$dueDate', '$timeCompleted')";
