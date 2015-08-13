@@ -7,7 +7,7 @@ class ReportController extends MailController{
 public function selectRec($momentOfWeek){
 		// LISTE DES TACHE QUI DEVRAIT ETRE FAITES A CE JOUR
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
-		$diffDay = date('N')-$momentOfWeek;
+		$diffDay = (date('N') - 1) -$momentOfWeek;
 		$day = strtotime(date('d-m-Y')) - $diffDay*60*60*24;
 		// select recurrent REC
 		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 1 AND $jour[$momentOfWeek] = 1 AND isActive = 1");
@@ -79,10 +79,12 @@ public function selectRec($momentOfWeek){
 
 		$rec = $this->selectRec($momentOfWeek);
 		$done = $this->selectDone($momentOfWeek);
+		echo 'TACHES DU JOUR';
 		echo '<pre>';
 		print_r($rec);
 		echo '</pre>';
-		echo "----------------------------------------------------------------------------------------------------";
+		echo "----------------------------------------------------------------------------------------------------<br/>";
+		echo 'TACHES VALIDES DU JOUR';
 		echo '<pre>';
 		print_r($done);
 		echo '</pre>';
@@ -91,11 +93,6 @@ public function selectRec($momentOfWeek){
 
 		$dailyReport = "(".implode('), (', $report).")";
 		// On insert dans la bdd
-		echo "----------------------------------------------------------------------------------------------------";
-		echo '<pre>';
-		print_r($report);
-		echo '</pre>';
-		echo "----------------------------------------------------------------------------------------------------";
 		// $this->insert("INSERT INTO api_DailyReport (idChild, idChoreRec, today, day, moment, done) VALUES $dailyReport");
 	}
 
@@ -119,7 +116,7 @@ public function selectRec($momentOfWeek){
 		}
 		// On prend les taches validé aujourdhui
 		$done = $this->selectDone($momentOfWeek);
-		
+
 
 		echo "----------------------------------------------------------------------------------------------------";
 		// echo "<br/>".$yesterday." - 1439369568 - ".$today;
