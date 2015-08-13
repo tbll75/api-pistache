@@ -32,7 +32,7 @@ public function selectRec($momentOfWeek){
 		// select punctual REC
 		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 0 AND date = '$day' AND isActive = 1");
 		// on place les infos dont on a besoin
-		$punctualRec = '';
+		$punctualRec = array();
 		foreach ($rep as $choreRec) {
 			$children = explode(', ', $choreRec['childId']);
 			foreach ($children as $child) {
@@ -40,7 +40,9 @@ public function selectRec($momentOfWeek){
 			}
 		}
 
-		return array_merge($recurrentRec, $punctualRec);
+		$arrayRecToDo = array_merge($recurrentRec, $punctualRec);
+
+		return $arrayRecToDo;
 	}
 
 	public function selectDone($momentOfWeek){
