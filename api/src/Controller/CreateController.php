@@ -301,21 +301,22 @@ class CreateController extends MailController{
 			}
 		}
 
-		// // select punctual REC
-		// $rep = $this->select("SELECT * FROM api_ChoreDone WHERE isRecurrent = 0 AND date = '$date"); // FAIRE LA DATE ****************************** //
-		// // on place les infos dont on a besoin
-		// $punctualRec = '';
-		// foreach ($rep as $choreDone) {
-		// 	$punctualRec[] = array("idChild" => $choreDone['idChild'], "idChoreRec" => $choreDone['idChoreRec'], "today" => date('N'), "day" => $jour[$momentOfWeek], "moment" => "4"); // 4 -> toute la journée
-		// }
-
-		echo '<pre>';
-		print_r($recurrentRec);
-		echo '</pre>';
+		// select punctual REC
+		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE isRecurrent = 0"); // FAIRE LA DATE ****************************** //
+		// on place les infos dont on a besoin
+		$punctualRec = '';
+		foreach ($rep as $choreDone) {
+			$punctualRec[] = array("idChild" => $choreDone['idChild'], "idChoreRec" => $choreDone['idChoreRec'], "today" => date('N'), "day" => $jour[$momentOfWeek], "moment" => "4"); // 4 -> toute la journée
+		}
 
 		// echo '<pre>';
-		// print_r($punctualRec);
+		// print_r($recurrentRec);
 		// echo '</pre>';
+
+		echo '<pre>';
+		print_r($punctualRec);
+		echo '</pre>';
+		
 		// $rec = array_uintersect($recurrentRec, $punctualRec);
 
 		// echo '<pre>';
