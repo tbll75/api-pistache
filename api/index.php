@@ -144,7 +144,7 @@
 
 // REPORT
 	// $router->get('/dailyreport', 'Create#dailyReport');
-	$router->get('/dailyreport', 'Create#yesterdayReport');
+	$router->get('/dailyreport', 'Report#checkYesterdayReport');
 
 
 // ************
