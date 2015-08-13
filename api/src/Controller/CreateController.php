@@ -42,7 +42,7 @@ class CreateController extends MailController{
 		// puis on demande
 		$rep = $this->select("SELECT $idColumn FROM $table ORDER BY $idColumn DESC LIMIT 1");
 		// et on renvoit
-		foreach ($rep as $key => $value) {
+		foreach ($rep[0] as $key => $value) {
 			$json = '{"'.$key.'":"'.$value.'"}';
 		}
 		return $json;
