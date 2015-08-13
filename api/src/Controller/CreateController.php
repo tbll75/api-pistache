@@ -63,7 +63,7 @@ class CreateController extends MailController{
 		$keys = '(';
 		$values = '(';
 		foreach ($data as $key => $value) {
-			if(!is_array($key)){
+			if(!is_array($value)){
 				$keys .= $key.", ";
 				$values .= $value.", ";
 			}
