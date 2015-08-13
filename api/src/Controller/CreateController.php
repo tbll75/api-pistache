@@ -86,7 +86,7 @@ class CreateController extends MailController{
 
 		$recMomentOfDay = $data['recMomentOfDay'];
 		$data['matin'] = $recMomentOfDay[0];
-		$data['dej'] = $recMomentOfDay[1];
+		$data['dejeuner'] = $recMomentOfDay[1];
 		$data['gouter'] = $recMomentOfDay[2];
 		$data['diner'] = $recMomentOfDay[3];
 
