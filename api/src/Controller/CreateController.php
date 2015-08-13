@@ -340,7 +340,7 @@ class CreateController extends MailController{
 		print_r($done);
 		echo '</pre>';
 
-		$choreMissed = array_diff_uassoc($rec, $done, "key_compare_func");
+		$choreMissed = $this->sortChore($rec, $done);
 
 		echo "---------------------------------------------------------";
 
@@ -367,6 +367,31 @@ class CreateController extends MailController{
 	    return $generation;
 	}
 
+	function sortChore($rec, $done) {
+		$result = NULL;
+		// pour chaque tache Rec
+		foreach($rec as $choreRec) {
+			$isIn = 0;
+			// pour chaque tache faite
+    		foreach ($done as $choreDone) {
+    			// on vérifie que la tache est bien faite.
+    			if($choreRec == $choreDone){
+    				$isIn = 1;
+    				break;
+    			}
+	    	}
+	    	// si elle a effectivement été faite
+	    	if($isIn == 1){
+	    		$choreRec['done'] = 1;
+	    		$result[] = $choreRec;
+	    	// sinon..
+	    	}elseif($isIn == 0){
+	    		$choreRec['done'] = 0;
+	    		$result[] = $choreRec;
+	    	}
+		}
+		return $result;
+	}
 
 
 }
