@@ -128,7 +128,7 @@ class CreateController extends MailController{
 			echo '{"error":"Missing data : '.implode(', ', $missingField).'"}';
 			die();
 		}else{
-			return array($switcher[$entity], $fields);
+			return array($entity, $fields);
 		}
 
 	}
