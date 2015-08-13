@@ -8,20 +8,26 @@ class CreateController extends MailController{
 		// On récupère la data sous forme de tableaux.
 		$entity = json_decode($_POST['json'], true)['entity']; 
 		$data = json_decode($_POST['json'], true)['data']; 
-		// $ladata = json_decode($_POST['json'], true)['date']; 
+		$savedDateTime = json_decode($_POST['json'], true)['savedDateTime']; 
+		echo "arrivé";
 
 		// On vérifie que tous les champs sont saisies
 		$tableBdd = $this->entityTraitment($entity, $data);
+		echo "table : ".$tableBdd;
 
 		// On envoit le traitement vers la fonction d'insert
 		$isInsert = $this->dataInsertTraitment($tableBdd, $data);
+		echo "insertion valide.";
 
-		// Si l'insertion est bonne, on renvoit le dernier id de la table.
+		// Si l'insertion est bonne, on demande le dernier id de la table.
 		if(!$isInsert){
 			echo '{"error":"Insert problem"}';
 			die();
 		}
 		$idJson = $this->respondBDD($tableBdd);
+		echo "idJson : ".$idJson;
+
+		// On renvoit la reponse (l'id) nouvellement généré.
 		echo $idJson;
 	}
 
