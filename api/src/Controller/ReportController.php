@@ -140,7 +140,7 @@ public function selectRec($momentOfWeek){
 		echo '</pre>';
 		$str = '';
 		foreach ($report as $toUp) {
-			$str .= "(idChild = ".$toUp['idChild']." AND idChoreRec = ".$toUp['idChoreRec']." AND today = ".$toUp['today']." AND day = ".$toUp['day']." AND moment = ".$toUp['moment'].") OR ";
+			$str .= "(idChild = ".$toUp[0]." AND idChoreRec = ".$toUp[1]." AND today = ".$toUp[2]." AND day = ".$toUp[3]." AND moment = ".$toUp[4].") OR ";
 		}
 		echo $str = substr($str, 0, -4);
 		// $this->update("UPDATE api_DailyReport SET done = 1 WHERE ");
