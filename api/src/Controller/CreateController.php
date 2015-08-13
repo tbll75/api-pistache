@@ -334,7 +334,7 @@ class CreateController extends MailController{
 
 		}
 
-		echo $yesterday." - ".$today." - ".$tomorrow'<pre>';
+		echo $yesterday." - ".$today." - ".$tomorrow.'<pre>';
 		print_r($recurrentDone);
 		echo '</pre>';
 
