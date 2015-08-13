@@ -7,7 +7,7 @@ class ReportController extends MailController{
 public function selectRec($momentOfWeek){
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
 		$diffDay = date('N')-$momentOfWeek;
-		$today = strtotime(date('d-m-Y')) - $diffDay*60*60*24;
+		$day = strtotime(date('d-m-Y')) - $diffDay*60*60*24;
 		// select recurrent REC
 		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 1 AND $jour[$momentOfWeek] = 1 AND isActive = 1");
 		// generate chore of the day
@@ -18,24 +18,24 @@ public function selectRec($momentOfWeek){
 			foreach ($children as $child) {
 				// pour chaque enfant on rentre la tache
 				if($choreRec['matin'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $today, "day" => $momentOfWeek, "moment" => "0");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $day, "day" => $momentOfWeek, "moment" => "0");
 				if($choreRec['dejeuner'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $today, "day" => $momentOfWeek, "moment" => "1");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $day, "day" => $momentOfWeek, "moment" => "1");
 				if($choreRec['gouter'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $today, "day" => $momentOfWeek, "moment" => "2");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $day, "day" => $momentOfWeek, "moment" => "2");
 				if($choreRec['diner'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $today, "day" => $momentOfWeek, "moment" => "3");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $day, "day" => $momentOfWeek, "moment" => "3");
 			}
 		}
 
 		// select punctual REC
-		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 0 /*AND date = $today*/ AND isActive = 1"); // FAIRE LA DATE ****************************** //
+		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 0 /*AND date = $day*/ AND isActive = 1"); // FAIRE LA DATE ****************************** //
 		// on place les infos dont on a besoin
 		$punctualRec = '';
 		foreach ($rep as $choreRec) {
 			$children = explode(', ', $choreRec['childId']);
 			foreach ($children as $child) {
-				$punctualRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $today, "day" => $momentOfWeek, "moment" => "4"); // 4 -> toute la journée
+				$punctualRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $day, "day" => $momentOfWeek, "moment" => "4"); // 4 -> toute la journée
 			}
 		}
 
@@ -46,10 +46,11 @@ public function selectRec($momentOfWeek){
 
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
 		$diffDay = date('N')-$momentOfWeek;
-		$today = strtotime(date('d-m-Y')) - $diffDay*60*60*24;
-		$yesterday = $today - 60*60*24;
+		$day = strtotime(date('d-m-Y')) - $diffDay*60*60*24;
+		$dayBefore = $day - 60*60*24;
+		$dayAfter = $day + 60*60*24;
 		// select recurrent DONE
-		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE momentOfWeek = '$momentOfWeek' /*AND dueDate > $today AND dueDate < $yesterday */");
+		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE momentOfWeek = '$momentOfWeek' /*AND dueDate > $day AND dueDate < $dayBefore */");
 		// generate chore Done of the day
 		$done = '';
 		foreach ($rep as $choreDone){
@@ -57,8 +58,8 @@ public function selectRec($momentOfWeek){
 			preg_match('!\d+!', $choreDone['dueDate'], $choreTimeStamp);
 			$choreTimeStamp =  substr($choreTimeStamp[0], 0, -3);
 			//  si ajd
-			if($choreTimeStamp > $today && $choreTimeStamp < $tomorrow)
-				$done[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']/*, "done" => 1*/); 
+			if($choreTimeStamp > $day && $choreTimeStamp < $dayAfter)
+				$done[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $day, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']/*, "done" => 1*/); 
 		}
 
 		return $done;
