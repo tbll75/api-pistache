@@ -48,7 +48,7 @@ class CreateController extends MailController{
 		$idJson = $this->respondBDD($tableData[0]);
 
 		// On renvoit la reponse (l'id) nouvellement généré.
-		$this->ids[] = $idJson;
+		$this->ids[] = '"'.implode('", "', $idJson).'"';
 
 		// Si on a des sous data (Hero Settings ..) à insérer
 		if($isInsert[1]){ // Si on a d'autre tableau de data a regarder.
@@ -57,7 +57,7 @@ class CreateController extends MailController{
 					// on injecte l'id du référent
 					$entityProper = substr($entity, 4);
 					$keyConstruct = $entityProper."_id".$entityProper;
-					$value[$keyConstruct] = $idJson;
+					$value[$keyConstruct] = $idJson[1];
 					// on renvoit la fonction
 					$this->mainTraitment($key, $value, $savedDateTime);
 				}
@@ -83,7 +83,7 @@ class CreateController extends MailController{
 		$rep = $this->select("SELECT $idColumn FROM $table ORDER BY $idColumn DESC LIMIT 1");
 		// et on renvoit
 		foreach ($rep[0] as $key => $value) {
-			$json = '"'.$key.'":"'.$value.'"';
+			$json = array($key, $value);
 		}
 		return $json;
 
