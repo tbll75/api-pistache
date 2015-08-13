@@ -92,7 +92,7 @@ public function selectRec($momentOfWeek){
 
 	public function checkYesterdayReport(){
 		// today		
-		$momentOfWeek = date('N') - 2;
+		$momentOfWeek = date('N') - 2; // of yesterday
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
 		$today = strtotime(date('d-m-Y'));
 		$yesterday = $today - 60*60*24;
@@ -106,6 +106,8 @@ public function selectRec($momentOfWeek){
 		}
 
 		$done = $this->selectDone($momentOfWeek);
+
+		echo "------";
 
 		echo '<pre>';
 		print_r($done);
