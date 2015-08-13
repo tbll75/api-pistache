@@ -10,11 +10,64 @@ class CreateController extends MailController{
 		$data = json_decode($_POST['json'], true)['data']; 
 		// $ladata = json_decode($_POST['json'], true)['date']; 
 
-		$dispatchTo = $this->entityTraitment($entity, $data);
+		// On vérifie que tous les champs sont saisies
+		$tableBdd = $this->entityTraitment($entity, $data);
+
+		// On envoit le traitement vers la fonction d'insert
+		$isInsert = $this->dataInsertTraitment($tableBdd, $data);
+
+		// Si l'insertion est bonne, on renvoit le dernier id de la table.
+		if(!$isInsert){
+			echo '{"error":"Insert problem"}';
+			die();
+		}
+		$idJSON = $this->respondBDD($tableBdd);
+		
 	}
 
+
+
+	public function respondBDD($table){
+		// on recupère la derniere ligne de la table $table
+		// Pour ca faut déjà connaitre le nom de la colone qui porte l'id.
+		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$switcher[$entity]."'");
+		foreach ($rep as $fields) {
+			if($fields['ORDINAL_POSITION'] == 1){
+				$idColumn = $fields['COLUMN_NAME'];
+				break;
+			}
+		}
+		// puis on demande
+		$rep = $this->select("SELECT $idColumn FROM $table ORDER BY $idColumn DESC LIMIT 1");
+		// et on renvoit
+		foreach ($rep as $key => $value) {
+			$json = '{"'.$key.'":"'.$value.'"}';
+		}
+		return $json;
+
+	}
+
+
+
+	public function dataInsertTraitment($table, $data){
+		// on insert la data vers la bdd
+		$keys = '(';
+		$values = '(';
+		foreach ($data as $key => $value) {
+			$keys .= $key.", ";
+			$values .= $value.", ";
+		}
+		$keys = substr($keys, 0, -2).")";
+		$values = substr($values, 0, -2).")";
+
+		$this->insert("INSERT INTO $table $keys VALUES $values");
+		return true;
+	}
+
+
+
 	public function entityTraitment($entity, $data){
-		// Ici on vérifie les données nécessaires pour chaque entité, et on retourne soit une erreur soit une fonction pour le traitement de l'entité.
+		// Ici on vérifie les données nécessaires pour chaque entité, et on retourne soit une erreur soit le nom de la table BDD pour le traitement de l'entité.
 		$switcher = array(
 			"FamilyData" => "api_Family",
 			"FamilyMember" => "api_Children",
@@ -22,9 +75,23 @@ class CreateController extends MailController{
 			"ChoreChild" => "api_ChoreDone"
 			);
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$switcher[$entity]."'");
-		echo "<pre>";
-		print_r($rep);
-		echo "</pre>";
+		$fields = array();
+		foreach ($rep as $columnData) {
+			$fields[] = $columnData['COLUMN_NAME'];
+		}
+		// Maintenant on connait les champs de la table. On regarde si on les connais tous.
+		$missingField = array();
+		foreach ($fields as $field) {
+			if(empty($data[$field])){
+				$missingField[] = $field;
+			}
+		}
+		if(!empty($missingField)){
+			$error = '{"error":"Missing data : '.implode(', ', $missingField).'"}';
+			die();
+		}else{
+			return $switcher[$entity];
+		}
 
 	}
 
