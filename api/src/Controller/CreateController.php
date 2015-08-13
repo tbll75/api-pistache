@@ -331,7 +331,7 @@ class CreateController extends MailController{
 		}
 
 		$report = $this->sortChore($rec, $done);
-		$dailyReport = "(".implode('), (', $report).")";
+		$dailyReport = "(".implode('), (', $report).")<br/>";
 		// On insert dans la bdd
 		echo "INSERT INTO api_DailyReport (idChild, idChoreRec, today, day, moment, done) VALUES $dailyReport";
 		die();
