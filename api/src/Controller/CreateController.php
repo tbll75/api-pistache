@@ -12,11 +12,9 @@ class CreateController extends MailController{
 
 		// On vérifie que tous les champs sont saisies
 		$tableBdd = $this->entityTraitment($entity, $data);
-		echo "table : ".$tableBdd[0];
 
 		// On envoit le traitement vers la fonction d'insert
 		$isInsert = $this->dataInsertTraitment($tableBdd[0], $tableBdd[1], $data);
-		echo "insertion valide.";
 
 		// Si l'insertion est bonne, on demande le dernier id de la table.
 		if(!$isInsert){
@@ -24,7 +22,6 @@ class CreateController extends MailController{
 			die();
 		}
 		$idJson = $this->respondBDD($tableBdd[0]);
-		echo "idJson : ".$idJson;
 
 		// On renvoit la reponse (l'id) nouvellement généré.
 		echo $idJson;
@@ -42,15 +39,12 @@ class CreateController extends MailController{
 				break;
 			}
 		}
-		echo $idColumn;
 		// puis on demande
 		$rep = $this->select("SELECT $idColumn FROM $table ORDER BY $idColumn DESC LIMIT 1");
 		// et on renvoit
 		foreach ($rep as $key => $value) {
 			$json = '{"'.$key.'":"'.$value.'"}';
 		}
-		echo $key;
-		echo $value;
 		return $json;
 
 	}
@@ -87,7 +81,8 @@ class CreateController extends MailController{
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$switcher[$entity]."'");
 		$fields = array();
 		foreach ($rep as $columnData) {
-			$fields[] = $columnData['COLUMN_NAME'];
+			if($columnData['ORDINAL_POSITION'] != 1)
+				$fields[] = $columnData['COLUMN_NAME'];
 		}
 		// Maintenant on connait les champs de la table. On regarde si on les connais tous.
 		$missingField = array();
