@@ -276,14 +276,8 @@ class CreateController extends MailController{
 		echo json_encode($repget);
 	}
 
-	public function todayReport(){
-		// today		
-		$momentOfWeek = date('N') - 1;
+	public function selectRec($momentOfWeek){
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
-		$today = strtotime(date('d-m-Y'));
-		$yesterday = $today - 60*60*24;
-		$tomorrow = $today + 60*60*24;
-
 		// select recurrent REC
 		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 1 AND $jour[$momentOfWeek] = 1 AND isActive = 1");
 		// generate chore of the day
@@ -315,7 +309,17 @@ class CreateController extends MailController{
 			}
 		}
 
-		$rec = array_merge($recurrentRec, $punctualRec);
+		return array_merge($recurrentRec, $punctualRec);
+	}
+
+	public function todayReport(){
+		// today		
+		$momentOfWeek = date('N') - 1;
+		$today = strtotime(date('d-m-Y'));
+		$yesterday = $today - 60*60*24;
+		$tomorrow = $today + 60*60*24;
+
+		$rec = $this->selectRec($momentOfWeek);
 
 		// select recurrent DONE
 		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE momentOfWeek = '$momentOfWeek' /*AND dueDate > $today AND dueDate < $yesterday */");
@@ -339,18 +343,24 @@ class CreateController extends MailController{
 
 	public function yesterdayReport(){
 		// today		
-		$momentOfWeek = date('N') - 1;
+		$momentOfWeek = date('N') - 2;
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
 		$today = strtotime(date('d-m-Y'));
 		$yesterday = $today - 60*60*24;
 		$tomorrow = $today + 60*60*24;
-		
-		$rep = $this->select("SELECT * FROM api_DailyReport WHERE today = $today AND done = 0");
+
+		$rep = $this->select("SELECT idChild, idChoreRec, today, day, moment FROM api_DailyReport WHERE today = $today AND done = 0");
 		foreach ($rep as $choreMissed) {
 			echo '<pre>';
 			print_r($choreMissed);
 			echo '</pre>';
 		}
+
+		$recYesterday = $this->selectRec($momentOfWeek);
+		
+		echo '<pre>';
+		print_r($recYesterday);
+		echo '</pre>';
 
 	}
 
