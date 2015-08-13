@@ -76,6 +76,10 @@ class CreateController extends MailController{
 			$idFamily = $json['Family_idFamily'];
 			$nom = htmlspecialchars($json['name']);
 			$date = $json['birthday'];
+			// onprend que ceux d'ajd.
+			preg_match('!\d+!', $date, $date);
+			$date =  substr($date[0], 0, -3);
+
 			$sexe = $json['sex'];
 			$level = $json['level'];
 			$xp = $json['xp'];
