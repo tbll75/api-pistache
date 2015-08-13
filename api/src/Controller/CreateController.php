@@ -276,7 +276,7 @@ class CreateController extends MailController{
 		echo json_encode($repget);
 	}
 
-	public function dailyReport(){
+	public function todayReport(){
 		// today		
 		$momentOfWeek = date('N') - 1;
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
@@ -335,8 +335,9 @@ class CreateController extends MailController{
 		$dailyReport = "(".implode('), (', $report).")";
 		// On insert dans la bdd
 		$this->insert("INSERT INTO api_DailyReport (idChild, idChoreRec, today, day, moment, done) VALUES $dailyReport");
+	}
 
-		// MAINTENANT ON VERIFIE QUE LES TACHES D'HIER NON FAITE ON ETE FAITES.
+	public function yesterdayReport(){}
 		$rep = $this->select("SELECT * FROM api_DailyReport WHERE today = $today AND done = 0");
 		foreach ($rep as $choreMissed) {
 			echo '<pre>';
@@ -344,6 +345,11 @@ class CreateController extends MailController{
 			echo '</pre>';
 		}
 
+	}
+
+	public function dailyReport(){
+		$this->todayReport();
+		$this->yesterdayReport();
 	}
 
 

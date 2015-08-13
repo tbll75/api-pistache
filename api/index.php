@@ -143,7 +143,8 @@
 	$router->get('/asknewpass/:mail', 'Mail#askNewPass');
 
 // REPORT
-	$router->get('/dailyreport', 'Create#dailyReport');
+	// $router->get('/dailyreport', 'Create#dailyReport');
+	$router->get('/dailyreport', 'Create#yesterdayReport');
 
 
 // ************
