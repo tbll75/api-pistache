@@ -15,7 +15,7 @@ class CreateController extends MailController{
 		echo "table : ".$tableBdd[0];
 
 		// On envoit le traitement vers la fonction d'insert
-		$isInsert = $this->dataInsertTraitment($tableBdd, $tableBdd[1], $data);
+		$isInsert = $this->dataInsertTraitment($tableBdd[0], $tableBdd[1], $data);
 		echo "insertion valide.";
 
 		// Si l'insertion est bonne, on demande le dernier id de la table.
