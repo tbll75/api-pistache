@@ -142,6 +142,9 @@
 	$router->post('/newpass', 'Family#askPass'); // on redirige vers la famille
 	$router->get('/asknewpass/:mail', 'Mail#askNewPass');
 
+// REPORT
+	$router->get('/dailyreport', 'Create#dailyReport');
+
 
 // ************
 
