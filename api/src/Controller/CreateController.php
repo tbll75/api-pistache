@@ -332,7 +332,7 @@ class CreateController extends MailController{
 			$choreTimeStamp =  substr($choreTimeStamp[0], 0, -3);
 			//  si ajd
 			if($choreTimeStamp > $today && $choreTimeStamp < $tomorrow)
-				$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay'], "done" => 1); 
+				$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay'], "done" => 1, "time" => $choreTimeStamp); 
 		}
 
 		echo $yesterday." - ".$today." - ".$tomorrow.'<pre>';
