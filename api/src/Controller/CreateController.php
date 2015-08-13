@@ -23,7 +23,7 @@ class CreateController extends MailController{
 			"Chore" => "api_ChoreRec",
 			"ChoreChild" => "api_ChoreDone", 
 			"Settings" => "api_Settings",
-			"Hero" => "api_Hero"
+			"hero" => "api_Hero"
 			// "listeDebloque" => "api_ObjectUnlock"
 			);
 		// Si le tableau n'existe pas
@@ -60,7 +60,7 @@ class CreateController extends MailController{
 		}
 
 		// On renvoit la reponse (l'id) nouvellement généré.
-		echo $idJson;
+		echo $idJson".";
 		return true;
 	}
 
@@ -80,7 +80,7 @@ class CreateController extends MailController{
 		$rep = $this->select("SELECT $idColumn FROM $table ORDER BY $idColumn DESC LIMIT 1");
 		// et on renvoit
 		foreach ($rep[0] as $key => $value) {
-			$json = '{"'.$key.'":"'.$value.'"}';
+			$json = '"'.$key.'":"'.$value.'"';
 		}
 		return $json;
 
