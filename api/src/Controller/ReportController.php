@@ -79,6 +79,7 @@ public function selectRec($momentOfWeek){
 
 		$rec = $this->selectRec($momentOfWeek);
 		$done = $this->selectDone($momentOfWeek);
+		echo "----------------------------------------------------------------------------------------------------<br/>";
 		echo 'TACHES DU JOUR';
 		echo '<pre>';
 		print_r($rec);
