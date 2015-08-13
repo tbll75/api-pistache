@@ -321,25 +321,32 @@ class CreateController extends MailController{
 		print_r($rec);
 		echo '</pre>';
 
+		echo "---------------------------------------------------------";
 
 		// select recurrent DONE
 		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE momentOfWeek = '$momentOfWeek' /*AND dueDate > $today AND dueDate < $yesterday */");
 		// generate chore Done of the day
-		$recurrentDone = '';
+		$done = '';
 		foreach ($rep as $choreDone){
-			echo $choreDone['idChoreDone']."<br/>";
 			// onprend que ceux d'ajd.
 			preg_match('!\d+!', $choreDone['dueDate'], $choreTimeStamp);
 			$choreTimeStamp =  substr($choreTimeStamp[0], 0, -3);
 			//  si ajd
 			if($choreTimeStamp > $today && $choreTimeStamp < $tomorrow)
-				$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay'], "done" => 1); 
+				$done[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay'], "done" => 1); 
 		}
 
 		echo '<pre>';
-		print_r($recurrentDone);
+		print_r($done);
 		echo '</pre>';
 
+		$choreMissed = array_diff($rec, $done);
+
+		echo "---------------------------------------------------------";
+
+		echo '<pre>';
+		print_r($choreMissed);
+		echo '</pre>';
 
 	}
 
