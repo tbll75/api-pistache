@@ -306,7 +306,10 @@ class CreateController extends MailController{
 		// on place les infos dont on a besoin
 		$punctualRec = '';
 		foreach ($rep as $choreDone) {
-			$punctualRec[] = array("idChild" => $choreDone['idChild'], "idChoreRec" => $choreDone['idChoreRec'], "today" => date('N'), "day" => $jour[$momentOfWeek], "moment" => "4"); // 4 -> toute la journée
+			$children = explode(', ', $choreRec['childId']);
+			foreach ($children as $child) {
+				$punctualRec[] = array("idChild" => $child, "idChoreRec" => $choreDone['idChoreRec'], "today" => date('N'), "day" => $jour[$momentOfWeek], "moment" => "4"); // 4 -> toute la journée
+			}
 		}
 
 		// echo '<pre>';
@@ -316,7 +319,7 @@ class CreateController extends MailController{
 		echo '<pre>';
 		print_r($punctualRec);
 		echo '</pre>';
-		
+
 		// $rec = array_uintersect($recurrentRec, $punctualRec);
 
 		// echo '<pre>';
