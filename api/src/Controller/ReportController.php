@@ -113,23 +113,28 @@ public function selectRec($momentOfWeek){
 		$tomorrow = $today + 60*60*24;
 
 		echo "----------------------------------------------------------------------------------------------------<br/>";
-		echo "REPORT D'HIER";
+		echo "REPORT D'HIER (RATE)";
 		// On récupere les taches non faites d'hier
 		$rep = $this->select("SELECT idChild, idChoreRec, today, day, moment FROM api_DailyReport WHERE today = $yesterday AND done = 0");
-		foreach ($rep as $choreMissed) {
-			echo '<pre>';
-			print_r($choreMissed);
-			echo '</pre>';
+		foreach ($rep as $missed) {
+			$choreMissed[] = $missed;
 		}
+		echo '<pre>';
+		print_r($choreMissed);
+		echo '</pre>';
+
 		// On prend les taches validé aujourdhui
 		$done = $this->selectDone($momentOfWeek);
-
 
 		echo "----------------------------------------------------------------------------------------------------<br/>";
 		echo "TACHE D'HIER FAITE AUJOURD'HUI";
 		echo '<pre>';
 		print_r($done);
 		echo '</pre>';
+
+		echo "----------------------------------------------------------------------------------------------------<br/>";
+		echo "UP REPORT HIER";
+		$report = $this->sortChore()
 	}
 
 
