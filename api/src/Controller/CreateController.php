@@ -16,10 +16,25 @@ class CreateController extends MailController{
 
 
 	public function mainTraitment($entity, $data, $savedDateTime){
+		// Ici on vérifie les données nécessaires pour chaque entité, et on retourne soit une erreur soit le nom de la table BDD pour le traitement de l'entité.
+		$switcher = array(
+			"FamilyData" => "api_Family",
+			"FamilyMember" => "api_Children",
+			"Chore" => "api_ChoreRec",
+			"ChoreChild" => "api_ChoreDone", 
+			"Settings" => "api_Settings",
+			"Hero" => "api_Hero",
+			"listeDebloque" => "api_ObjectUnlock"
+			);
+		// Si le tableau n'existe pas
+		if(!isset($switcher[$entity]))
+			return false;
+		else
+			$entity = $switcher[$entity];
+
 		// On vérifie que tous les champs sont saisies
 		$tableData = $this->entityTraitment($entity, $data);
-		if(!$tableData[0])
-			return false;
+
 		// On envoit le traitement vers la fonction d'insert
 		$isInsert = $this->dataInsertTraitment($tableData[0], $tableData[1], $data);
 
@@ -28,17 +43,25 @@ class CreateController extends MailController{
 			echo '{"error":"Insert problem"}';
 			die();
 		}
+		$idJson = $this->respondBDD($tableData[0]);
+
+		// Si on a des sous data (Hero Settings ..) à insérer
 		if($isInsert[1]){ // Si on a d'autre tableau de data a regarder.
 			foreach ($data as $key => $value) {
-				if(is_array($value))
+				if(is_array($value)){
+					// on injecte l'id du référent
+					$entityProper = substr($entity, 4);
+					$keyConstruct = $entityProper."_id".$entityProper;
+					$value[$keyConstruct] = $idJson;
+					// on renvoit la fonction
 					$this->mainTraitment($key, $value, $savedDateTime);
+				}
 			}
 		}
-		$idJson = $this->respondBDD($tableData[0]);
 
 		// On renvoit la reponse (l'id) nouvellement généré.
 		echo $idJson;
-		return $idJson;
+		return true;
 	}
 
 
@@ -87,21 +110,8 @@ class CreateController extends MailController{
 
 
 	public function entityTraitment($entity, $data){
-		// Ici on vérifie les données nécessaires pour chaque entité, et on retourne soit une erreur soit le nom de la table BDD pour le traitement de l'entité.
-		$switcher = array(
-			"FamilyData" => "api_Family",
-			"FamilyMember" => "api_Children",
-			"Chore" => "api_ChoreRec",
-			"ChoreChild" => "api_ChoreDone", 
-			"Settings" => "api_Settings",
-			"Hero" => "api_Hero",
-			"listeDebloque" => "api_ObjectUnlock"
-			);
-		// Si le tableau n'existe pas
-		if(!isset($switcher[$entity]))
-			return array(false, false);
-		// Sinon on continu
-		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$switcher[$entity]."'");
+
+		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$entity."'");
 		$fields = array();
 		foreach ($rep as $columnData) {
 			if($columnData['ORDINAL_POSITION'] != 1)
