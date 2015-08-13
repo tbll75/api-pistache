@@ -150,8 +150,8 @@ public function selectRec($momentOfWeek){
 
 
 	public function dailyReport(){
-		$this->todayReport();
 		$this->checkYesterdayReport();
+		$this->todayReport();
 	}
 
 
