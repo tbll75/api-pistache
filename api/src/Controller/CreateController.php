@@ -279,7 +279,7 @@ class CreateController extends MailController{
 	public function selectRec($momentOfWeek){
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
 		$diffDay = date('N')-$momentOfWeek;
-		$today = strtotime(date('d-m-Y')) - $diff*60*60*24;
+		$today = strtotime(date('d-m-Y')) - $diffDay*60*60*24;
 		// select recurrent REC
 		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 1 AND $jour[$momentOfWeek] = 1 AND isActive = 1");
 		// generate chore of the day
