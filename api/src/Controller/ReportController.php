@@ -45,11 +45,10 @@ public function selectRec($momentOfWeek){
 	public function selectDone($momentOfWeek){
 
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
-		$diffDay = date('N')-$momentOfWeek;
-		echo $day = strtotime(date('d-m-Y')) - $diffDay*60*60*24;
+		$diffDay = (date('N') - 1) - $momentOfWeek;
+		$day = strtotime(date('d-m-Y')) - $diffDay*60*60*24;
 		$dayBefore = $day - 60*60*24;
-		echo " - ";
-		echo $dayAfter = $day + 60*60*24;
+		$dayAfter = $day + 60*60*24;
 		// select recurrent DONE
 		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE momentOfWeek = '$momentOfWeek' /*AND dueDate > $day AND dueDate < $dayBefore */");
 		// generate chore Done of the day
@@ -108,8 +107,8 @@ public function selectRec($momentOfWeek){
 		// select done d'hier aujourd'hui
 		$done = $this->selectDone($momentOfWeek);
 
-		echo "------<br/>";
-		echo $yesterday." - 1439369568 - ".$today;
+		echo "------";
+		// echo "<br/>".$yesterday." - 1439369568 - ".$today;
 
 		echo '<pre>';
 		print_r($done);
