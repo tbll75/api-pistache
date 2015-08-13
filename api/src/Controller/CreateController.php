@@ -280,6 +280,7 @@ class CreateController extends MailController{
 		// today		
 		$momentOfWeek = date('N') - 1;
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
+		$today = date('d-m-Y');
 
 		// select recurrent REC
 		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 1 AND $jour[$momentOfWeek] = 1 AND isActive = 1");
@@ -291,13 +292,13 @@ class CreateController extends MailController{
 			foreach ($children as $child) {
 				// pour chaque enfant on rentre la tache
 				if($choreRec['matin'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => time(), "day" => date('N'), "moment" => "0");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $today, "day" => date('N'), "moment" => "0");
 				if($choreRec['dejeuner'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => time(), "day" => date('N'), "moment" => "1");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $today, "day" => date('N'), "moment" => "1");
 				if($choreRec['gouter'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => time(), "day" => date('N'), "moment" => "2");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $today, "day" => date('N'), "moment" => "2");
 				if($choreRec['diner'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => time(), "day" => date('N'), "moment" => "3");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $today, "day" => date('N'), "moment" => "3");
 			}
 		}
 
@@ -308,7 +309,7 @@ class CreateController extends MailController{
 		foreach ($rep as $choreRec) {
 			$children = explode(', ', $choreRec['childId']);
 			foreach ($children as $child) {
-				$punctualRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => time(), "day" => date('N'), "moment" => "4"); // 4 -> toute la journée
+				$punctualRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => $today, "day" => date('N'), "moment" => "4"); // 4 -> toute la journée
 			}
 		}
 
