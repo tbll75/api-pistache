@@ -330,11 +330,18 @@ class CreateController extends MailController{
 				$done[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']/*, "done" => 1*/); 
 		}
 
-		$choreMissed = $this->sortChore($rec, $done);
+		$report = $this->sortChore($rec, $done);
+		$dailyReport = "(".implode('), (', $report);
+		echo $dailyReport; die();
+		$this->insert("INSERT INTO api_DailyReport (idChild, idChoreRec, today, day, moment, done) VALUES $dailyReport")
 
-		echo '<pre>';
-		print_r($choreMissed);
-		echo '</pre>';
+		// MAINTENANT ON VERIFIE QUE LES TACHES D'HIER NON FAITE ON ETE FAITES.
+		$rep = $this->select("SELECT * FROM api_DailyReport WHERE today = $today AND done = 0");
+		foreach ($rep as $choreMissed) {
+			echo '<pre>';
+			print_r($choreMissed);
+			echo '</pre>';
+		}
 
 	}
 
@@ -371,11 +378,11 @@ class CreateController extends MailController{
 	    	// si elle a effectivement été faite
 	    	if($isIn == 1){
 	    		$choreRec['done'] = 1;
-	    		$result[] = $choreRec;
+	    		$result[] = implode(', ',$choreRec);
 	    	// sinon..
 	    	}elseif($isIn == 0){
 	    		$choreRec['done'] = 0;
-	    		$result[] = $choreRec;
+	    		$result[] = implode(', ',$choreRec);
 	    	}
 		}
 		return $result;
