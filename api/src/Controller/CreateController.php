@@ -327,13 +327,12 @@ class CreateController extends MailController{
 		// generate chore Done of the day
 		$recurrentDone = '';
 		foreach ($rep as $choreDone){
+			// onprend que ceux d'ajd.
 			preg_match('!\d+!', $choreDone['dueDate'], $choreTimeStamp);
-			$choreTimeStamp =  substr($choreTimeStamp[0], 0, 10);
+			$choreTimeStamp =  substr($choreTimeStamp[0], 0, -3);
+			//  si ajd
 			if($choreTimeStamp > $today && $choreTimeStamp < $tomorrow)
-				$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay'], "done" => 1); // 4 -> toute la journée
-			if($choreTimeStamp > $yesterday && $choreTimeStamp < $today)
-				$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay'], "done" => 2); // 4 -> toute la journée
-
+				$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay'], "done" => 1); 
 		}
 
 		echo $yesterday." - ".$today." - ".$tomorrow.'<pre>';
