@@ -48,7 +48,7 @@ class CreateController extends MailController{
 		$idJson = $this->respondBDD($tableData[0]);
 
 		// On renvoit la reponse (l'id) nouvellement généré.
-		$this->ids[] = '"'.implode('", "', $idJson).'"';
+		$this->ids[] = '"'.implode('":"', $idJson).'"';
 
 		// Si on a des sous data (Hero Settings ..) à insérer
 		if($isInsert[1]){ // Si on a d'autre tableau de data a regarder.
