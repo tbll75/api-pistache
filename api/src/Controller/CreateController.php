@@ -317,12 +317,6 @@ class CreateController extends MailController{
 
 		$rec = array_merge($recurrentRec, $punctualRec);
 
-		echo '<pre>';
-		print_r($rec);
-		echo '</pre>';
-
-		echo "---------------------------------------------------------";
-
 		// select recurrent DONE
 		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE momentOfWeek = '$momentOfWeek' /*AND dueDate > $today AND dueDate < $yesterday */");
 		// generate chore Done of the day
@@ -336,13 +330,7 @@ class CreateController extends MailController{
 				$done[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']/*, "done" => 1*/); 
 		}
 
-		echo '<pre>';
-		print_r($done);
-		echo '</pre>';
-
 		$choreMissed = $this->sortChore($rec, $done);
-
-		echo "---------------------------------------------------------";
 
 		echo '<pre>';
 		print_r($choreMissed);
