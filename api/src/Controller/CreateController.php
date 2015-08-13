@@ -340,7 +340,7 @@ class CreateController extends MailController{
 		print_r($done);
 		echo '</pre>';
 
-		$choreMissed = array_diff_uassoc($rec, $done);
+		$choreMissed = array_diff_uassoc($rec, $done, "key_compare_func");
 
 		echo "---------------------------------------------------------";
 
