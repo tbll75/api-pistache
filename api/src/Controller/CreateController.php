@@ -23,8 +23,8 @@ class CreateController extends MailController{
 			"Chore" => "api_ChoreRec",
 			"ChoreChild" => "api_ChoreDone", 
 			"Settings" => "api_Settings",
-			"Hero" => "api_Hero",
-			"listeDebloque" => "api_ObjectUnlock"
+			"Hero" => "api_Hero"
+			// "listeDebloque" => "api_ObjectUnlock"
 			);
 		// Si le tableau n'existe pas
 		if(!isset($switcher[$entity]))
