@@ -140,6 +140,7 @@ public function selectRec($momentOfWeek){
 		echo '</pre>';
 		$str = '';
 		foreach ($report as $toUp) {
+			$toUp = explode(', ', $toUp);
 			$str .= "(idChild = ".$toUp[0]." AND idChoreRec = ".$toUp[1]." AND today = ".$toUp[2]." AND day = ".$toUp[3]." AND moment = ".$toUp[4].") OR ";
 		}
 		echo $str = substr($str, 0, -4);
