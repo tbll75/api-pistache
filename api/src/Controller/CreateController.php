@@ -4,13 +4,15 @@ namespace App\Controller;
 
 class CreateController extends MailController{
 
+	private $ids;
+
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
 		$entity = json_decode($_POST['json'], true)['entity']; 
 		$data = json_decode($_POST['json'], true)['data']; 
 		$savedDateTime = json_decode($_POST['json'], true)['savedDateTime']; 
 
-		$this->mainTraitment($entity, $data, $savedDateTime);
+		echo $this->mainTraitment($entity, $data, $savedDateTime);
 	}
 
 
@@ -46,7 +48,7 @@ class CreateController extends MailController{
 		$idJson = $this->respondBDD($tableData[0]);
 
 		// On renvoit la reponse (l'id) nouvellement généré.
-		echo $idJson.".";
+		$ids[] = $idJson;
 
 		// Si on a des sous data (Hero Settings ..) à insérer
 		if($isInsert[1]){ // Si on a d'autre tableau de data a regarder.
@@ -62,7 +64,7 @@ class CreateController extends MailController{
 			}
 		}
 
-		return true;
+		return "{".implode(",", $ids)."}";
 	}
 
 
