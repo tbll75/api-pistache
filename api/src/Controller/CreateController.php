@@ -327,6 +327,7 @@ class CreateController extends MailController{
 		// generate chore Done of the day
 		$recurrentDone = '';
 		foreach ($rep as $choreDone){
+			echo $choreDone['idChoreDone']."<br/>";
 			// onprend que ceux d'ajd.
 			preg_match('!\d+!', $choreDone['dueDate'], $choreTimeStamp);
 			$choreTimeStamp =  substr($choreTimeStamp[0], 0, -3);
