@@ -213,8 +213,8 @@ class CreateController extends MailController{
 		if(!empty($json['momentOfDay'] || $json['momentOfDay'] == '0')){ $momentOfDay = $json['momentOfDay']; }else{ $momentOfDay = ""; }
 		if(!empty($json['dueDate'])){ 
 			$dueDate = $json['dueDate']; 
-			preg_match('!\d+!', $duedate, $duedate);
-			$duedate =  substr($duedate[0], 0, -3);
+			preg_match('!\d+!', $dueDate, $dueDate);
+			$dueDate =  substr($dueDate[0], 0, -3);
 		}else{ $dueDate = ""; }
 		if(!empty($json['timeCompleted'])){ 
 			$timeCompleted = $json['timeCompleted']; 
