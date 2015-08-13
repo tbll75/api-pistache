@@ -178,7 +178,7 @@ public function selectRec($momentOfWeek){
 	    	// sinon..
 	    	}elseif($isIn == 0){
 	    		$choreRec['done'] = 0;
-	    		if($null)
+	    		if($all)
 	    			$result[] = implode(', ',$choreRec);
 	    	}
 		}
