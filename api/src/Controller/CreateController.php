@@ -65,7 +65,8 @@ class CreateController extends MailController{
 		foreach ($data as $key => $value) {
 			if(!is_array($value)){
 				$keys .= $key.", ";
-				$values .= $value.", ";
+				
+				$values .= "'".$value."', ";
 			}
 		}
 		$keys = substr($keys, 0, -2).")";
