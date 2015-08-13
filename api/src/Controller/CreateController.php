@@ -287,17 +287,17 @@ class CreateController extends MailController{
 		$recurrentRec = '';
 		foreach ($rep as $choreRec){
 			// quels enfants ?
-			$children = explode(', ', $choreRec['Children_idChildren']);
+			$children = explode(', ', $choreRec['childId']);
 			foreach ($children as $child) {
 				// pour chaque enfant on rentre la tache
 				if($choreRec['matin'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date(), "day" => $jour[$momentOfWeek], "moment" => "0");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date('N'), "day" => $jour[$momentOfWeek], "moment" => "0");
 				if($choreRec['dejeuner'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date(), "day" => $jour[$momentOfWeek], "moment" => "1");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date('N'), "day" => $jour[$momentOfWeek], "moment" => "1");
 				if($choreRec['gouter'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date(), "day" => $jour[$momentOfWeek], "moment" => "2");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date('N'), "day" => $jour[$momentOfWeek], "moment" => "2");
 				if($choreRec['diner'] == 1)
-					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date(), "day" => $jour[$momentOfWeek], "moment" => "3");
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date('N'), "day" => $jour[$momentOfWeek], "moment" => "3");
 			}
 		}
 
@@ -306,7 +306,7 @@ class CreateController extends MailController{
 		// on place les infos dont on a besoin
 		$punctualRec = '';
 		foreach ($rep as $choreDone) {
-			$punctualRec[] = array("idChild" => $choreDone['idChild'], "idChoreRec" => $choreDone['idChoreRec'], "today" => date(), "day" => $jour[$momentOfWeek], "moment" => "4"); // 4 -> toute la journée
+			$punctualRec[] = array("idChild" => $choreDone['idChild'], "idChoreRec" => $choreDone['idChoreRec'], "today" => date('N'), "day" => $jour[$momentOfWeek], "moment" => "4"); // 4 -> toute la journée
 		}
 
 		echo '<pre>';
