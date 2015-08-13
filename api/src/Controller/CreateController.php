@@ -333,7 +333,7 @@ class CreateController extends MailController{
 		$report = $this->sortChore($rec, $done);
 		$dailyReport = "(".implode('), (', $report);
 		echo $dailyReport; die();
-		$this->insert("INSERT INTO api_DailyReport (idChild, idChoreRec, today, day, moment, done) VALUES $dailyReport")
+		$this->insert("INSERT INTO api_DailyReport (idChild, idChoreRec, today, day, moment, done) VALUES $dailyReport");
 
 		// MAINTENANT ON VERIFIE QUE LES TACHES D'HIER NON FAITE ON ETE FAITES.
 		$rep = $this->select("SELECT * FROM api_DailyReport WHERE today = $today AND done = 0");
