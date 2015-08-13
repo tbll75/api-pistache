@@ -146,7 +146,7 @@ class CreateController extends MailController{
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$entity."'");
 		$fields = array();
 		foreach ($rep as $columnData) {
-			if($columnData['ORDINAL_POSITION'] != 1 && )
+			if($columnData['ORDINAL_POSITION'] != 1)
 				$fields[] = $columnData['COLUMN_NAME'];
 		}
 		// Maintenant on connait les champs de la table. On regarde si on les connais tous.
