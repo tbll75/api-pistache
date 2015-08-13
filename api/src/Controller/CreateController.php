@@ -23,7 +23,7 @@ class CreateController extends MailController{
 			echo '{"error":"Insert problem"}';
 			die();
 		}
-		$idJson = $this->respondBDD($tableBdd);
+		$idJson = $this->respondBDD($tableBdd[0]);
 		echo "idJson : ".$idJson;
 
 		// On renvoit la reponse (l'id) nouvellement généré.
@@ -35,7 +35,7 @@ class CreateController extends MailController{
 	public function respondBDD($table){
 		// on recupère la derniere ligne de la table $table
 		// Pour ca faut déjà connaitre le nom de la colone qui porte l'id.
-		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$switcher[$entity]."'");
+		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$table."'");
 		foreach ($rep as $fields) {
 			if($fields['ORDINAL_POSITION'] == 1){
 				$idColumn = $fields['COLUMN_NAME'];
