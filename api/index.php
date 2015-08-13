@@ -55,6 +55,8 @@
 	$router->post('/create/unlockobject', 'Create#unlockobject');
 	$router->post('/create/support', 'Create#support');
 
+	$router->post('/create', 'Create#dispatch');
+
 // UPDATE
 	$router->post('/update/family', 'Update#family'); 
 	$router->post('/update/child', 'Update#child'); 
