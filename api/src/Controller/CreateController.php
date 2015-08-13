@@ -337,7 +337,7 @@ class CreateController extends MailController{
 		$this->insert("INSERT INTO api_DailyReport (idChild, idChoreRec, today, day, moment, done) VALUES $dailyReport");
 	}
 
-	public function yesterdayReport(){}
+	public function yesterdayReport(){
 		$rep = $this->select("SELECT * FROM api_DailyReport WHERE today = $today AND done = 0");
 		foreach ($rep as $choreMissed) {
 			echo '<pre>';
