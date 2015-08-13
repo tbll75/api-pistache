@@ -79,14 +79,23 @@ public function selectRec($momentOfWeek){
 
 		$rec = $this->selectRec($momentOfWeek);
 		$done = $this->selectDone($momentOfWeek);
+		echo '<pre>';
+		print_r($rec);
+		echo '</pre>';
+		echo "----------------------------------------------------------------------------------------------------";
+		echo '<pre>';
+		print_r($done);
+		echo '</pre>';
 
 		$report = $this->sortChore($rec, $done);
 
 		$dailyReport = "(".implode('), (', $report).")";
 		// On insert dans la bdd
+		echo "----------------------------------------------------------------------------------------------------";
 		echo '<pre>';
 		print_r($report);
 		echo '</pre>';
+		echo "----------------------------------------------------------------------------------------------------";
 		// $this->insert("INSERT INTO api_DailyReport (idChild, idChoreRec, today, day, moment, done) VALUES $dailyReport");
 	}
 
@@ -110,8 +119,9 @@ public function selectRec($momentOfWeek){
 		}
 		// On prend les taches validé aujourdhui
 		$done = $this->selectDone($momentOfWeek);
+		
 
-		echo "------";
+		echo "----------------------------------------------------------------------------------------------------";
 		// echo "<br/>".$yesterday." - 1439369568 - ".$today;
 
 		echo '<pre>';
