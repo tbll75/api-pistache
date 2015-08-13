@@ -276,6 +276,62 @@ class CreateController extends MailController{
 		echo json_encode($repget);
 	}
 
+	public function dailyReport(){
+		// today		
+		$momentOfWeek = date('N') - 1;
+		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
+
+		// select recurrent REC
+		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 1 AND momentOfWeek = '$momentOfWeek'");
+		// generate chore of the day
+		$recurrentRec = '';
+		foreach ($rep as $choreRec){
+			// quels enfants ?
+			$children = explode(', ', $choreRec['Children_idChildren']);
+			foreach ($children as $child) {
+				// pour chaque enfant on rentre la tache
+				if($choreRec['matin'] == 1)
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date(), "day" => $jour[$momentOfWeek], "moment" => "0");
+				if($choreRec['dejeuner'] == 1)
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date(), "day" => $jour[$momentOfWeek], "moment" => "1");
+				if($choreRec['gouter'] == 1)
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date(), "day" => $jour[$momentOfWeek], "moment" => "2");
+				if($choreRec['diner'] == 1)
+					$recurrentRec[] = array("idChild" => $child, "idChoreRec" => $choreRec['idChoreRec'], "today" => date(), "day" => $jour[$momentOfWeek], "moment" => "3");
+			}
+		}
+
+		// select punctual REC
+		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE isRecurrent = 0 AND date = '$date"); // FAIRE LA DATE ****************************** //
+		// on place les infos dont on a besoin
+		$punctualRec = '';
+		foreach ($rep as $choreDone) {
+			$punctualRec[] = array("idChild" => $choreDone['idChild'], "idChoreRec" => $choreDone['idChoreRec'], "today" => date(), "day" => $jour[$momentOfWeek], "moment" => "4"); // 4 -> toute la journée
+		}
+
+		echo '<pre>';
+		print_r($recurrentRec)
+		echo '</pre>';
+
+		echo '<pre>';
+		print_r($punctualRec)
+		echo '</pre>';
+		$rec = array_uintersect($recurrentRec, $punctualRec);
+
+		echo '<pre>';
+		print_r($rec)
+		echo '</pre>';
+
+
+		// select recurrent DONE
+		// $rep = $this->select("SELECT * FROM api_ChoreDone WHERE isRecurrent = 1 AND momentOfWeek = '$momentOfWeek'");
+		// generate chore Done of the day
+		// $recurrentDone = '';
+		// foreach ($rep as $choreDone){
+		// 	// $recurrentDone[] = 
+		// }
+
+	}
 
 
 /************* Fonctions tierses **/

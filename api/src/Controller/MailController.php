@@ -82,7 +82,9 @@ class MailController extends SQLController{
 	}
 
 
-	public function hebdomadaire(){
+	public function report($far){
+
+
 
 	}
 
