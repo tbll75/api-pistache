@@ -320,7 +320,7 @@ class CreateController extends MailController{
 		// print_r($punctualRec);
 		// echo '</pre>';
 
-		$rec = array_uintersect($recurrentRec, $punctualRec);
+		$rec = array_merge($recurrentRec, $punctualRec);
 
 		echo '<pre>';
 		print_r($rec);
