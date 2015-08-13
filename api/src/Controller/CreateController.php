@@ -34,6 +34,10 @@ class CreateController extends MailController{
 		else
 			$entity = $switcher[$entity];
 
+		// On vérifie les cas particuliers
+		if(isset($data['recMomentOfWeek']) || $data['recMomentOfWeek']))
+			$data = $this->modifyDataForMoment($data);
+
 		// On vérifie que tous les champs sont saisies
 		$tableData = $this->entityTraitment($entity, $data);
 
@@ -65,6 +69,31 @@ class CreateController extends MailController{
 		}
 
 		return "{".implode(",", $this->ids)."}";
+	}
+
+
+
+	public function modifyDataForMoment($data){
+		// Modifie la structure de la data pour les momentOf..
+		$recMomentOfWeek = $data['recMomentOfWeek'];
+		$data['lundi'] = $recMomentOfWeek[0];
+		$data['mardi'] = $recMomentOfWeek[1];
+		$data['mercredi'] = $recMomentOfWeek[2];
+		$data['jeudi'] = $recMomentOfWeek[3];
+		$data['vendredi'] = $recMomentOfWeek[4];
+		$data['samedi'] = $recMomentOfWeek[5];
+		$data['dimanche'] = $recMomentOfWeek[6];
+
+		$recMomentOfDay = $data['recMomentOfDay'];
+		$data['matin'] = $recMomentOfDay[0];
+		$data['dej'] = $recMomentOfDay[1];
+		$data['gouter'] = $recMomentOfDay[2];
+		$data['diner'] = $recMomentOfDay[3];
+
+		unset($data['recMomentOfWeek']);
+		unset($data['recMomentOfDay']);
+
+		return $data;
 	}
 
 
@@ -113,11 +142,11 @@ class CreateController extends MailController{
 
 
 	public function entityTraitment($entity, $data){
-
+		// On regarde que pour chaque colonne, on a bien une data.
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$entity."'");
 		$fields = array();
 		foreach ($rep as $columnData) {
-			if($columnData['ORDINAL_POSITION'] != 1)
+			if($columnData['ORDINAL_POSITION'] != 1 && )
 				$fields[] = $columnData['COLUMN_NAME'];
 		}
 		// Maintenant on connait les champs de la table. On regarde si on les connais tous.
