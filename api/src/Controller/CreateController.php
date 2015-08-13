@@ -21,8 +21,8 @@ class CreateController extends MailController{
 			echo '{"error":"Insert problem"}';
 			die();
 		}
-		$idJSON = $this->respondBDD($tableBdd);
-		
+		$idJson = $this->respondBDD($tableBdd);
+		echo $idJson;
 	}
 
 
