@@ -138,6 +138,7 @@ public function selectRec($momentOfWeek){
 		echo '<pre>';
 		print_r($report);
 		echo '</pre>';
+		if(empty($report)){ $report = array(); }
 		foreach ($report as $toUp) {
 			$toUp = explode(', ', $toUp);
 			$str = "idChild = ".$toUp[0]." AND idChoreRec = ".$toUp[1]." AND today = ".$toUp[2]." AND day = ".$toUp[3]." AND moment = ".$toUp[4];
@@ -162,7 +163,7 @@ public function selectRec($momentOfWeek){
 
 
 
-	function sortChore($rec, $done, $all) {
+	function sortChore($rec = array(), $done = array(), $all) {
 		// CONSTRUIT LE TABLEAU AVEC LE PARAMETRE done A JOUR POUR CHAQUE TACHE
 		$result = NULL;
 		// pour chaque tache Rec
