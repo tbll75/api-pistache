@@ -282,6 +282,7 @@ class CreateController extends MailController{
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
 		$today = strtotime(date('d-m-Y'));
 		$yesterday = $today - 60*60*24;
+		$tomorrow = $today + 60*60*24;
 
 		// select recurrent REC
 		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 1 AND $jour[$momentOfWeek] = 1 AND isActive = 1");
@@ -328,11 +329,12 @@ class CreateController extends MailController{
 		foreach ($rep as $choreDone){
 			preg_match('!\d+!', $choreDone['dueDate'], $choreTimeStamp);
 			$choreTimeStamp =  substr($choreTimeStamp[0], 0, 10);
-			$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']); // 4 -> toute la journée
+			if($choreTimeStamp > $today && $choreTimeStamp < $tomorrow)
+				$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']); // 4 -> toute la journée
 
 		}
 
-		echo '<pre>';
+		echo $yesterday." - ".$today." - ".$tomorrow'<pre>';
 		print_r($recurrentDone);
 		echo '</pre>';
 
