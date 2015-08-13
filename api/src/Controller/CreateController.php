@@ -302,7 +302,7 @@ class CreateController extends MailController{
 		}
 
 		// select punctual REC
-		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE isRecurrent = 0"); // FAIRE LA DATE ****************************** //
+		$rep = $this->select("SELECT * FROM api_ChoreRec WHERE isRecurrent = 0"); // FAIRE LA DATE ****************************** //
 		// on place les infos dont on a besoin
 		$punctualRec = '';
 		foreach ($rep as $choreDone) {
