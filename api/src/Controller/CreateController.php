@@ -96,7 +96,7 @@ class CreateController extends MailController{
 			}
 		}
 		if(!empty($missingField)){
-			$error = '{"error":"Missing data : '.implode(', ', $missingField).'"}';
+			echo '{"error":"Missing data : '.implode(', ', $missingField).'"}';
 			die();
 		}else{
 			return $switcher[$entity];
