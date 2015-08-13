@@ -10,21 +10,35 @@ class CreateController extends MailController{
 		$data = json_decode($_POST['json'], true)['data']; 
 		$savedDateTime = json_decode($_POST['json'], true)['savedDateTime']; 
 
-		// On vérifie que tous les champs sont saisies
-		$tableBdd = $this->entityTraitment($entity, $data);
+		$this->mainTraitment($entity, $data, $savedDateTime);
+	}
 
+
+
+	public function mainTraitment($entity, $data, $savedDateTime){
+		// On vérifie que tous les champs sont saisies
+		$tableData = $this->entityTraitment($entity, $data);
+		if(!$tableData[0])
+			return false;
 		// On envoit le traitement vers la fonction d'insert
-		$isInsert = $this->dataInsertTraitment($tableBdd[0], $tableBdd[1], $data);
+		$isInsert = $this->dataInsertTraitment($tableData[0], $tableData[1], $data);
 
 		// Si l'insertion est bonne, on demande le dernier id de la table.
-		if(!$isInsert){
+		if(!$isInsert[0]){ // S'il y a eu une erreur
 			echo '{"error":"Insert problem"}';
 			die();
 		}
-		$idJson = $this->respondBDD($tableBdd[0]);
+		if($isInsert[1]){ // Si on a d'autre tableau de data a regarder.
+			foreach ($data as $key => $value) {
+				if(is_array($value))
+					$this->mainTraitment($key, $value, $savedDateTime);
+			}
+		}
+		$idJson = $this->respondBDD($tableData[0]);
 
 		// On renvoit la reponse (l'id) nouvellement généré.
 		echo $idJson;
+		return $idJson;
 	}
 
 
@@ -55,17 +69,19 @@ class CreateController extends MailController{
 		// on insert la data vers la bdd
 		$keys = '(';
 		$values = '(';
+		$subValues = false;
 		foreach ($data as $key => $value) {
 			if(!is_array($value) && in_array($key, $columns)){
 				$keys .= $key.", ";
 				$values .= "'".$value."', ";
-			}
+			}else
+				$subValues = true;
 		}
 		$keys = substr($keys, 0, -2).")";
 		$values = substr($values, 0, -2).")";
 
 		$this->insert("INSERT INTO $table $keys VALUES $values");
-		return true;
+		return array(true, $subValues);
 	}
 
 
@@ -76,8 +92,15 @@ class CreateController extends MailController{
 			"FamilyData" => "api_Family",
 			"FamilyMember" => "api_Children",
 			"Chore" => "api_ChoreRec",
-			"ChoreChild" => "api_ChoreDone"
+			"ChoreChild" => "api_ChoreDone", 
+			"Settings" => "api_Settings",
+			"Hero" => "api_Hero",
+			"listeDebloque" => "api_ObjectUnlock"
 			);
+		// Si le tableau n'existe pas
+		if(!isset($switcher[$entity]))
+			return array(false, false);
+		// Sinon on continu
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$switcher[$entity]."'");
 		$fields = array();
 		foreach ($rep as $columnData) {
@@ -87,7 +110,7 @@ class CreateController extends MailController{
 		// Maintenant on connait les champs de la table. On regarde si on les connais tous.
 		$missingField = array();
 		foreach ($fields as $field) {
-			if(empty($data[$field])){
+			if(empty($data[$field]) && $data[$field] != '0'){
 				$missingField[] = $field;
 			}
 		}
