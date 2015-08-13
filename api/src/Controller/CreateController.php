@@ -327,7 +327,7 @@ class CreateController extends MailController{
 		$recurrentDone = '';
 		foreach ($rep as $choreDone){
 			preg_match('!\d+!', $choreDone['dueDate'], $choreTimeStamp);
-			print_r($choreTimeStamp)
+			print_r($choreTimeStamp);
 			// $choreTimeStamp = str_replace('000', '', $choreTimeStamp);
 			// echo "<br/>".$choreDone['dueDate']."<br/>".intval($choreDone['dueDate'])."<br/>".$choreTimeStamp;
 			$recurrentDone[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "today" => $today, "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']); // 4 -> toute la journée
