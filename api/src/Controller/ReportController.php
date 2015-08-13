@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-class CreateController extends MailController{
+class ReportController extends MailController{
 
 public function selectRec($momentOfWeek){
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
