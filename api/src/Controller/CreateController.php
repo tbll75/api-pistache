@@ -319,8 +319,8 @@ class CreateController extends MailController{
 		// print_r($rec);
 		// echo '</pre>';
 
-		$e = new DateTime(1439471394000);
-		echo $e;
+		$e = new DateTime('1439471394000');
+		print_r($e);
 
 
 		// // select recurrent DONE
