@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-class CreateController extends MailController{
+class CreateController2 extends MailController{
 
 	public function family(){ 
 		
