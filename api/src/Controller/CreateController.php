@@ -35,7 +35,7 @@ class CreateController extends MailController{
 			$entity = $switcher[$entity];
 
 		// On vérifie les cas particuliers
-		if(isset($data['recMomentOfWeek']) || $data['recMomentOfWeek']))
+		if(isset($data['recMomentOfWeek']) || isset($data['recMomentOfWeek']))
 			$data = $this->modifyDataForMoment($data);
 
 		// On vérifie que tous les champs sont saisies
