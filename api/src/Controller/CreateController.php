@@ -315,7 +315,7 @@ class CreateController extends MailController{
 
 		$rec = array_merge($recurrentRec, $punctualRec);
 
-		echo date('d-m-Y', '1439557833000');
+		echo date('d-m-Y', '1439557833000+0200');
 
 		echo '<pre>';
 		print_r($rec);
