@@ -5,6 +5,7 @@ namespace App\Controller;
 class UpdateController extends MailController{
 
 	private $ids;
+	private $idError = 0;
 
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
