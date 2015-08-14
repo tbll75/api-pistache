@@ -47,7 +47,7 @@ class UpdateController extends MailController{
 		if(isset($data['date'])) { $data['date'] = $this->modifyTimeStampFormat($data['date']); }
 
 		// CAS PARTICULIER 
-		if($entity == 'api_ObjectUnlock'){ 
+		if($entity == 'api_ObjectUnlock' && !empty($data[0])){ 
 			// on refait la structure de la data pour ne garder que les nouveaux
 			$data = $this->modifyDataObject($entity, $data); 
 			// on ajoute les nouvelles entrées, si nouvelles entrées il y a.
@@ -55,6 +55,8 @@ class UpdateController extends MailController{
 				$this->ids = $this->createNewDataObject($entity, $data);
 			// et puis on retourne quelque chose what.
 			return "{".implode(",", $this->ids)."}";
+		}elseif(empty($data[0])){
+			return false;
 		}
 
 		// On vérifie que tous les champs sont saisies
