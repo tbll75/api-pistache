@@ -47,14 +47,23 @@ class GetController extends MailController{
 		// on fait la requete
 		$rep = $this->select("SELECT * FROM $entity WHERE ".$condition['key']." = '".$condition['value']."'");
 		// on réecrit tout ca pour que ce soit au format JSON.
-		$str = '[';
+		$str = '{'.$entity.':[';
+		// pour chaque résultat (ligne/entrée).
 		foreach ($rep as $tableKey => $tabValue) {
 			$str .= '{';
+			// pour chaque clé de la data json.
 			foreach ($data as $dataKey => $dataValue) {
-				if(is_array($dataValue))
+				// si la clé en question est un array, on recursive.
+				if(is_array($dataValue)){
 					$this->mainTraitment($entity, $dataValue, $condition, $integratedDependences);
-				elseif($tableKey == $dataKey)) {
+					break;
+				// sinon on ajoute la valeur si la colonne existe
+				}elseif($tableKey == $dataKey)) {
 					$str.= '"'.$tableKey.'":"'.$tabValue.'"';
+					break;
+				// sinon on dit que ce champs n'existe pas.
+				}else{
+					$str.= '"'.$dataKey.'":"No SQL Colomne"';
 				}
 			}
 			$str .= '}';
@@ -65,7 +74,7 @@ class GetController extends MailController{
 
 
 		// on retourne la data sous form jolie.
-		return $str;
+		return $str.'}';
 
 	}
 
