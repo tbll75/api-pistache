@@ -75,6 +75,7 @@ class GetController extends MailController{
 		$str = '';
 		// on select
 		$rep = $this->select("SELECT $fields FROM $table WHERE $condition");
+		echo $condition."<br/>";
 		// s'il y a plusieurs réponses
 		if(count($rep > 1))
 			$str .= '[';
