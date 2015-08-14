@@ -37,8 +37,6 @@ class UpdateController extends MailController{
 		}else
 			$entity = $switcher[$entity];
 
-		echo " - InDa : ".$entity;
-
 
 		// On vérifie les cas particuliers
 		if(isset($data['recMomentOfWeek']) || isset($data['recMomentOfWeek']))
@@ -51,11 +49,14 @@ class UpdateController extends MailController{
 
 		// CAS PARTICULIER 
 		if($entity == 'api_ObjectUnlock' && count($data) > 1){ 
+			echo 'JE RENTRE DANS LA LIIISTE !!';
 			// on refait la structure de la data pour ne garder que les nouveaux
 			$data = $this->modifyDataObject($entity, $data); 
 			// on ajoute les nouvelles entrées, si nouvelles entrées il y a.
-			if(!empty($data))
-				$this->ids = $this->createNewDataObject($entity, $data);
+			if(!empty($data)){
+				$this->ids[] = $this->createNewDataObject($entity, $data);
+				echo 'OUT';
+			}
 			// et puis on retourne quelque chose what.
 			return "{".implode(",", $this->ids)."}";
 		}elseif($entity == 'api_ObjectUnlock' && count($data) == 1){
@@ -87,7 +88,6 @@ class UpdateController extends MailController{
 					$entityProper = substr($entity, 4);
 					$keyConstruct = $entityProper."_id".$entityProper;
 					$value[$keyConstruct] = $idJson[1];
-					echo " - GoTo : ".$key;
 					// on renvoit la fonction
 					$this->mainTraitment($key, $value);
 				}
@@ -110,6 +110,9 @@ class UpdateController extends MailController{
 		}
 		$values = substr($values, 0, -2);
 
+		print_r($values);
+		echo '\n';
+
 		// requete sql
 		$rep = $this->insert("INSERT INTO $table $keys VALUES $values");
 		// on retourne un jolie truc pour dire que tout s'est bien passé
@@ -126,7 +129,10 @@ class UpdateController extends MailController{
 			if(is_numeric($value)) // en gros on veut tous les id et que les id.
 				$dataEnter[] = array( "Children_idChildren" => $data['Children_idChildren'], "ObjectList_idObjectList" => $value );
 		}
-		
+
+		print_r($dataEnter);
+		echo '\n';
+
 		// Maintenant on regarde ce qui a déjà été rentré en BDD (les objets dejà débloqué par l'enfant)
 		$rep = $this->select("SELECT * FROM $table WHERE Children_idChildren = '".$data['Children_idChildren']."'");
 		// on parcours chaque objet dejà débloqué (forme : array( Children_idChildren => x, ObjectList_idObjectList => y ))
@@ -145,6 +151,9 @@ class UpdateController extends MailController{
 					$newData[] = $newObjectUnlocked;
 			}
 		}
+
+		print_r($newData);
+		echo '\n';
 
 		// on retoune la nouvelle data	
 		return $newData;
