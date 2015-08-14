@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-class CreateController extends MailController{
+class GetController extends MailController{
 
 	private $poubelle;
 
@@ -37,7 +37,7 @@ class CreateController extends MailController{
 		$fields = $this->compareDataSQL($data, $table);
 		$champs = $fields[0];
 		$tableaux = $fields[1];
-		
+
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
 		// $futureCondition = $this->getLinesAndCondition($table, $champs, $condition);
 
