@@ -44,10 +44,10 @@ class FamilyController extends SQLController{
 		echo json_encode($famille);
 	}
 
-	public function alldata(){
+	public function alldata($idFamily){
 
-		$json = $_POST['json'];
-		$idFamily = $json['idFamily'];
+		// $json = $_POST['json'];
+		// $idFamily = $json['idFamily'];
 
 		// Le but de cette methode est de retourner un object qui comprend toutes les infos data d'une famille.
 		/*

@@ -86,7 +86,7 @@
 	$router->get('/family/:champs', "Family#indexfields")->with('champs', '[a-z\-0-9,]+');
 	$router->get('/family', "Family#index");
 // LE getters par excellence. Il donne tout.
-	$router->post('/family/alldata', 'Family#alldata'); // donne un idFamily, et recois touutes les infos de cette familles (enfant hero settings parents etc..)
+	$router->get('/family/alldata/:id', 'Family#alldata')->with('id', '[0-9]+'); // donne un idFamily, et recois touutes les infos de cette familles (enfant hero settings parents etc..)
 
 // Getters children ********************************************************
 	$router->get('/children/:id/:champs', "Children#showfields")->with('id', '[0-9]+')->with('champs', '[a-z\-0-9,]+');
