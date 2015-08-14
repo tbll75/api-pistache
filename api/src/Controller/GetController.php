@@ -38,9 +38,9 @@ class GetController extends MailController{
 		}else
 			$entity = $switcher[$entity];
 
-		// On vérif les conditions
-		if(count($conditions) > 2)
-			$conditions = $this->checkIfId($entity, $conditions, $integratedDependences);
+		// On vérif les condition
+		if(count($condition) > 2)
+			$condition = $this->checkIfId($entity, $condition, $integratedDependences);
 
 		// on fait la requete
 		$rep = $this->select("SELECT * FROM $entity WHERE ".$condition['key']." = '".$condition['value']."'");
