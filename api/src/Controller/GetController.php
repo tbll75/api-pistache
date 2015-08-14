@@ -25,7 +25,7 @@ class GetController extends MailController{
 
 		echo 'START';
 
-		$this->mainTraintment($data, $condition);
+		// $this->mainTraintment($data, $condition);
 
 	}
 
@@ -38,9 +38,9 @@ class GetController extends MailController{
 		echo $table."<br/>";
 
 		// On compare les colonne de notre data avec celle du SQL pour ne garder que le meilleur
-		// $fields = $this->compareDataSQL($data, $table);
-		// $champs = $fields[0];
-		// $tableaux = $fields[1];
+		$fields = $this->compareDataSQL($data, $table);
+		$champs = $fields[0];
+		$tableaux = $fields[1];
 
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
 		// $futureCondition = $this->getLinesAndCondition($table, $champs, $condition);
