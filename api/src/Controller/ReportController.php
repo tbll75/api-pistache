@@ -234,6 +234,7 @@ Traitement de la data pour le reporting sous X jours.
 				}
 			}
 			$periode['child'] = array($miss, $done, $late);
+			print_r($periode['child']);
 		}
 		$childTab = $periodes[0]['child'];
 		$childTabBackPeriode = $periodes[1]['child'];
