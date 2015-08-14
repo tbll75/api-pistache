@@ -74,10 +74,10 @@ class GetController extends MailController{
 	public function getLinesAndNewCondition($table, $champs, $condition){
 		// on prépare les variables
 		$champs = implode(', ', $champs);
-		$condition = implode(' = ', $condition);
+		$whereClaused = implode(' = ', $condition);
 
 		// on fait la requete
-		$rep = $this->select("SELECT $champs FROM $table WHERE $condition");
+		$rep = $this->select("SELECT $champs FROM $table WHERE $whereClaused");
 		echo "<br/>----------------------------<br/>REP : <pre>";
 		print_r($rep);
 		echo "<br/>";
