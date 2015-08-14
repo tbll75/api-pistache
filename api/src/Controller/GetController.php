@@ -56,6 +56,7 @@ class GetController extends MailController{
 		if(empty($condition)){ $condition = $this->majorEntity['key']." = '".$this->majorEntity['value']."'"; }
 		$output .= $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
 
+		echo 'TROISIEME';
 
 		$output .= '}';
 		echo '<pre>';
