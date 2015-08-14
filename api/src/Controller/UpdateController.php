@@ -161,7 +161,7 @@ class UpdateController extends MailController{
 		foreach ($rep as $columnData) {
 			$fields[] = $columnData['COLUMN_NAME'];
 			// on met de coté l'id.
-			if($columnData['ORDINAL_POSITION'] != 1)
+			if($columnData['ORDINAL_POSITION'] == 1)
 				$id['key'] = $columnData['COLUMN_NAME'];
 		}
 		// Maintenant on connait les champs de la table. On regarde si on les connais tous.
