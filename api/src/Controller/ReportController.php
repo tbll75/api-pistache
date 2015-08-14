@@ -222,7 +222,7 @@ Traitement de la data pour le reporting sous X jours.
 
 		foreach($periodes as $periode){
 			// sql pour choper toute la data qui nous interesse
-			$rep = $this->select("SELECT * FROM api_DailyReport WHERE today < '".$periode['endTime']."' AND today > '".$periode['startTime']."'");
+			$rep = $this->select("SELECT * FROM api_DailyReport WHERE today > '".$periode['endTime']."' AND today < '".$periode['startTime']."'");
 			// On construit un tableau structurer : enfant > chore::done 0/1/2
 			$periode['child'] = array();
 			foreach ($rep as $report){
