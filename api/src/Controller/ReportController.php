@@ -218,9 +218,9 @@ Traitement de la data pour le reporting sous X jours.
 				)
 			);
 
-		foreach($periodes as $periode){
+		for ($i=0; $i < count($periodes); $i++) { 
 			// sql pour choper toute la data qui nous interesse
-			$rep = $this->select("SELECT * FROM api_DailyReport WHERE today < '".$periode['endTime']."' AND today > '".$periode['startTime']."'");
+			$rep = $this->select("SELECT * FROM api_DailyReport WHERE today < '".$periodes[$i]['endTime']."' AND today > '".$periodes[$i]['startTime']."'");
 			// On construit un tableau structurer : enfant > chore::done 0/1/2
 			$miss = $done = $late = '';
 			foreach ($rep as $report){
@@ -233,10 +233,10 @@ Traitement de la data pour le reporting sous X jours.
 					$late[] = $report;
 				}
 			}
-			$periode['child'] = array($miss, $done, $late);
+			$periodes[$i]['child'] = array($miss, $done, $late);
 		}
-		$childTab = $periodes[0];
-		$childTabBackPeriode = $periodes[1];
+		$childTab = $periodes[0]['child'];
+		$childTabBackPeriode = $periodes[1]['child'];
 
 		// A ce niveau chaque enfant possède des données statistique sur la période en cours choisie. On va en rajouter (rapport par rapport à la période précédante etc..)
 		echo "--------------------------<br/>Periode en cours";
