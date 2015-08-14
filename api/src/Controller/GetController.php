@@ -56,9 +56,8 @@ class GetController extends MailController{
 		if(empty($condition)){ $condition = $this->majorEntity['key']." = '".$this->majorEntity['value']."'"; }
 		$output .= $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
 
-		echo 'TROISIEME';
 
-		$output .= '}';
+		$output .= '}'
 		echo '<pre>';
 		print_r($output);
 		echo '</pre>';
@@ -76,10 +75,6 @@ class GetController extends MailController{
 		$str = '';
 		// on select
 		$rep = $this->select("SELECT $fields FROM $table WHERE $condition");
-
-			echo '<pre>';
-			print_r($rep);
-			echo '</pre>';
 		// s'il y a plusieurs réponses
 		if(count($rep) > 1)
 			$str .= '[';
@@ -87,25 +82,15 @@ class GetController extends MailController{
 		foreach ($rep as $entry) {
 			$str .= '{';
 
-			echo 'PREMIER<pre>';
-			print_r($entry);
-			echo '</pre>';
-
 			// on parcours les key=>value
 			foreach ($entry as $key => $value) {
 
-				echo 'DEUXIEME<pre>';
-				print_r($key.' - '.$value);
-				echo '</pre>';
-
-				echo $str .= '"'.$key.'":"'.$value.'", ';
-				echo "<br/>";
+				$str .= '"'.$key.'":"'.$value.'", ';
 			}
 
-			// echo $str .= substr($str, 0, -2).'}, ';
-			// echo "<br/>";
+			$str = substr($str, 0, -2).'}, ';
 		}
-		echo $str .= substr($str, 0, -2);
+		$str = substr($str, 0, -2);
 		if(count($rep) > 1)
 			$str .= '}';
 
