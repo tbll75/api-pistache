@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-class UpdateController extends MailController{
+class UpdateController2 extends MailController{
 
 	public function family(){
 /* La synthaxe sql ici nous arrange, on reçoit un json decode de la forme array(key => value) du coup une fois l'id trouvé, on parcours le tableau et on récupère 

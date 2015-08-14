@@ -12,12 +12,12 @@ class CreateController extends MailController{
 		$data = json_decode($_POST['json'], true)['data']; 
 		$savedDateTime = json_decode($_POST['json'], true)['savedDateTime']; 
 
-		echo $this->mainTraitment($entity, $data, $savedDateTime);
+		echo $this->mainTraitment($entity, $data);
 	}
 
 
 
-	public function mainTraitment($entity, $data, $savedDateTime){
+	public function mainTraitment($entity, $data){
 		// Ici on vérifie les données nécessaires pour chaque entité, et on retourne soit une erreur soit le nom de la table BDD pour le traitement de l'entité.
 		$switcher = array(
 			"FamilyData" => "api_Family",
@@ -26,12 +26,13 @@ class CreateController extends MailController{
 			"ChoreChild" => "api_ChoreDone", 
 			"Settings" => "api_Settings",
 			"hero" => "api_Hero"
-			// "listeDebloque" => "api_ObjectUnlock"
+			"listeDebloque" => "api_ObjectUnlock"
 			);
 		// Si le tableau n'existe pas
-		if(!isset($switcher[$entity]))
+		if(!isset($switcher[$entity])){
+			echo '{"error":"Entity unknown"}';
 			return false;
-		else
+		}else
 			$entity = $switcher[$entity];
 
 		// On vérifie les cas particuliers
@@ -68,7 +69,7 @@ class CreateController extends MailController{
 					$keyConstruct = $entityProper."_id".$entityProper;
 					$value[$keyConstruct] = $idJson[1];
 					// on renvoit la fonction
-					$this->mainTraitment($key, $value, $savedDateTime);
+					$this->mainTraitment($key, $value); // Ici $value est l'array contenant la data de l'entity $key.
 				}
 			}
 		}
@@ -79,8 +80,10 @@ class CreateController extends MailController{
 
 
 	public function modifyTimeStampFormat($modifiedData){
+		// Petite magouille pour choper juste le timestamp.
 		preg_match('!\d+!', $modifiedData, $modifiedData);
 		$modifiedData =  substr($modifiedData[0], 0, -3);
+		// on retourne la nouvelle valeur.
 		return $modifiedData;
 	}
 
