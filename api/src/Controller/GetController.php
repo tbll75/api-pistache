@@ -37,6 +37,9 @@ class GetController extends MailController{
 			return false;
 		}else
 			$entity = $switcher[$entity];
+		echo '<pre>';
+		print_r($condition);
+		echo '</pre>';
 
 		// On vérif les condition
 		if(count($condition) > 2)
