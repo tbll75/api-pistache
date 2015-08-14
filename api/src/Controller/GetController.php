@@ -32,9 +32,12 @@ class GetController extends MailController{
 			$this->majorEntity['table'] = $entity;
 		}
 
+		// initiate conditions
+		$condition = $this->majorEntity['key']." = '".$this->majorEntity['value']."'";
+
 		echo "---------------------------------------------------------------------------------------------------------------------------------<br/>";
 		echo 'DATA<pre>';
-		// print_r($data);
+		print_r($data);
 		echo '</pre>';
 
 
@@ -63,14 +66,14 @@ class GetController extends MailController{
 		// on commence l'output
 		$output = '{"'.array_search($entity, $this->switcher).'":';
 		// On cherche les champs souhaité
-		if(empty($condition) && $this->majorEntity['table'] == $entity){ $condition = $this->majorEntity['key']." = '".$this->majorEntity['value']."'"; }
+		if(empty($condition) && $this->majorEntity['table'] == $entity){ echo '{"Error"'.$this->idError++.':"Condition not found"}' }
 		$output .= $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
 
 		// On fouille les autres tableau, warning recursive.
 		if($integratedDependences){
 			$condition = $this->majorEntity['table']."_".$this->majorEntity['key'];
-			foreach ($sortedData[1] as $arrayField) {
-				$output .= $this->mainTraitment($arrayField, $data[$arrayField], $integratedDependences);
+			foreach ($sortedData[1] as $fieldTable) {
+				$output .= $this->mainTraitment($fieldTable, $data[$fieldTable], $integratedDependences);
 			}
 		}
 
