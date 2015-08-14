@@ -6,7 +6,7 @@ class GetController extends MailController{
 
 	private $idParentReference;
 	private $idError = 0;
-	private $majorEntity[];
+	private $majorEntity;
 
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
@@ -40,7 +40,7 @@ class GetController extends MailController{
 			return false;
 		}else{
 			$entity = $switcher[$entity];
-			$this->$majorEntity['table'] = $entity;
+			$this->majorEntity['table'] = $entity;
 		}
 
 		// On récupère la structure de la table ciblée.
