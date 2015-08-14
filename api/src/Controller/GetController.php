@@ -64,8 +64,8 @@ class GetController extends MailController{
 		// On fouille les autres tableau, warning recursive.
 		if($integratedDependences){
 			$condition = $this->majorEntity['table']."_".$this->majorEntity['key'];
-			foreach ($sortedData[1] as $entity) {
-				$output .= $this->mainTraitment($entity, $data[$entity], $integratedDependences);
+			foreach ($sortedData[1] as $arrayField) {
+				$output .= $this->mainTraitment($arrayField, $data[$arrayField], $integratedDependences);
 			}
 		}
 
@@ -125,7 +125,6 @@ class GetController extends MailController{
 
 			// par aillerus on stock l'id du patron ci nécéssaire
 			if($key == $this->majorEntity['key']){
-				echo $this->majorEntity['key'];
 				$this->majorEntity['value'] = $value;
 				unset($fields[array_search($key, $fields)]);
 			}
