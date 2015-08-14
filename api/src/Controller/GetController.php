@@ -34,8 +34,10 @@ class CreateController extends MailController{
 		$table = $this->findTable($data);
 
 		// On compare les colonne de notre data avec celle du SQL pour ne garder que le meilleur
-		array($champs, $tableaux) = $this->compareDataSQL($data, $table);
-
+		$fields = $this->compareDataSQL($data, $table);
+		$champs = $fields[0];
+		$tableaux = $fields[1];
+		
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
 		// $futureCondition = $this->getLinesAndCondition($table, $champs, $condition);
 
