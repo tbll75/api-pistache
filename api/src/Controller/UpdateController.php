@@ -169,12 +169,11 @@ class UpdateController extends MailController{
 		foreach ($fields as $field) {
 			if(empty($data[$field]) && $data[$field] != '0'){
 				$missingField[] = $field;
-				// on met de coté la valeur de l'id.
-				if($field == $id['key'] && !empty($data[$field])){
-					$id['value'] = $data[$field];
-					echo "idValue : ".$id['value'];
-				}else
 			}
+			// on met de coté la valeur de l'id.
+			if($field == $id['key'] && !empty($data[$field])){
+				$id['value'] = $data[$field];
+			}else
 		}
 		if(!empty($missingField)){
 			echo '{"error":"Missing data : '.implode(', ', $missingField).'"}';
