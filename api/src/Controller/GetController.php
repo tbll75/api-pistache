@@ -78,13 +78,13 @@ class GetController extends MailController{
 		$rep = $this->select("SELECT $champs FROM $table WHERE $whereClaused");
 		echo "<br/>----------------------------<br/>REP : ".$table." -> ".$whereClaused."<pre>";
 		print_r($rep);
-		echo "<br/>";
+		echo "</pre>";
 
 		// on construit la nouvelle condition
 		$condition = array(substr($condition[0], 2)."_".$condition[0], $condition[1]);
 		echo "<br/>----------------------------<br/>CONDITION : <pre>";
 		print_r($condition);
-		echo "<br/>";
+		echo "</pre>";
 
 		return $condition;
 	}
@@ -137,7 +137,7 @@ class GetController extends MailController{
 
 		echo "<br/>----------------------------<br/>DATA : <pre>";
 		print_r($data);
-		echo "<br/>";
+		echo "</pre>";
 
 		$table = "";
 		$idKey = "";
