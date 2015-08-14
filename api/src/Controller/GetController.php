@@ -60,7 +60,7 @@ class GetController extends MailController{
 					$condition['key'] = $entityParent."_id".$entityParent;
 					$parentKey = "id".substr($entity, 4);
 					$condition['value'] = $entry[$parentKey];
-					$str .= $this->getEntry($key, $condition, $integratedDependences);
+					$str .= $this->mainTraitment($key, $condition, $integratedDependences);
 				}
 			}
 			$str = substr($str, 0, -2).'}, ';
