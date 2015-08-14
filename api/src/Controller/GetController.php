@@ -6,7 +6,7 @@ class GetController extends MailController{
 
 	private $idParentReference;
 	private $idError = 0;
-	private $majorEntity;
+	private $majorEntity = array();
 
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
@@ -53,7 +53,7 @@ class GetController extends MailController{
 		// $output = $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
 
 		echo '<pre>';
-		print_r($majorEntity);
+		print_r($this->majorEntity);
 		echo '</pre>';
 
 		die();
