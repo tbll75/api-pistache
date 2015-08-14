@@ -33,7 +33,7 @@ class GetController extends MailController{
 			$entity = $switcher[$entity];
 			$this->majorEntity['table'] = $entity;
 		}
-		
+
 
 		$dataToShow = $this->mainTraitment($entity, $data, $integratedDependences);
 
@@ -53,6 +53,7 @@ class GetController extends MailController{
 		$sortedData = $this->filterDataForThisTable($entity, $data, $tableStruct);
 
 		// On cherche les champs souhaité
+		if(empty($condition)){ $condition = $this->majorEntity['key']." = '".$this->majorEntity['value']."'"; }
 		$output = $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
 
 		echo '<pre>';
@@ -70,7 +71,9 @@ class GetController extends MailController{
 		// on préprare
 		$fields = implode(', ', $fields);
 		// on select
-		$rep = $this->select("SELECT $fields FROM $table ");
+		$rep = $this->select("SELECT $fields FROM $table WHERE $condition");
+
+		return $rep;
 	}
 
 
@@ -87,8 +90,10 @@ class GetController extends MailController{
 				$otherTable[] = $key;
 
 			// par aillerus on stock l'id du patron ci nécéssaire
-			if($key == $this->majorEntity['key'])
+			if($key == $this->majorEntity['key']){
 				$this->majorEntity['value'] = $value;
+				unset($fields[$key]);
+			}
 		}
 
 		return array($fields, $otherTable);
