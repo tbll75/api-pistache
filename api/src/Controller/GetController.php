@@ -44,6 +44,11 @@ class GetController extends MailController{
 
 
 	public function mainTraintment($data, $condition){
+		
+
+		echo "<br/>----------------------------<br/>DATA : <pre>";
+		print_r($data);
+		echo "</pre>";
 
 		// d'abord on devine de quelle table is s'agit en chequant l'id
 		$infos = $this->findTable($data);
@@ -134,10 +139,6 @@ class GetController extends MailController{
 
 
 	public function findTable($data){
-
-		echo "<br/>----------------------------<br/>DATA : <pre>";
-		print_r($data);
-		echo "</pre>";
 
 		$table = "";
 		$idKey = "";
