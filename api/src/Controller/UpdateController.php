@@ -87,7 +87,7 @@ class UpdateController extends MailController{
 					$entityProper = substr($entity, 4);
 					$keyConstruct = $entityProper."_id".$entityProper;
 					$value[$keyConstruct] = $idJson[1];
-					echo " - GoTo : ".$keyConstruct;
+					echo " - GoTo : ".$key;
 					// on renvoit la fonction
 					$this->mainTraitment($key, $value);
 				}
