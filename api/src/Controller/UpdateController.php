@@ -58,7 +58,7 @@ class UpdateController extends MailController{
 				$this->ids = $this->createNewDataObject($entity, $data);
 			// et puis on retourne quelque chose what.
 			return "{".implode(",", $this->ids)."}";
-		}elseif(empty($data[0])){
+		}elseif($entity == 'api_ObjectUnlock' && empty($data[0])){
 			$this->ids[] = '"Object":"No data"';
 			return "{".implode(",", $this->ids)."}";
 		}
