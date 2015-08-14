@@ -63,8 +63,8 @@ class GetController extends MailController{
 
 		// on retourne notre json de folie
 
-		echo 'CHAMPS : <pre>';
-		print_r($champs);
+		echo 'futureCondition : <pre>';
+		print_r($futureCondition);
 		echo '</pre>';
 
 	}
@@ -83,7 +83,10 @@ class GetController extends MailController{
 		echo "<br/>";
 
 		// on construit la nouvelle condition
-		$condition = array(substr($condition[O], 2)."_".$condition[0], $condition[1]);
+		$condition = array(substr($condition[0], 2)."_".$condition[0], $condition[1]);
+		echo "<br/>----------------------------<br/>CONDITION : <pre>";
+		print_r($condition);
+		echo "<br/>";
 	}
 
 
