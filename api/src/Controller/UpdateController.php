@@ -128,7 +128,7 @@ class UpdateController extends MailController{
 		}
 
 		// Maintenant on regarde ce qui a déjà été rentré en BDD (les objets dejà débloqué par l'enfant)
-		$rep = $this->select("SELECT * FROM $table WHERE Children_idChildren = '$Children_idChildren'")
+		$rep = $this->select("SELECT * FROM $table WHERE Children_idChildren = '$Children_idChildren'");
 		// on parcours chaque objet dejà débloqué (forme : array( Children_idChildren => x, ObjectList_idObjectList => y ))
 		$newData = '';
 		foreach ($dataEnter as $newObjectUnlocked) {
