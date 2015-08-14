@@ -38,6 +38,11 @@ class CreateController extends MailController{
 		if(isset($data['recMomentOfWeek']) || isset($data['recMomentOfWeek']))
 			$data = $this->modifyDataForMoment($data);
 
+		// Ajouter les champ pour le dateTimeFormat.
+		if(isset($data['dueDate'])){ $data['dueDate']) = $this->modifyTimeStampFormat($data['dueDate'])); }
+		if(isset($data['timeCompleted']){ $data['timeCompleted'] = $this->modifyTimeStampFormat($data['timeCompleted']); }
+		if(isset($data['date'])) { $date['date']data = $this->modifyTimeStampFormat($data['date']); }
+
 		// On vérifie que tous les champs sont saisies
 		$tableData = $this->entityTraitment($entity, $data);
 
@@ -69,6 +74,14 @@ class CreateController extends MailController{
 		}
 
 		return "{".implode(",", $this->ids)."}";
+	}
+
+
+
+	public function modifyTimeStampFormat($modifiedData){
+		preg_match('!\d+!', $modifiedData, $modifiedData);
+		$modifiedData =  substr($modifiedData[0], 0, -3);
+		return $modifiedData;
 	}
 
 
