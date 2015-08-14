@@ -32,8 +32,8 @@ class GetController extends MailController{
 			$this->majorEntity['table'] = $entity;
 		}
 
-
-		echo '<pre>';
+		echo "---------------------------------------------------------------------------------------------------------------------------------<br/>";
+		echo 'DATA<pre>';
 		print_r($data);
 		echo '</pre>';
 
@@ -70,7 +70,8 @@ class GetController extends MailController{
 		}
 
 		$output .= '}';
-		echo '<pre>';
+		echo "---------------------------------------------------------------------------------------------------------------------------------<br/>";
+		echo 'OUTPUT<pre>';
 		print_r($output);
 		echo '</pre>';
 
