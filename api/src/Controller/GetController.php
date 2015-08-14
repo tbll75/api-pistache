@@ -34,7 +34,7 @@ class GetController extends MailController{
 
 		echo "---------------------------------------------------------------------------------------------------------------------------------<br/>";
 		echo 'DATA<pre>';
-		print_r($data);
+		// print_r($data);
 		echo '</pre>';
 
 
