@@ -60,9 +60,9 @@ class GetController extends MailController{
 
 	public function filterDataForThisTable($table, $data, $tableStruct){
 		// on compare si oui on garde sinon ou met de coté pour plus tard
+		$fields = '';
+		$otherTable = '';
 		foreach ($data as $key => $value) {
-			$fields = '';
-			$otherTable = '';
 			// c'est dans la structure
 			if(in_array($key, $tableStruct))
 				$fields[] = $key;
