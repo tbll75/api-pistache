@@ -86,14 +86,14 @@ class GetController extends MailController{
 		foreach ($rep as $entry) {
 			$str .= '{';
 
-			echo '<pre>';
+			echo 'PREMIER<pre>';
 			print_r($entry);
 			echo '</pre>';
 
 			// on parcours les key=>value
 			foreach ($entry as $key => $value) {
 
-				echo '<pre>';
+				echo 'DEUXIEME<pre>';
 				print_r($key.' - '.$value);
 				echo '</pre>';
 
@@ -101,11 +101,10 @@ class GetController extends MailController{
 				echo "<br/>";
 			}
 
-			echo $str .= substr($str, 0, -2).'}, BITE';
+			echo $str .= substr($str, 0, -2).'}, ';
 			echo "<br/>";
 		}
 		echo $str .= substr($str, 0, -2);
-		echo "TEUUBE<br/>";
 		if(count($rep) > 1)
 			$str .= '}';
 
