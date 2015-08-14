@@ -64,7 +64,7 @@ class GetController extends MailController{
 			$colonne[] = $col['COLUMN_NAME'];
 		}
 		// on renvoit la réponse
-		return $rep;
+		return $colonne;
 	}
 
 
