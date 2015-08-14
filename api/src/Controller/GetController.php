@@ -54,14 +54,15 @@ class GetController extends MailController{
 				// on rentre ou traite une nouvelle select suivant si c'est un tableau ou non.
 				if(!is_array($value))
 					$str .= '"'.$key.'":"'.$value.'", ';
-				elseif($integratedDependences){
+				elseif($integratedDependences == 1){
 					// on modif la condition pour que ca devienne la référence
 					$entityParent = substr($entity, 4);
 					$condition['key'] = $entityParent."_id".$entityParent;
 					$parentKey = "id".substr($entity, 4);
 					$condition['value'] = $entry[$parentKey];
 					$str .= $this->mainTraitment($key, $condition, $integratedDependences);
-				}
+				}else
+				echo "<br/>Nothing Else To Do.<br/>";
 			}
 			$str = substr($str, 0, -2).'}, ';
 		}
