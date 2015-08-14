@@ -5,6 +5,7 @@ namespace App\Controller;
 class GetController extends MailController{
 
 	private $idParentReference;
+	private $idError = 0;
 
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
@@ -52,7 +53,7 @@ class GetController extends MailController{
 			foreach ($data as $dataKey => $dataValue) {
 				if(is_array($dataValue))
 					$this->mainTraitment($entity, $dataValue, $condition, $integratedDependences);
-				elseif(array_key_exists($dataKey, $rep[0])) { // [0] car ici seul les clés nous intéressent, pas les valeurs.
+				elseif($tableKey == $dataKey)) {
 					$str.= '"'.$tableKey.'":"'.$tabValue.'"';
 				}
 			}
