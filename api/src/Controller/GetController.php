@@ -55,6 +55,11 @@ class GetController extends MailController{
 		// On compare avec la data pour filtrer les champs des 'dataEnfants'.
 		$sortedData = $this->filterDataForThisTable($entity, $data, $tableStruct);
 
+		echo "---------------------------------------------------------------------------------------------------------------------------------<br/>";
+		echo 'TABLE DATA<pre>';
+		print_r($sortedData[1]);
+		echo '</pre>';
+
 		// on commence l'output
 		$output = '{"'.array_search($entity, $this->switcher).'":';
 		// On cherche les champs souhaité
