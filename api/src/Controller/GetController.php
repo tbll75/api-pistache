@@ -23,6 +23,8 @@ class GetController extends MailController{
 			$this->majorEntity['table'] = $entity;
 		}
 
+		echo 'START';
+
 		$this->mainTraintment($data, $condition);
 
 	}
