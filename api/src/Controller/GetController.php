@@ -7,6 +7,15 @@ class GetController extends MailController{
 	private $idParentReference;
 	private $idError = 0;
 	private $majorEntity;
+	private $switcher = array(
+				"FamilyData" => "api_Family",
+				"FamilyMember" => "api_Children",
+				"Chore" => "api_ChoreRec",
+				"ChoreChild" => "api_ChoreDone", 
+				"Settings" => "api_Settings",
+				"hero" => "api_Hero",
+				// "listeDebloque" => "api_ObjectUnlock"
+			);
 
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
@@ -14,23 +23,12 @@ class GetController extends MailController{
 		$data = json_decode($_POST['json'], true)['data']; 
 		$integratedDependences = json_decode($_POST['json'], true)['integratedDependences']; 
 
-
-		// Ici on vérifie les données nécessaires pour chaque entité, et on retourne soit une erreur soit le nom de la table BDD pour le traitement de l'entité.
-		$switcher = array(
-			"FamilyData" => "api_Family",
-			"FamilyMember" => "api_Children",
-			"Chore" => "api_ChoreRec",
-			"ChoreChild" => "api_ChoreDone", 
-			"Settings" => "api_Settings",
-			"hero" => "api_Hero",
-			// "listeDebloque" => "api_ObjectUnlock"
-			);
 		// Si le tableau n'existe pas
-		if(!isset($switcher[$entity])){
+		if(!isset($this->switcher[$entity])){
 			$this->ids[] =  '"error'.$this->idError++.'":"Entity '.$entity.' unknown"';
 			return false;
 		}else{
-			$entity = $switcher[$entity];
+			$entity = $this->switcher[$entity];
 			$this->majorEntity['table'] = $entity;
 		}
 
@@ -53,7 +51,7 @@ class GetController extends MailController{
 		$sortedData = $this->filterDataForThisTable($entity, $data, $tableStruct);
 
 		// on commence l'output
-		$output = '{"'.array_search($entity, $switcher).'":';
+		$output = '{"'.array_search($entity, $this->switcher).'":';
 		// On cherche les champs souhaité
 		if(empty($condition)){ $condition = $this->majorEntity['key']." = '".$this->majorEntity['value']."'"; }
 		$output .= $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
