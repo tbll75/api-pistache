@@ -50,9 +50,11 @@ class GetController extends MailController{
 		$str = '{'.$entity.':[';
 		// pour chaque résultat (ligne/entrée).
 		foreach ($rep as $tableKey => $tabValue) {
+			echo "REP : ".$tableKey." - ".$tabValue."<br/>";
 			$str .= '{';
 			// pour chaque clé de la data json.
 			foreach ($data as $dataKey => $dataValue) {
+			echo "DATA : ".$tableKey." - ".$tabValue."<br/>";
 				// si la clé en question est un array, on recursive.
 				if(is_array($dataValue)){
 					$this->mainTraitment($entity, $dataValue, $condition, $integratedDependences);
