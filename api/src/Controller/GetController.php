@@ -153,7 +153,7 @@ class GetController extends MailController{
 			echo "CAN NOT FIND TABLE";
 			die();
 		}else{
-			$table = substr($idKey, 2);
+			$table = "api_".substr($idKey, 2);
 			return array($table, $idKey, $idValue);
 		}
 	}
