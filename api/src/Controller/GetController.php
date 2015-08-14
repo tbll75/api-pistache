@@ -56,6 +56,13 @@ class GetController extends MailController{
 		if(empty($condition)){ $condition = $this->majorEntity['key']." = '".$this->majorEntity['value']."'"; }
 		$output .= $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
 
+		// On fouille les autres tableau, warning recursive.
+		if($integratedDependences){
+			$condition = $this->majorEntity['table']."_".$this->majorEntity['key'];
+			foreach ($sortedData[1] as $entity) {
+				$output .= $this->doRecursive($entity, $data[$entity], $condition);
+			}
+		}
 
 		$output .= '}';
 		echo '<pre>';
