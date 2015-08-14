@@ -90,6 +90,7 @@ class GetController extends MailController{
 			}
 		}
 		// si id il y a
+		echo $idColumn. " - ".$data[$idColumn];
 		if (!empty($data[$idColumn])){
 			// On prépare l'id de référence pour une potentielle recherche en cascade
 			$entityProper = substr($table, 4);
