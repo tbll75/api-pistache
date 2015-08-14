@@ -147,7 +147,7 @@ class UpdateController extends MailController{
 						break;
 					}
 				}
-				if(!$isIn)
+				if($isIn == 0)
 					$newData[] = $newObjectUnlocked;
 			}
 		}
