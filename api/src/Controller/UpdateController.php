@@ -170,8 +170,10 @@ class UpdateController extends MailController{
 			if(empty($data[$field]) && $data[$field] != '0'){
 				$missingField[] = $field;
 				// on met de coté la valeur de l'id.
-				if($field == $id['key'] && !empty($data[$field]))
+				if($field == $id['key'] && !empty($data[$field])){
 					$id['value'] = $data[$field];
+					echo "idValue : ".$id['value'];
+				}else
 			}
 		}
 		if(!empty($missingField)){
