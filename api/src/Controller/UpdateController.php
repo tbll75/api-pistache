@@ -121,15 +121,16 @@ class UpdateController extends MailController{
 	public function modifyDataObject($table, $data){
 		// Pour le moment on a un array avec des ids, faut mettre la clé.
 		// array(Children_idChildren => x, 1,4,7) => array( array( Children_idChildren => x, ObjectList_idObjectList => y ), array( ... ) )
-		foreach ($data as $key => $value) {
-			if(is_numeric($key)) // en gros on veut tous les id et que les id.
-				$data[$key] = array( "Children_idChildren" => $data['Children_idChildren'], "ObjectList_idObjectList" => $value );
+		$dataEnter = '';
+		foreach ($data as $value) {
+			if(is_numeric($value)) // en gros on veut tous les id et que les id.
+				$dataEnter[] = array( "Children_idChildren" => $data['Children_idChildren'], "ObjectList_idObjectList" => $value );
 		}
 		
 		// Maintenant on regarde ce qui a déjà été rentré en BDD (les objets dejà débloqué par l'enfant)
 		$rep = $this->select("SELECT * FROM $table WHERE Children_idChildren = '".$data['Children_idChildren']."'");
 		// on parcours chaque objet dejà débloqué (forme : array( Children_idChildren => x, ObjectList_idObjectList => y ))
-		foreach ($data as $key => $newObjectUnlocked) {
+		foreach ($dataEnter as $key => $newObjectUnlocked) {
 			if(is_numeric($newObjectUnlocked)){
 				$isIn = 0;	
 				// on parcours chacun de la liste des nouveaux arrivant
