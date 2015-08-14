@@ -72,7 +72,7 @@ class GetController extends MailController{
 
 
 
-	public function checkIfId($table, $data, integratedDependences){
+	public function checkIfId($table, $data, $integratedDependences){
 		// on cherche le nom de la colonne avec l'id
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$table."'");
 		foreach ($rep as $fields) {
