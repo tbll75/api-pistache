@@ -89,15 +89,11 @@ class GetController extends MailController{
 
 		// petite requete sql
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$table."'");
-		echo 'REP : <pre>';
-		print_r($rep);
-		echo '</pre>';
 
 		// on filtre les infos intéressante
 		$struct = '';
 		foreach ($rep as $col) {
 			$struct[] = $col['COLUMN_NAME'];
-			echo $col['COLUMN_NAME']."<br>";
 		}
 		// on renvoit la réponse
 		return $struct;
@@ -110,14 +106,12 @@ class GetController extends MailController{
 
 		// On chope la gueule de la table $table (les colonnes quoi)
 		$struct = $this->getTableStruct($table);
-		echo 'STRUCT : '.$table.'<pre>';
-		print_r($struct);
-		echo '</pre>';
 		$champs = '';
 		$tableaux = '';
 
 		// On filtre pour trier les champs que l'on garde, les champs qui sont les entités 'enfants', et pour jeter le reste qui ne correspond a rien pour la BDD
 		foreach ($data as $field => $value) {
+			echo $field;
 			// Si c'est un champ de la table SQL
 			if(in_array($field, $struct))
 				$champs[] = $field;
