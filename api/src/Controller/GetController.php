@@ -52,9 +52,11 @@ class GetController extends MailController{
 		// On compare avec la data pour filtrer les champs des 'dataEnfants'.
 		$sortedData = $this->filterDataForThisTable($entity, $data, $tableStruct);
 
+		// on commence l'output
+		$output = '{';
 		// On cherche les champs souhaité
 		if(empty($condition)){ $condition = $this->majorEntity['key']." = '".$this->majorEntity['value']."'"; }
-		$output = $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
+		$output .= $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
 
 		echo '<pre>';
 		print_r($output);
@@ -70,10 +72,28 @@ class GetController extends MailController{
 	public function selectTableElements($table, $fields, $condition){
 		// on préprare
 		$fields = implode(', ', $fields);
+		$str = '';
 		// on select
 		$rep = $this->select("SELECT $fields FROM $table WHERE $condition");
+		// s'il y a plusieurs réponses
+		if(count($rep > 1))
+			$str .= '[';
+		// on parcours le ligne
+		foreach ($rep as $entry) {
+			$str .= '{';
 
-		return $rep;
+			// on parcours les key=>value
+			foreach ($entry as $key => $value) {
+				$str .= '"'.$key.'":"'.$value.'", ';
+			}
+
+			$str .= substr($str, 0, -2).'}, ';
+		}
+		$str .= substr($str, 0, -2);
+		if(count($rep > 1))
+			$str .= '}';
+
+		return $str;
 	}
 
 
