@@ -202,7 +202,7 @@ Traitement de la data pour le reporting sous X jours.
 
 		// on définie les date qui cernes la/les zone/s de reporting/infotainment
 		$endTime = time();
-		$startTime = $startTime - $daysBack * 60 * 60 * 24;
+		$startTime = $endTime - $daysBack * 60 * 60 * 24;
 		// période d'avant.
 		$endTimeBackPeriode = $startTime - 60 * 60 * 60 * 24;
 		$startTimeBackPeriode = $endTimeBackPeriode - $daysBack * 60 * 60 * 24;
@@ -247,7 +247,7 @@ Traitement de la data pour le reporting sous X jours.
 		echo "</pre>";
 		echo "--------------------------<br/>Periode précédante";
 		echo "<pre>";
-		print_r($chilchildTabBackPeriodedTab);
+		print_r($childTabBackPeriode);
 		echo "</pre>";
 
 	}
