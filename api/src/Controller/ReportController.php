@@ -204,7 +204,7 @@ Traitement de la data pour le reporting sous X jours.
 		$endTime = time();
 		$startTime = $endTime - $daysBack * 60 * 60 * 24;
 		// période d'avant.
-		$endTimeBackPeriode = $startTime - 60 * 60 * 60 * 24;
+		$endTimeBackPeriode = $startTime;
 		$startTimeBackPeriode = $endTimeBackPeriode - $daysBack * 60 * 60 * 24;
 		// array contenant les deux périodes et leur tableau de sortie.
 		$periodes = array(
