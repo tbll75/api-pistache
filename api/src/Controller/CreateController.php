@@ -31,7 +31,7 @@ class CreateController extends MailController{
 			);
 		// Si le tableau n'existe pas
 		if(!isset($switcher[$entity])){
-			$this->ids[] =  '"error'.$idError.'":"Entity '.$entity.' unknown"';
+			$this->ids[] =  '"error'.$idError++.'":"Entity '.$entity.' unknown"';
 			return false;
 		}else
 			$entity = $switcher[$entity];
