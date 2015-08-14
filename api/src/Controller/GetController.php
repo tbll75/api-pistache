@@ -33,7 +33,7 @@ class GetController extends MailController{
 
 		echo 'START';
 
-		// $this->mainTraintment($data, $condition);
+		$this->mainTraintment($data, $condition);
 
 	}
 
