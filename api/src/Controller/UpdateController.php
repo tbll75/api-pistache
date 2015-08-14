@@ -37,6 +37,9 @@ class UpdateController extends MailController{
 		}else
 			$entity = $switcher[$entity];
 
+		echo " - InDa : ".$keyConstruct;
+
+
 		// On vérifie les cas particuliers
 		if(isset($data['recMomentOfWeek']) || isset($data['recMomentOfWeek']))
 			$data = $this->modifyDataForMoment($data);
@@ -84,6 +87,7 @@ class UpdateController extends MailController{
 					$entityProper = substr($entity, 4);
 					$keyConstruct = $entityProper."_id".$entityProper;
 					$value[$keyConstruct] = $idJson[1];
+					echo " - GoTo : ".$keyConstruct;
 					// on renvoit la fonction
 					$this->mainTraitment($key, $value);
 				}
