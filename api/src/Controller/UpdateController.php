@@ -104,15 +104,17 @@ class UpdateController extends MailController{
 		// aller hop hop on create tout ca.
 		$keys = '(Children_idChildren, ObjectList_idObjectList)';
 		$values = '';
+		$i = 0;
 		foreach ($data as $newObject) {
 			$values .= '('.$newObject['Children_idChildren'].', '.$newObject['ObjectList_idObjectList'].'), ';
+			$i++;
 		}
 		$values = substr($values, 0, -2);
 
 		// requete sql
 		$rep = $this->insert("INSERT INTO $table $keys VALUES $values");
 		// on retourne un jolie truc pour dire que tout s'est bien passé
-		return '"listeDebloque":"All saved"';
+		return '"listeDebloque":"'.$i.' saved"';
 	}
 
 
