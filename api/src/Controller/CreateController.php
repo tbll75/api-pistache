@@ -25,7 +25,7 @@ class CreateController extends MailController{
 			"Chore" => "api_ChoreRec",
 			"ChoreChild" => "api_ChoreDone", 
 			"Settings" => "api_Settings",
-			"hero" => "api_Hero"
+			"hero" => "api_Hero",
 			"listeDebloque" => "api_ObjectUnlock"
 			);
 		// Si le tableau n'existe pas
