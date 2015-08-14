@@ -14,16 +14,7 @@ class GetController extends MailController{
 		$data = json_decode($_POST['json'], true)['data']; 
 		$integratedDependences = json_decode($_POST['json'], true)['integratedDependences']; 
 
-		$dataToShow = $this->mainTraitment($entity, $data, $integratedDependences);
 
-		// traitement data a montrer
-		echo "<br/>---------------------------------------------------------------------------------------------------------------------------------<br/>";
-		print_r($dataToShow);
-	}
-
-
-
-	public function mainTraitment($entity, $data, $integratedDependences){
 		// Ici on vérifie les données nécessaires pour chaque entité, et on retourne soit une erreur soit le nom de la table BDD pour le traitement de l'entité.
 		$switcher = array(
 			"FamilyData" => "api_Family",
@@ -42,6 +33,18 @@ class GetController extends MailController{
 			$entity = $switcher[$entity];
 			$this->majorEntity['table'] = $entity;
 		}
+		
+
+		$dataToShow = $this->mainTraitment($entity, $data, $integratedDependences);
+
+		// traitement data a montrer
+		echo "<br/>---------------------------------------------------------------------------------------------------------------------------------<br/>";
+		print_r($dataToShow);
+	}
+
+
+
+	public function mainTraitment($entity, $data, $integratedDependences){
 
 		// On récupère la structure de la table ciblée.
 		$tableStruct = $this->getTableStruct($entity);
@@ -50,7 +53,7 @@ class GetController extends MailController{
 		$sortedData = $this->filterDataForThisTable($entity, $data, $tableStruct);
 
 		// On cherche les champs souhaité
-		// $output = $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
+		$output = $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
 
 		echo '<pre>';
 		print_r($this->majorEntity);
