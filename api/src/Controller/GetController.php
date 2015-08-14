@@ -131,7 +131,7 @@ class GetController extends MailController{
 		$table = "";
 		// on cherche un champ commançant par 'id...'
 		foreach ($data as $key => $value) {
-			if(preg_match('^id[a-zA-Z]+#', $key)){
+			if(preg_match('^id[a-zA-Z]+', $key)){
 				$tableId = $key;
 				break;
 			}
