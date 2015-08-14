@@ -39,9 +39,9 @@ class CreateController extends MailController{
 			$data = $this->modifyDataForMoment($data);
 
 		// Ajouter les champ pour le dateTimeFormat.
-		if(isset($data['dueDate'])){ $data['dueDate']) = $this->modifyTimeStampFormat($data['dueDate'])); }
-		if(isset($data['timeCompleted']){ $data['timeCompleted'] = $this->modifyTimeStampFormat($data['timeCompleted']); }
-		if(isset($data['date'])) { $date['date']data = $this->modifyTimeStampFormat($data['date']); }
+		if(isset($data['dueDate'])) { $data['dueDate'] = $this->modifyTimeStampFormat($data['dueDate']); }
+		if(isset($data['timeCompleted'])) { $data['timeCompleted'] = $this->modifyTimeStampFormat($data['timeCompleted']); }
+		if(isset($data['date'])) { $date['date'] = $this->modifyTimeStampFormat($data['date']); }
 
 		// On vérifie que tous les champs sont saisies
 		$tableData = $this->entityTraitment($entity, $data);
