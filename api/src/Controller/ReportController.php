@@ -210,13 +210,11 @@ Traitement de la data pour le reporting sous X jours.
 		$periodes = array(
 			0 => array(
 				"endTime" => $endTime,
-				"startTime" => $startTime,
-				"child" => array()
+				"startTime" => $startTime
 				),
 			1 => array(
 				"endTime" => $endTimeBackPeriode,
-				"startTime" => $startTimeBackPeriode,
-				"child" => array()
+				"startTime" => $startTimeBackPeriode
 				)
 			);
 
@@ -224,20 +222,18 @@ Traitement de la data pour le reporting sous X jours.
 			// sql pour choper toute la data qui nous interesse
 			$rep = $this->select("SELECT * FROM api_DailyReport WHERE today < '".$periode['endTime']."' AND today > '".$periode['startTime']."'");
 			// On construit un tableau structurer : enfant > chore::done 0/1/2
-			$periode['child'] = array();
+			$miss = $done = $late = '';
 			foreach ($rep as $report){
-				print_r($report);
-				echo "<br>";
-
 				// on fait un tableau avec les 'done' à 0,1 et 2
 				if($report['done'] == 0){
-					$periode['child'][0][] = $report;
+					$miss[] = $report;
 				}elseif($report['done'] == 1){
-					$periode['child'][1][] = $report;
-				}elseif($report['done'] == 1){
-					$periode['child'][2][] = $report;
+					$done[] = $report;
+				}elseif($report['done'] == 2){
+					$late[] = $report;
 				}
 			}
+			$periode['child'] = array($miss, $done, $late);
 		}
 		$childTab = $periodes[0]['child'];
 		$childTabBackPeriode = $periodes[1]['child'];
