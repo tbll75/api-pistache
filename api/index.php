@@ -68,6 +68,9 @@
 	$router->post('/update/alldata', 'Update#alldata');
 	$router->post('/update/password', 'Update#pass');
 
+	$router->post('/update', 'Update#dispatch');
+
+
 // DELETE
 	$router->post('/delete', 'Delete#entity');
 
