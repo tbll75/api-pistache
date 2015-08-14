@@ -15,6 +15,8 @@ class GetController extends MailController{
 		$dataToShow = $this->mainTraitment($entity, $data, $integratedDependences);
 
 		// traitement data a montrer
+		print_r($data);
+		echo "<br/>---------------------------------------------------------------------------------------------------------------------------------<br/>"
 		print_r($dataToShow);
 	}
 
@@ -82,7 +84,6 @@ class GetController extends MailController{
 			}
 		}
 		// si id il y a
-		echo $idColumn. " - ".$data[$idColumn];
 		if (!empty($data[$idColumn])){
 			// On prépare l'id de référence pour une potentielle recherche en cascade
 			$entityProper = substr($table, 4);
