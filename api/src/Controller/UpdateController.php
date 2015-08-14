@@ -37,7 +37,7 @@ class UpdateController extends MailController{
 		}else
 			$entity = $switcher[$entity];
 
-		echo " - InDa : ".$keyConstruct;
+		echo " - InDa : ".$entity;
 
 
 		// On vérifie les cas particuliers
