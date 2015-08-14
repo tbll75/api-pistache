@@ -75,6 +75,7 @@ class CreateController extends MailController{
 
 	public function modifyDataForMoment($data){
 		// Modifie la structure de la data pour les momentOf..
+		// Jour de la semaine
 		$recMomentOfWeek = $data['recMomentOfWeek'];
 		$data['lundi'] = $recMomentOfWeek[0];
 		$data['mardi'] = $recMomentOfWeek[1];
@@ -83,15 +84,20 @@ class CreateController extends MailController{
 		$data['vendredi'] = $recMomentOfWeek[4];
 		$data['samedi'] = $recMomentOfWeek[5];
 		$data['dimanche'] = $recMomentOfWeek[6];
-
+		unset($data['recMomentOfWeek']);
+		// Moment de la journée
 		$recMomentOfDay = $data['recMomentOfDay'];
 		$data['matin'] = $recMomentOfDay[0];
 		$data['dejeuner'] = $recMomentOfDay[1];
 		$data['gouter'] = $recMomentOfDay[2];
 		$data['diner'] = $recMomentOfDay[3];
-
-		unset($data['recMomentOfWeek']);
 		unset($data['recMomentOfDay']);
+		// Ids des enfants liés à la tache.
+		$childId = "";
+		foreach ($data['childId'] as $child => $id) {
+			$childId .= $id.", ";
+		}
+		$data['childId'] = substr($childId, 0, -2);
 
 		return $data;
 	}

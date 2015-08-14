@@ -4,7 +4,20 @@ namespace App\Controller;
 
 class ReportController extends MailController{
 
-public function selectRec($momentOfWeek){
+
+
+/**
+Traintement pour mettre dans la bdd chaque jour ce qu'il faut.
+*/
+
+	public function dailyReport(){
+		$this->checkYesterdayReport();
+		$this->todayReport();
+	}
+
+
+
+	public function selectRec($momentOfWeek){
 		// LISTE DES TACHE QUI DEVRAIT ETRE FAITES A CE JOUR
 		$jour = array("0" => "lundi", "1" => "mardi", "2" => "mercredi", "3" => "jeudi", "5" => "vendredi", "5" => "samedi", "6" => "dimanche");
 		$diffDay = (date('N') - 1) -$momentOfWeek;
@@ -150,20 +163,6 @@ public function selectRec($momentOfWeek){
 
 
 
-	public function dailyReport(){
-		$this->checkYesterdayReport();
-		$this->todayReport();
-	}
-
-
-
-
-
-
-
-
-
-
 	function sortChore($rec = array(), $done = array(), $all) {
 		// CONSTRUIT LE TABLEAU AVEC LE PARAMETRE done A JOUR POUR CHAQUE TACHE
 		$result = NULL;
@@ -191,6 +190,91 @@ public function selectRec($momentOfWeek){
 		}
 		return $result;
 	}
+
+
+
+/**
+Traitement de la data pour le reporting sous X jours.
+*/
+
+
+	public function report($daysBack){
+
+		// on définie les date qui cernes la/les zone/s de reporting/infotainment
+		$endTime = time();
+		$startTime = $startTime - $daysBack * 60 * 60 * 24;
+		// période d'avant.
+		$endTimeBackPeriode = $startTime - 60 * 60 * 60 * 24;
+		$startTimeBackPeriode = $endTimeBackPeriode - $daysBack * 60 * 60 * 24;
+		// array contenant les deux périodes et leur tableau de sortie.
+		$periodes = array(
+			array(
+				"endTime" => $endTime,
+				"startTime" => $startTime,
+				"child"
+				),
+			array(
+				"endTime" => $endTimeBackPeriode,
+				"startTime" => $startTimeBackPeriode,
+				"child"
+				)
+			);
+
+		foreach($periodes as $periode){
+			// sql pour choper toute la data qui nous interesse
+			$rep = $this->select("SELECT * FROM api_DailyReport WHERE today < '".$periode['endTime']"' AND today > '".$periode['startTime']"'");
+			// On construit un tableau structurer : enfant > chore::done 0/1/2
+			$periode['child'] = array(0, 1, 2);
+			foreach ($rep as $report){
+
+				// on fait un tableau avec les 'done' à 0,1 et 2
+				if($report['done'] == 0){
+					$periode['child'][0][] = $report;
+				}elseif($report['done'] == 1){
+					$periode['child'][1][] = $report;
+				}elseif($report['done'] == 1){
+					$periode['child'][2][] = $report;
+				}
+			}
+		}
+		$childTab = $periodes[0]['child'];
+		$childTabBackPeriode = $periodes[1]['child'];
+
+		// A ce niveau chaque enfant possède des données statistique sur la période en cours choisie. On va en rajouter (rapport par rapport à la période précédante etc..)
+		echo "--------------------------<br/>Periode en cours";
+		echo "<pre>";
+		print_r($childTab);
+		echo "</pre>";
+		echo "--------------------------<br/>Periode précédante";
+		echo "<pre>";
+		print_r($chilchildTabBackPeriodedTab);
+		echo "</pre>";
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
