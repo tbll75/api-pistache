@@ -102,6 +102,9 @@ class GetController extends MailController{
 
 		// On chope la gueule de la table $table (les colonnes quoi)
 		$struct = $this->getTableStruct($table);
+		echo 'STRUCT<pre>';
+		print_r($struct);
+		echo '</pre>';
 		$champs = '';
 		$tableaux = '';
 
