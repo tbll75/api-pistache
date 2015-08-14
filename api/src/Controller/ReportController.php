@@ -234,10 +234,9 @@ Traitement de la data pour le reporting sous X jours.
 				}
 			}
 			$periode['child'] = array($miss, $done, $late);
-			print_r($periode['child']);
 		}
-		$childTab = $periodes[0]['child'];
-		$childTabBackPeriode = $periodes[1]['child'];
+		$childTab = $periodes[0];
+		$childTabBackPeriode = $periodes[1];
 
 		// A ce niveau chaque enfant possède des données statistique sur la période en cours choisie. On va en rajouter (rapport par rapport à la période précédante etc..)
 		echo "--------------------------<br/>Periode en cours";
