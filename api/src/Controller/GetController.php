@@ -6,7 +6,7 @@ class GetController extends MailController{
 
 	private $idParentReference;
 	private $idError = 0;
-	private $majorEntity = array();
+	private $majorEntity[];
 
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
