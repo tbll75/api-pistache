@@ -201,8 +201,8 @@ Traitement de la data pour le reporting sous X jours.
 	public function report($daysBack){
 
 		// on définie les date qui cernes la/les zone/s de reporting/infotainment
-		$endTime = time();
-		$startTime = $endTime - $daysBack * 60 * 60 * 24;
+		echo $endTime = time();
+		echo "<br>". $startTime = $endTime - $daysBack * 60 * 60 * 24;
 		// période d'avant.
 		$endTimeBackPeriode = $startTime - 60 * 60 * 60 * 24;
 		$startTimeBackPeriode = $endTimeBackPeriode - $daysBack * 60 * 60 * 24;
