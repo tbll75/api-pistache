@@ -42,6 +42,11 @@ class GetController extends MailController{
 		if(count($condition) > 2)
 			$condition = $this->checkIfId($entity, $condition, $integratedDependences);
 
+		echo $entity;
+		echo '<pre>';
+		print_r($condition);
+		echo '</pre>';
+
 		// on fait la requete
 		$rep = $this->select("SELECT * FROM $entity WHERE ".$condition['key']." = '".$condition['value']."'");
 		// on réecrit tout ca pour que ce soit au format JSON.
