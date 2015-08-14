@@ -55,7 +55,7 @@ class GetController extends MailController{
 		$tableaux = $fields[1];
 
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
-		// $futureCondition = $this->getLinesAndCondition($table, $champs, $condition);
+		$futureCondition = $this->getLinesAndNewCondition($table, $champs, $condition);
 
 		// On formate la condition
 
@@ -66,21 +66,24 @@ class GetController extends MailController{
 		echo 'CHAMPS : <pre>';
 		print_r($champs);
 		echo '</pre>';
-		echo 'TABLEAUX : <pre>';
-		print_r($tableaux);
-		echo '</pre>';
 
 	}
 
 
 
-	public function getLinesForCondition($table, $champs, $condition){
+	public function getLinesAndNewCondition($table, $champs, $condition){
 		// on prépare les variables
 		$champs = implode(', ', $champs);
 		$condition = implode(' = ', $condition);
 
 		// on fait la requete
 		$rep = $this->select("SELECT $champs FROM $table WHERE $condition");
+		echo "<br/>----------------------------<br/>REP : <pre>";
+		print_r($rep);
+		echo "<br/>";
+
+		// on construit la nouvelle condition
+		$condition = array(substr($condition[O], 2)."_".$condition[0], $condition[1]);
 	}
 
 
@@ -111,7 +114,6 @@ class GetController extends MailController{
 
 		// On filtre pour trier les champs que l'on garde, les champs qui sont les entités 'enfants', et pour jeter le reste qui ne correspond a rien pour la BDD
 		foreach ($data as $field => $value) {
-			echo $field;
 			// Si c'est un champ de la table SQL
 			if(in_array($field, $struct))
 				$champs[] = $field;
