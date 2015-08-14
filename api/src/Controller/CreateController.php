@@ -5,6 +5,7 @@ namespace App\Controller;
 class CreateController extends MailController{
 
 	private $ids;
+	private $idError = 0;
 
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
@@ -30,7 +31,7 @@ class CreateController extends MailController{
 			);
 		// Si le tableau n'existe pas
 		if(!isset($switcher[$entity])){
-			$this->ids[] =  '"error":"Entity '.$entity.' unknown"';
+			$this->ids[] =  '"error'.$idError.'":"Entity '.$entity.' unknown"';
 			return false;
 		}else
 			$entity = $switcher[$entity];
