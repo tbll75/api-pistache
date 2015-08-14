@@ -12,17 +12,16 @@ class GetController extends MailController{
 		$data = json_decode($_POST['json'], true)['data']; 
 		$integratedDependences = json_decode($_POST['json'], true)['integratedDependences']; 
 
-		$dataToShow = $this->mainTraitment($entity, $data, $integratedDependences);
+		$dataToShow = $this->mainTraitment($entity, $data, $data, $integratedDependences);
 
 		// traitement data a montrer
-		print_r($data);
 		echo "<br/>---------------------------------------------------------------------------------------------------------------------------------<br/>";
 		print_r($dataToShow);
 	}
 
 
 
-	public function mainTraitment($entity, $condition, $integratedDependences){
+	public function mainTraitment($entity, $data, $condition, $integratedDependences){
 		// Ici on vérifie les données nécessaires pour chaque entité, et on retourne soit une erreur soit le nom de la table BDD pour le traitement de l'entité.
 		$switcher = array(
 			"FamilyData" => "api_Family",
@@ -42,36 +41,45 @@ class GetController extends MailController{
 
 		// On vérif les condition
 		if(count($condition) > 2)
-			$condition = $this->checkIfId($entity, $condition, $integratedDependences);
+			$condition = $this->checkIfId($entity, $data, $integratedDependences);
 
 		// on fait la requete
 		$rep = $this->select("SELECT * FROM $entity WHERE ".$condition['key']." = '".$condition['value']."'");
 		// on réecrit tout ca pour que ce soit au format JSON.
 		$str = '[';
-		foreach ($rep as $entry) {
+		foreach ($rep as $tableKey => $tabValue) {
 			$str .= '{';
-			foreach ($entry as $key => $value) {
-				// on rentre ou traite une nouvelle select suivant si c'est un tableau ou non.
-				if(!is_array($value))
-					$str .= '"'.$key.'":"'.$value.'", ';
-				elseif($integratedDependences == 1){
-					// on modif la condition pour que ca devienne la référence
-					$entityParent = substr($entity, 4);
-					$condition['key'] = $entityParent."_id".$entityParent;
-					$parentKey = "id".substr($entity, 4);
-					$condition['value'] = $entry[$parentKey];
-					$str .= $this->mainTraitment($key, $condition, $integratedDependences);
-				}else
-				echo "<br/>Nothing Else To Do.<br/>";
+			foreach ($data as $dataKey => $dataValue) {
+				if(is_array($dataValue))
+					$this->mainTraitment($entity, $dataValue, $condition, $integratedDependences);
+				elseif(array_key_exists($dataKey, $rep[0])) { // [0] car ici seul les clés nous intéressent, pas les valeurs.
+					$str.= '"'.$tableKey.'":"'.$tabValue.'"';
+				}
 			}
-			$str = substr($str, 0, -2).'}, ';
+			$str .= '}';
 		}
-		$str = substr($str, 0, -2).']';
+		$str .= ']';
+
+
+
 
 		// on retourne la data sous form jolie.
 		return $str;
 
 	}
+
+
+
+	public function array_search_key( $needle_key, $array ) {
+		foreach($array AS $key=>$value){
+			if($key == $needle_key) return $value;
+			if(is_array($value)){
+				if( ($result = array_search_key($needle_key,$value)) !== false)
+			return $result;
+			}
+		}
+		return false;
+	} 
 
 
 
