@@ -102,8 +102,8 @@ class GetController extends MailController{
 				echo "<br/>";
 			}
 
-			echo $str .= substr($str, 0, -2).'}, ';
-			echo "<br/>";
+			// echo $str .= substr($str, 0, -2).'}, ';
+			// echo "<br/>";
 		}
 		echo $str .= substr($str, 0, -2);
 		if(count($rep) > 1)
