@@ -6,6 +6,15 @@ class GetController extends MailController{
 
 	private $poubelle;
 	private $idError = 0;
+	private $switcher = array(
+				"FamilyData" => "api_Family",
+				"FamilyMember" => "api_Children",
+				"Chore" => "api_ChoreRec",
+				"ChoreChild" => "api_ChoreDone", 
+				"Settings" => "api_Settings",
+				"hero" => "api_Hero",
+				// "listeDebloque" => "api_ObjectUnlock"
+			);
 
 
 	public function dispatch(){
@@ -20,7 +29,6 @@ class GetController extends MailController{
 			return false;
 		}else{
 			$entity = $this->switcher[$entity];
-			$this->majorEntity['table'] = $entity;
 		}
 
 		echo 'START';
