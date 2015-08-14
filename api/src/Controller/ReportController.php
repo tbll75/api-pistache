@@ -201,8 +201,8 @@ Traitement de la data pour le reporting sous X jours.
 	public function report($daysBack){
 
 		// on définie les date qui cernes la/les zone/s de reporting/infotainment
-		echo $endTime = time();
-		echo "<br>". $startTime = $endTime - $daysBack * 60 * 60 * 24;
+		$endTime = time();
+		$startTime = $endTime - $daysBack * 60 * 60 * 24;
 		// période d'avant.
 		$endTimeBackPeriode = $startTime - 60 * 60 * 60 * 24;
 		$startTimeBackPeriode = $endTimeBackPeriode - $daysBack * 60 * 60 * 24;
@@ -222,8 +222,9 @@ Traitement de la data pour le reporting sous X jours.
 
 		foreach($periodes as $periode){
 			// sql pour choper toute la data qui nous interesse
-			$rep = $this->select("SELECT * FROM api_DailyReport WHERE today > '".$periode['endTime']."' AND today < '".$periode['startTime']."'");
+			$rep = $this->select("SELECT * FROM api_DailyReport WHERE today < '".$periode['endTime']."' AND today > '".$periode['startTime']."'");
 			// On construit un tableau structurer : enfant > chore::done 0/1/2
+			print_r($rep);
 			$periode['child'] = array();
 			foreach ($rep as $report){
 
