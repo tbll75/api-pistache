@@ -49,28 +49,31 @@ class GetController extends MailController{
 		// on réecrit tout ca pour que ce soit au format JSON.
 		$str = '{'.$entity.':[';
 		// pour chaque résultat (ligne/entrée).
-		foreach ($rep as $tableKey => $tabValue) {
-			echo "REP : ".$tableKey." - ".$tabValue."<br/>";
-			$str .= '{';
-			// pour chaque clé de la data json.
-			foreach ($data as $dataKey => $dataValue) {
-			echo "DATA : ".$tableKey." - ".$tabValue."<br/>";
-				// si la clé en question est un array, on recursive.
-				if(is_array($dataValue)){
-					$this->mainTraitment($entity, $dataValue, $condition, $integratedDependences);
-					break;
-				// sinon on ajoute la valeur si la colonne existe
-				}elseif($tableKey == $dataKey) {
-					$str.= '"'.$tableKey.'":"'.$tabValue.'"';
-					break;
-				// sinon on dit que ce champs n'existe pas.
-				}else{
-					$str.= '"'.$dataKey.'":"No SQL Colomne"';
+		foreach ($rep as $entry) {
+			// pour chaque champs de la BDD
+			foreach ($entry as $tableKey => $tabValue) {
+				echo "REP : ".$tableKey." - ".$tabValue."<br/>";
+				$str .= '{';
+				// pour chaque clé de la data json.
+				foreach ($data as $dataKey => $dataValue) {
+				echo "DATA : ".$tableKey." - ".$tabValue."<br/>";
+					// si la clé en question est un array, on recursive.
+					if(is_array($dataValue)){
+						$this->mainTraitment($entity, $dataValue, $condition, $integratedDependences);
+						break;
+					// sinon on ajoute la valeur si la colonne existe
+					}elseif($tableKey == $dataKey) {
+						$str.= '"'.$tableKey.'":"'.$tabValue.'"';
+						break;
+					// sinon on dit que ce champs n'existe pas.
+					}else{
+						$str.= '"'.$dataKey.'":"No SQL Colomne"';
+					}
 				}
+				$str .= '}';
 			}
-			$str .= '}';
+			$str .= ']';
 		}
-		$str .= ']';
 
 
 
