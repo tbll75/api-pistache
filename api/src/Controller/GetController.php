@@ -53,7 +53,7 @@ class GetController extends MailController{
 		$sortedData = $this->filterDataForThisTable($entity, $data, $tableStruct);
 
 		// on commence l'output
-		$output = '{"'.$entity.'":';
+		$output = '{"'.array_search($entity, $switcher).'":';
 		// On cherche les champs souhaité
 		if(empty($condition)){ $condition = $this->majorEntity['key']." = '".$this->majorEntity['value']."'"; }
 		$output .= $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
@@ -88,6 +88,11 @@ class GetController extends MailController{
 
 			// on parcours les key=>value
 			foreach ($entry as $key => $value) {
+
+				echo '<pre>';
+				print_r($key.' - '.$value);
+				echo '</pre>';
+
 				$str .= '"'.$key.'":"'.$value.'", ';
 			}
 
