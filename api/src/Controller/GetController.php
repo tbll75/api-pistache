@@ -60,7 +60,7 @@ class GetController extends MailController{
 		if($integratedDependences){
 			$condition = $this->majorEntity['table']."_".$this->majorEntity['key'];
 			foreach ($sortedData[1] as $entity) {
-				$output .= $this->doRecursive($entity, $data[$entity], $condition);
+				$output .= $this->mainTraitment($entity, $data[$entity], $integratedDependences);
 			}
 		}
 
