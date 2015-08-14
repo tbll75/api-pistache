@@ -56,7 +56,8 @@ class UpdateController extends MailController{
 			// et puis on retourne quelque chose what.
 			return "{".implode(",", $this->ids)."}";
 		}elseif(empty($data[0])){
-			return false;
+			$this->ids[] = '"Object":"No data"'
+			return "{".implode(",", $this->ids)."}";
 		}
 
 		// On vérifie que tous les champs sont saisies
@@ -67,7 +68,7 @@ class UpdateController extends MailController{
 
 		// Si l'insertion est bonne, on demande le dernier id de la table.
 		if(!$isUpdate[0]){ // S'il y a eu une erreur
-			echo '{"error":"Update problem"}';
+			echo '{"error":"Update problem for '.$entity.'"}';
 			die();
 		}
 		$idJson = $this->respondBDD($tableData[0], $tableData[2]);
