@@ -30,7 +30,7 @@ class CreateController extends MailController{
 			);
 		// Si le tableau n'existe pas
 		if(!isset($switcher[$entity])){
-			echo '{"error":"Entity unknown"}';
+			// echo '{"error":"Entity unknown"}';
 			return false;
 		}else
 			$entity = $switcher[$entity];
