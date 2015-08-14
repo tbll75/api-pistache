@@ -97,7 +97,8 @@ class GetController extends MailController{
 				print_r($key.' - '.$value);
 				echo '</pre>';
 
-				$str .= '"'.$key.'":"'.$value.'", ';
+				echo $str .= '"'.$key.'":"'.$value.'", ';
+				echo "<br/>";
 			}
 
 			$str .= substr($str, 0, -2).'}, ';
