@@ -125,8 +125,8 @@ class GetController extends MailController{
 
 			// par aillerus on stock l'id du patron ci nécéssaire
 			if($key == $this->majorEntity['key']){
+				echo $this->majorEntity['key'];
 				$this->majorEntity['value'] = $value;
-				echo $key." - ".$this->majorEntity['key'];
 				unset($fields[array_search($key, $fields)]);
 			}
 		}
