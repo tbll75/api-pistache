@@ -58,7 +58,7 @@ class GetController extends MailController{
 					$this->mainTraitment($entity, $dataValue, $condition, $integratedDependences);
 					break;
 				// sinon on ajoute la valeur si la colonne existe
-				}elseif($tableKey == $dataKey)) {
+				}elseif($tableKey == $dataKey) {
 					$str.= '"'.$tableKey.'":"'.$tabValue.'"';
 					break;
 				// sinon on dit que ce champs n'existe pas.
