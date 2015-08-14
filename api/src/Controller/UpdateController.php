@@ -56,7 +56,7 @@ class UpdateController extends MailController{
 			echo '{"error":"Update problem"}';
 			die();
 		}
-		$idJson = $this->respondBDD($tableData[2]);
+		$idJson = $this->respondBDD($tableData[0], $tableData[2]);
 
 		// On renvoit la reponse (l'id) nouvellement généré.
 		$this->ids[] = '"'.implode('":"', $idJson).'"';
@@ -123,7 +123,7 @@ class UpdateController extends MailController{
 
 
 
-	public function respondBDD($id){
+	public function respondBDD($table, $id){
 		// on recupère la derniere ligne de la table $table avec l'id donné
 		$rep = $this->select("SELECT ".$id['key']." FROM $table ORDER BY ".$id['key']." DESC LIMIT 1");
 		// et on renvoit
