@@ -77,6 +77,7 @@
 
 
 // GETTERS
+	$router->post('/get', 'Get#dispatch');
 // Getters Family ********************************************************
 	$router->get('/family/:idFamily/member', "Family#member")->with('idFamily', '[0-9]+');
 	$router->get('/family/:idFamily/parent', "Family#parent")->with('idFamily', '[0-9]+');
