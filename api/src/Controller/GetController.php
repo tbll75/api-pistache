@@ -57,7 +57,7 @@ class GetController extends MailController{
 		$output .= $this->selectTableElements($entity, $sortedData[0], $condition); // [0] pour les champs de la bdd
 
 
-		$output .= '}'
+		$output .= '}';
 		echo '<pre>';
 		print_r($output);
 		echo '</pre>';
