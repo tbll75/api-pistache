@@ -77,7 +77,7 @@ class GetController extends MailController{
 		$rep = $this->select("SELECT $fields FROM $table WHERE $condition");
 		print_r($rep);
 		// s'il y a plusieurs réponses
-		if(count($rep > 1))
+		if(count($rep) > 1)
 			$str .= '[';
 		// on parcours le ligne
 		foreach ($rep as $entry) {
@@ -91,7 +91,7 @@ class GetController extends MailController{
 			$str .= substr($str, 0, -2).'}, ';
 		}
 		$str .= substr($str, 0, -2);
-		if(count($rep > 1))
+		if(count($rep) > 1)
 			$str .= '}';
 
 		return $str;
