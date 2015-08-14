@@ -224,9 +224,10 @@ Traitement de la data pour le reporting sous X jours.
 			// sql pour choper toute la data qui nous interesse
 			$rep = $this->select("SELECT * FROM api_DailyReport WHERE today < '".$periode['endTime']."' AND today > '".$periode['startTime']."'");
 			// On construit un tableau structurer : enfant > chore::done 0/1/2
-			print_r($rep);
 			$periode['child'] = array();
 			foreach ($rep as $report){
+				print_r($report);
+				echo "<br>";
 
 				// on fait un tableau avec les 'done' à 0,1 et 2
 				if($report['done'] == 0){
