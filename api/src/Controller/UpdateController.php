@@ -28,7 +28,7 @@ class UpdateController extends MailController{
 			"ChoreChild" => "api_ChoreDone", 
 			"Settings" => "api_Settings",
 			"hero" => "api_Hero",
-			// "listeDebloque" => "api_ObjectUnlock"
+			"listeDebloque" => "api_ObjectUnlock"
 			);
 		// Si le tableau n'existe pas
 		if(!isset($switcher[$entity])){
@@ -45,6 +45,17 @@ class UpdateController extends MailController{
 		if(isset($data['dueDate'])) { $data['dueDate'] = $this->modifyTimeStampFormat($data['dueDate']); }
 		if(isset($data['timeCompleted'])) { $data['timeCompleted'] = $this->modifyTimeStampFormat($data['timeCompleted']); }
 		if(isset($data['date'])) { $data['date'] = $this->modifyTimeStampFormat($data['date']); }
+
+		// CAS PARTICULIER 
+		if($entity == 'api_ObjectUnlock'){ 
+			// on refait la structure de la data pour ne garder que les nouveaux
+			$data = $this->modifyDataObject($entity, $data); 
+			// on ajoute les nouvelles entrées, si nouvelles entrées il y a.
+			if(!empty($data))
+				$this->ids = $this->createNewDataObject($entity, $data);
+			// et puis on retourne quelque chose what.
+			return "{".implode(",", $this->ids)."}";
+		}
 
 		// On vérifie que tous les champs sont saisies
 		$tableData = $this->entityTraitment($entity, $data);
@@ -79,6 +90,55 @@ class UpdateController extends MailController{
 		return "{".implode(",", $this->ids)."}";
 
 
+	}
+
+
+
+	public function createNewDataObject($table, $data){
+		// aller hop hop on create tout ca.
+		$keys = '(Children_idChildren, ObjectList_idObjectList)';
+		$values = ''
+		foreach ($data as $newObject) {
+			$values .= '('.$newObject['Children_idChildren'].', '.$newObject['ObjectList_idObjectList'].'), ';
+		}
+		$values = substr($values, 0, -2);
+
+		// requete sql
+		$rep = $this->insert("INSERT INTO $table $keys VALUES $values");
+		// on retourne un jolie truc pour dire que tout s'est bien passé
+		return '"Object":"All saved"';
+	}
+
+
+
+	public function modifyDataObject($table, $data){
+		// Pour le moment on a un array avec des ids, faut mettre la clé.
+		// array(Children_idChildren => x, 1,4,7) => array( array( Children_idChildren => x, ObjectList_idObjectList => y ), array( ... ) )
+		foreach ($data as $key => $value) {
+			if(is_numeric($key)) // en gros on veut tous les id et que les id.
+				$data[$key] = array( "Children_idChildren" => $data['Children_idChildren'], "ObjectList_idObjectList" => $value );
+		}
+		
+		// Maintenant on regarde ce qui a déjà été rentré en BDD (les objets dejà débloqué par l'enfant)
+		$rep = $this->select("SELECT * FROM $table WHERE Children_idChildren = '".$data['Children_idChildren']."'");
+		// on parcours chaque objet dejà débloqué (forme : array( Children_idChildren => x, ObjectList_idObjectList => y ))
+		foreach ($data as $key => $newObjectUnlocked) {
+			if(is_numeric($newObjectUnlocked)){
+				$isIn = 0;	
+				// on parcours chacun de la liste des nouveaux arrivant
+				foreach ($rep as $objectUnlocked) {
+					if($newObjectUnlocked == $objectUnlocked){
+						$isIn = 1;
+						break;
+					}
+				}
+				if(!$isIn)
+					$newData[] = $newObjectUnlocked;
+			}
+		}
+
+		// on retoune la nouvelle data	
+		return $newData;
 	}
 
 
