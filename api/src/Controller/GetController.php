@@ -31,12 +31,10 @@ class GetController extends MailController{
 			$entity = $this->switcher[$entity];
 		}
 
-		echo 'START';
 
 		// on définie les conditions
 		$infos = $this->findTable($data);
 		$condition = array($infos[1], $infos[2]);
-		print_r($condition);
 
 
 		$this->mainTraintment($data, $condition);
@@ -50,7 +48,6 @@ class GetController extends MailController{
 		// d'abord on devine de quelle table is s'agit en chequant l'id
 		$infos = $this->findTable($data);
 		$table = $infos[0];
-		echo $table."<br/>";
 
 		// On compare les colonne de notre data avec celle du SQL pour ne garder que le meilleur
 		$fields = $this->compareDataSQL($data, $table);
@@ -89,14 +86,16 @@ class GetController extends MailController{
 
 
 	public function getTableStruct($table){
+		echo $table;
 
 		// petite requete sql
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$table."'");
 
 		// on filtre les infos intéressante
-		$struct = array();
+		$struct = '';
 		foreach ($rep as $col) {
 			$struct[] = $col['COLUMN_NAME'];
+			echo $col['COLUMN_NAME']."<br>";
 		}
 		// on renvoit la réponse
 		return $struct;
