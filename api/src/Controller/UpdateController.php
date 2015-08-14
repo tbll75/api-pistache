@@ -146,7 +146,7 @@ class UpdateController extends MailController{
 			}else
 				$subValues = true;
 		}
-		$keys = substr($keys, 0, -2);
+		$str = substr($str, 0, -2);
 
 		$this->insert("UPDATE $table SET $str WHERE ".$id['key']." = '".$id['value']."'");
 		return array(true, $subValues);
