@@ -211,12 +211,12 @@ Traitement de la data pour le reporting sous X jours.
 			0 => array(
 				"endTime" => $endTime,
 				"startTime" => $startTime,
-				"child" => null;
+				"child" => null
 				),
 			1 => array(
 				"endTime" => $endTimeBackPeriode,
 				"startTime" => $startTimeBackPeriode,
-				"child" => null;
+				"child" => null
 				)
 			);
 
