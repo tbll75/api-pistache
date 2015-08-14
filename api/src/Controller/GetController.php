@@ -115,7 +115,7 @@ class GetController extends MailController{
 			// Si c'est un champ de la table SQL
 			if(in_array($field, $struct))
 				$champs[] = $field;
-			elseif(is_array($field) && !empty($value))
+			elseif(is_array($value) && !empty($value))
 				$tableaux[] = $field;
 			else
 				$this->poubelle[] = $table.":".$field; // on crés un champs poubelle qui regroupera tous les champs qui n'avaient aucune raison d'être là.
