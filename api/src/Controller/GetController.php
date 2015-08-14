@@ -36,6 +36,7 @@ class GetController extends MailController{
 		// on définie les conditions
 		$infos = $this->findTable($data);
 		$condition = array($infos[1], $infos[2]);
+		print_r($condition);
 
 
 		$this->mainTraintment($data, $condition);
@@ -135,11 +136,13 @@ class GetController extends MailController{
 	public function findTable($data){
 
 		$table = "";
+		$$idKey = "";
+		$$idValue = "";
 		// on cherche un champ commançant par 'id...'
 		foreach ($data as $key => $value) {
 			if(preg_match('/^id[a-zA-Z]+/', $key)){
-				echo $idKey = $key;
-				echo $idValue = $value;
+				$idKey = $key;
+				$idValue = $value;
 				break;
 			}
 		}
