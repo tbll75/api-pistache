@@ -63,7 +63,7 @@ class GetController extends MailController{
 		}
 
 		// on retourne notre json de folie
-		
+
 
 	}
 
@@ -134,6 +134,10 @@ class GetController extends MailController{
 
 
 	public function findTable($data){
+
+		echo "<br/>----------------------------<br/>DATA : <pre>";
+		print_r($data);
+		echo "<br/>";
 
 		$table = "";
 		$idKey = "";
