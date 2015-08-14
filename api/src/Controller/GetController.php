@@ -44,8 +44,11 @@ class GetController extends MailController{
 		// On récupère la structure de la table ciblée.
 		$tableStruct = $this->getTableStruct($entity);
 
+		// On compare avec la data pour filtrer les champs des 'dataEnfants'.
+		$fsg = $this->filterDataForThisTable($entity, $data, $tableStruct);
+
 		echo '<pre>';
-		print_r($tableStruct);
+		print_r($fsg);
 		echo '</pre>';
 
 		die();
@@ -55,16 +58,34 @@ class GetController extends MailController{
 
 
 
+	public function filterDataForThisTable($table, $data, $tableStruct){
+		// on compare si oui on garde sinon ou met de coté pour plus tard
+		foreach ($data as $key => $value) {
+			$fields = '';
+			$otherTable = '';
+			// c'est dans la structure
+			if(in_array($key, $tableStruct))
+				$fields[] = $key;
+			elseif (is_array($value)) 
+				$otherTable[] = $key;
+		}
+
+		return array($fields, $otherTable);
+
+	}
+
+
+
 	public function getTableStruct($table){
 		// petite requete sql
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$table."'");
 		// on filtre les infos intéressante
-		$colonne = array();
+		$struct = array();
 		foreach ($rep as $col) {
-			$colonne[] = $col['COLUMN_NAME'];
+			$struct[] = $col['COLUMN_NAME'];
 		}
 		// on renvoit la réponse
-		return $colonne;
+		return $struct;
 	}
 
 
