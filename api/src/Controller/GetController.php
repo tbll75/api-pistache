@@ -59,8 +59,10 @@ class GetController extends MailController{
 
 		// on retourne notre json de folie
 
-		echo 'RESULT : <pre>';
+		echo 'CHAMPS : <pre>';
 		print_r($champs);
+		echo '</pre>';
+		echo 'TABLEAUX : <pre>';
 		print_r($tableaux);
 		echo '</pre>';
 
