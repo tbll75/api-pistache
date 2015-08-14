@@ -106,7 +106,7 @@ class GetController extends MailController{
 		$tableaux = '';
 
 		// On filtre pour trier les champs que l'on garde, les champs qui sont les entités 'enfants', et pour jeter le reste qui ne correspond a rien pour la BDD
-		foreach ($data as $field) {
+		foreach ($data as $field => $value) {
 			// Si c'est un champ de la table SQL
 			if(in_array($field, $struct))
 				$champs[] = $field;
