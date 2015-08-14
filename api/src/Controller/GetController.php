@@ -5,6 +5,7 @@ namespace App\Controller;
 class GetController extends MailController{
 
 	private $poubelle;
+	private $idError = 0;
 
 
 	public function dispatch(){
