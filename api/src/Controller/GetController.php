@@ -33,6 +33,7 @@ class GetController extends MailController{
 
 		// d'abord on devine de quelle table is s'agit en chequant l'id
 		$table = $this->findTable($data);
+		echo $table."<br/>";
 
 		// On compare les colonne de notre data avec celle du SQL pour ne garder que le meilleur
 		$fields = $this->compareDataSQL($data, $table);
@@ -48,7 +49,7 @@ class GetController extends MailController{
 
 		// on retourne notre json de folie
 
-		echo '<pre>';
+		echo 'RESULT : <pre>';
 		print_r($champs);
 		print_r($tableaux);
 		echo '</pre>';
