@@ -44,7 +44,7 @@ class GetController extends MailController{
 
 
 	public function mainTraintment($data, $condition){
-		
+
 
 		echo "<br/>----------------------------<br/>DATA : <pre>";
 		print_r($data);
@@ -64,7 +64,9 @@ class GetController extends MailController{
 
 		// on envoit la boucle pour la recursivité
 		foreach ($tableaux as $tableau) {
-			$this->mainTraintment($data[$tableau], $condition);
+			foreach ($tableau as $eachTab => $value) {
+				$this->mainTraintment($data[$tableau][$eachTab], $condition);
+			}
 		}
 
 		// on retourne notre json de folie
