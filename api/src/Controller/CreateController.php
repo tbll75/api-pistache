@@ -40,6 +40,10 @@ class CreateController extends MailController{
 		if(isset($data['recMomentOfWeek']) || isset($data['recMomentOfWeek']))
 			$data = $this->modifyDataForMoment($data);
 
+		/* On hash les mots de passe */ /** 
+		if(isset($data['masterPassword'])){ }
+		*/
+
 		// Ajouter les champ pour le dateTimeFormat.
 		if(isset($data['dueDate'])) { $data['dueDate'] = $this->modifyTimeStampFormat($data['dueDate']); }
 		if(isset($data['timeCompleted'])) { $data['timeCompleted'] = $this->modifyTimeStampFormat($data['timeCompleted']); }

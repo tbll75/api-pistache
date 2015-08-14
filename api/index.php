@@ -146,6 +146,7 @@
 // MAIL
 	$router->post('/newpass', 'Family#askPass'); // on redirige vers la famille
 	$router->get('/asknewpass/:mail', 'Mail#askNewPass');
+	$router->get('/report/:days', 'Report#report')->with('days', '[0-9]+');
 
 // REPORT
 	// $router->get('/dailyreport', 'Create#dailyReport');
