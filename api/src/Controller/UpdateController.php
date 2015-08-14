@@ -56,7 +56,7 @@ class UpdateController extends MailController{
 			// et puis on retourne quelque chose what.
 			return "{".implode(",", $this->ids)."}";
 		}elseif(empty($data[0])){
-			$this->ids[] = '"Object":"No data"'
+			$this->ids[] = '"Object":"No data"';
 			return "{".implode(",", $this->ids)."}";
 		}
 
