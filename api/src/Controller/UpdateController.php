@@ -26,12 +26,12 @@ class UpdateController extends MailController{
 			"Chore" => "api_ChoreRec",
 			"ChoreChild" => "api_ChoreDone", 
 			"Settings" => "api_Settings",
-			"hero" => "api_Hero"
-			"listeDebloque" => "api_ObjectUnlock"
+			"hero" => "api_Hero",
+			// "listeDebloque" => "api_ObjectUnlock"
 			);
 		// Si le tableau n'existe pas
 		if(!isset($switcher[$entity])){
-			echo '{"error":"Entity unknown"}';
+			$this->ids[] =  '"error'.$this->idError++.'":"Entity '.$entity.' unknown"';
 			return false;
 		}else
 			$entity = $switcher[$entity];
