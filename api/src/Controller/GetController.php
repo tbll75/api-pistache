@@ -33,6 +33,11 @@ class GetController extends MailController{
 
 		echo 'START';
 
+		// on définie les conditions
+		$infos = $this->findTable($data);
+		$condition = array($infos[1], $infos[2]);
+
+
 		$this->mainTraintment($data, $condition);
 
 	}
@@ -42,7 +47,8 @@ class GetController extends MailController{
 	public function mainTraintment($data, $condition){
 
 		// d'abord on devine de quelle table is s'agit en chequant l'id
-		$table = $this->findTable($data);
+		$infos = $this->findTable($data);
+		$table = $infos[0];
 		echo $table."<br/>";
 
 		// On compare les colonne de notre data avec celle du SQL pour ne garder que le meilleur
@@ -132,18 +138,19 @@ class GetController extends MailController{
 		// on cherche un champ commançant par 'id...'
 		foreach ($data as $key => $value) {
 			if(preg_match('/^id[a-zA-Z]+/', $key)){
-				echo $tableId = $key;
+				$idKey = $key;
+				$idValue = $value;
 				break;
 			}
 		}
 
 		// Si on ne trouve pas le champs id, on retourne une erreur
-		if(empty($tableId)){
+		if(empty($idKey)){
 			echo "CAN NOT FIND TABLE";
 			die();
 		}else{
-			$table = substr($tableId, 2);
-			return $table;
+			$table = substr($idKey, 2);
+			return array($table, $idKey, $idValue);
 		}
 	}
 
