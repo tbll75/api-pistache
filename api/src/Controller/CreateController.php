@@ -26,11 +26,11 @@ class CreateController extends MailController{
 			"ChoreChild" => "api_ChoreDone", 
 			"Settings" => "api_Settings",
 			"hero" => "api_Hero",
-			"listeDebloque" => "api_ObjectUnlock"
+			// "listeDebloque" => "api_ObjectUnlock"
 			);
 		// Si le tableau n'existe pas
 		if(!isset($switcher[$entity])){
-			// echo '{"error":"Entity unknown"}';
+			$this->ids[] =  '"error":"Entity '.$entity.' unknown"';
 			return false;
 		}else
 			$entity = $switcher[$entity];
