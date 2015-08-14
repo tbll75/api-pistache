@@ -97,7 +97,7 @@ class UpdateController extends MailController{
 	public function createNewDataObject($table, $data){
 		// aller hop hop on create tout ca.
 		$keys = '(Children_idChildren, ObjectList_idObjectList)';
-		$values = ''
+		$values = '';
 		foreach ($data as $newObject) {
 			$values .= '('.$newObject['Children_idChildren'].', '.$newObject['ObjectList_idObjectList'].'), ';
 		}
