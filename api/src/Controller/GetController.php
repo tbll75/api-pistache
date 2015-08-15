@@ -56,7 +56,8 @@ class GetController extends MailController{
 		$table = $infos[0];
 
 		// On compare les colonne de notre data avec celle du SQL pour ne garder que le meilleur
-		$fields = $this->compareDataSQL($data, $table);
+		$fields = $this->compareDataSQL($data, $table, $condition[0]);
+		if(!$fields){ return false; }
 		$champs = $fields[0];
 		$tableaux = $fields[1];
 		echo "<br/>----------------------------<br/>CHAMPS ET TABLEAUX : <pre>";
@@ -128,7 +129,7 @@ class GetController extends MailController{
 
 
 
-	public function getTableStruct($table){
+	public function getTableStruct($table, $parentColumn){
 
 		// petite requete sql
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$table."'");
@@ -139,16 +140,21 @@ class GetController extends MailController{
 			$struct[] = $col['COLUMN_NAME'];
 		}
 		// on renvoit la réponse
-		return $struct;
+		if(!in_array($parentColumn, $struct)){
+			echo 'PAS DE CLE PARENT TROUVE !!!';
+			return false;
+		}else
+			return $struct;
 
 	}
 
 
 
-	public function compareDataSQL($data, $table){
+	public function compareDataSQL($data, $table, $parentColumn){
 
 		// On chope la gueule de la table $table (les colonnes quoi)
-		$struct = $this->getTableStruct($table);
+		$struct = $this->getTableStruct($table, $parentColumn);
+		if(!$struct){ return false; }
 		$champs = '';
 		$tableaux = '';
 
