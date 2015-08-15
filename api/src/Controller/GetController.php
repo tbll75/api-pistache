@@ -64,11 +64,13 @@ class GetController extends MailController{
 
 		// on envoit la boucle pour la recursivité
 		foreach ($tableaux as $tableau => $value) {
-			if(count($data[$value]) == 1 && is_array($data[$value][0]))
-				$this->mainTraintment($data[$value], $condition);
-			elseif($nb = count($data[$value]) > 1){
+			if($nb = count($data[$value]) == 1 && is_array($data[$value][0])){
+				echo $nb."<br/>";
+				// $this->mainTraintment($data[$value], $condition);
+			}elseif($nb = count($data[$value]) > 1){
+				echo $nb."<br/>";
 				for ($i=0; $i < $nb; $i++) { 
-					$this->mainTraintment($data[$value][$i], $condition);
+					// $this->mainTraintment($data[$value][$i], $condition);
 				}
 			}
 
