@@ -81,7 +81,7 @@ class GetController extends MailController{
 				foreach ($tableaux as $tableau) {
 					$nb = count($data[$tableau]);
 					for ($i=0; $i < $nb; $i++) { 
-						echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ";
+						echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ".$i;
 						$this->mainTraintment($data[$tableau][$i], $condition);
 					}
 
@@ -141,7 +141,7 @@ class GetController extends MailController{
 		}
 		// on renvoit la réponse
 		if(!in_array($parentColumn, $struct)){
-			echo 'PAS DE CLE PARENT TROUVE !!!';
+			echo '<br/>PAS DE CLE PARENT TROUVE !!!';
 			return false;
 		}else
 			return $struct;
