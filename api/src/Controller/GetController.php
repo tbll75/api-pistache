@@ -65,7 +65,8 @@ class GetController extends MailController{
 		// on envoit la boucle pour la recursivité
 		foreach ($tableaux as $tableau => $value) {
 			foreach ($tableau as $eachTab => $value) {
-				$this->mainTraintment($data[$tableau][$eachTab], $condition);
+				echo $tableau." - ".$eachTab;
+				// $this->mainTraintment($data[$tableau][$eachTab], $condition);
 			}
 		}
 
