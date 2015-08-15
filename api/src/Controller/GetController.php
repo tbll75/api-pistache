@@ -117,7 +117,7 @@ class GetController extends MailController{
 		echo "</pre>";
 
 		// on construit la nouvelle condition
-		$condition = array(substr($table, 4)."_id".$substr($table, 4), $condition[1]);
+		$condition = array(substr($table, 4)."_id".substr($table, 4), $condition[1]);
 		echo "<br/>----------------------------<br/>CONDITION : <pre>";
 		print_r($condition);
 		echo "</pre>";
