@@ -59,21 +59,15 @@ class GetController extends MailController{
 		$champs = $fields[0];
 		$tableaux = $fields[1];
 
-		echo "<br/>----------------------------<br/>TABLEAUX : <pre>";
-		print_r($tableaux);
-		echo "</pre>";
-
-
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
 		$condition = $this->getLinesAndNewCondition($table, $champs, $condition);
 
 		// on envoit la boucle pour la recursivité
-		echo "<br/>----------------------------<br/>FOREACH :";
 		foreach ($tableaux as $tableau => $value) {
-			// foreach ($tableau as $eachTab => $value) {
-				echo $tableau." - "/*.$eachTab*/;
-				// $this->mainTraintment($data[$tableau][$eachTab], $condition);
-			// }
+			foreach ($tableau as $eachTab => $value) {
+				echo $tableau." - ".$eachTab." - ";
+				$this->mainTraintment($data[$value][$eachTab], $condition);
+			}
 		}
 
 		// on retourne notre json de folie
