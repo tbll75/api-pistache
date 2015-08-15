@@ -64,10 +64,11 @@ class GetController extends MailController{
 
 		// on envoit la boucle pour la recursivité
 		foreach ($tableaux as $tableau => $value) {
-			foreach ($tableau as $eachTab => $value) {
-				echo $tableau." - ".$eachTab." - ";
-				$this->mainTraintment($data[$value][$eachTab], $condition);
-			}
+			// foreach ($tableau as $eachTab => $value) {
+				if(is_array($data[$value]))
+					echo $value." - ";
+				// $this->mainTraintment($data[$value][$eachTab], $condition);
+			// }
 		}
 
 		// on retourne notre json de folie
