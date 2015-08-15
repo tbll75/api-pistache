@@ -79,7 +79,8 @@ class GetController extends MailController{
 				$nb = count($data[$tableau]);
 				echo $nb."<br/>";
 				for ($i=0; $i < $nb; $i++) { 
-					// $this->mainTraintment($data[$tableau][$i], $condition);
+					echo "<br/>----------------------------<br/>NEW : <pre>";
+					$this->mainTraintment($data[$tableau][$i], $condition);
 				}
 
 			}
