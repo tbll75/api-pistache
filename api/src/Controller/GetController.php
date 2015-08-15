@@ -52,6 +52,7 @@ class GetController extends MailController{
 
 		// d'abord on devine de quelle table is s'agit en chequant l'id
 		$infos = $this->findTable($data);
+		if(!$infos){ return false; }
 		$table = $infos[0];
 
 		// On compare les colonne de notre data avec celle du SQL pour ne garder que le meilleur
@@ -88,7 +89,7 @@ class GetController extends MailController{
 		}
 
 		// on retourne notre json de folie
-
+		return true;
 
 	}
 
@@ -185,7 +186,7 @@ class GetController extends MailController{
 		// Si on ne trouve pas le champs id, on retourne une erreur
 		if(empty($idKey)){
 			echo "CAN NOT FIND TABLE";
-			die();
+			return false;
 		}else{
 			$table = "api_".substr($idKey, 2);
 			echo "TABLE : ".$table;
