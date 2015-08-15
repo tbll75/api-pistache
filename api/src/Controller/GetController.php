@@ -71,20 +71,22 @@ class GetController extends MailController{
 		$ids = $infos[1];
 
 		// on envoit la boucle pour la recursivité
-		foreach ($ids as $id) {
-			echo "<br/>----------------------------<br/>ID DATA : ".$id;
-			$condition[1] = $id;
-			echo "<br/>";
+		if(!empty($ids)){
+			foreach ($ids as $id) {
+				echo "<br/>----------------------------<br/>ID DATA : ".$id;
+				$condition[1] = $id;
+				echo "<br/>";
 
-			foreach ($tableaux as $tableau) {
-				$nb = count($data[$tableau]);
-				for ($i=0; $i < $nb; $i++) { 
-					echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ";
-					$this->mainTraintment($data[$tableau][$i], $condition);
+				foreach ($tableaux as $tableau) {
+					$nb = count($data[$tableau]);
+					for ($i=0; $i < $nb; $i++) { 
+						echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ";
+						$this->mainTraintment($data[$tableau][$i], $condition);
+					}
+
 				}
 
 			}
-
 		}
 
 		// on retourne notre json de folie
