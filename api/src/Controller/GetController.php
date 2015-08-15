@@ -58,6 +58,11 @@ class GetController extends MailController{
 		$fields = $this->compareDataSQL($data, $table);
 		$champs = $fields[0];
 		$tableaux = $fields[1];
+		echo "<br/>----------------------------<br/>DATA : <pre>";
+		print_r($champs);
+		print_r($tableaux);
+		echo "</pre>";
+
 
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
 		$infos = $this->getLinesAndNewCondition($table, $champs, $condition);
@@ -66,17 +71,19 @@ class GetController extends MailController{
 
 		// on envoit la boucle pour la recursivité
 		foreach ($ids as $id) {
-			echo $condition[1] = $id;
+			echo "<br/>----------------------------<br/>ID DATA : ".$id."<pre>";
+			$condition[1] = $id;
+			echo "<bt/>";
 
-			foreach ($tableaux as $tableau => $value) {
+			foreach ($tableaux as $tableau) {
 
-				if($nb = count($data[$value]) == 1 && is_array($data[$value][0])){
+				if($nb = count($data[$tableau]) == 1 && is_array($data[$tableau][0])){
 					echo $nb."<br/>";
-					// $this->mainTraintment($data[$value], $condition);
-				}elseif($nb = count($data[$value]) > 1){
+					// $this->mainTraintment($data[$tableau], $condition);
+				}elseif($nb = count($data[$tableau]) > 1){
 					echo $nb."<br/>";
 					for ($i=0; $i < $nb; $i++) { 
-						// $this->mainTraintment($data[$value][$i], $condition);
+						// $this->mainTraintment($data[$tableau][$i], $condition);
 					}
 				}
 
