@@ -72,7 +72,7 @@ class GetController extends MailController{
 		$ids = $infos[1];
 
 		// on envoit la boucle pour la recursivité
-		if(!empty($ids)){
+		if(!empty($ids) && !empty($tableaux)){
 			foreach ($ids as $id) {
 				echo "<br/>----------------------------<br/>ID DATA : ".$id;
 				$condition[1] = $id;
