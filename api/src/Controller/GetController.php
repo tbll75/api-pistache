@@ -107,7 +107,7 @@ class GetController extends MailController{
 		echo "</pre>";
 
 		// on doit retourner un tableau avec les ids du select.
-		$ids = array();
+		$ids = '';
 		foreach ($rep as $line) {
 			$ids[] = $line['id'.substr($table, 4)];
 		}
