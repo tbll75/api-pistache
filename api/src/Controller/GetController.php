@@ -63,11 +63,12 @@ class GetController extends MailController{
 		$condition = $this->getLinesAndNewCondition($table, $champs, $condition);
 
 		// on envoit la boucle pour la recursivité
+		echo "<br/>----------------------------<br/>FOREACH : <pre>";
 		foreach ($tableaux as $tableau => $value) {
-			foreach ($tableau as $eachTab => $value) {
-				echo $tableau." - ".$eachTab;
+			// foreach ($tableau as $eachTab => $value) {
+				echo $tableau." - "/*.$eachTab*/;
 				// $this->mainTraintment($data[$tableau][$eachTab], $condition);
-			}
+			// }
 		}
 
 		// on retourne notre json de folie
