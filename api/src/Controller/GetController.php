@@ -76,15 +76,11 @@ class GetController extends MailController{
 			echo "<bt/>";
 
 			foreach ($tableaux as $tableau) {
-
-				if($nb = count($data[$tableau]) == 1 && is_array($data[$tableau][0])){
-					echo $nb."<br/>";
-					// $this->mainTraintment($data[$tableau], $condition);
-				}elseif($nb = count($data[$tableau]) > 1){
-					echo $nb."<br/>";
-					for ($i=0; $i < $nb; $i++) { 
-						// $this->mainTraintment($data[$tableau][$i], $condition);
-					}
+				$nb = count($data[$tableau])
+				echo $nb."<br/>";
+				for ($i=0; $i < $nb; $i++) { 
+					// $this->mainTraintment($data[$tableau][$i], $condition);
+				}
 				}
 
 			}
