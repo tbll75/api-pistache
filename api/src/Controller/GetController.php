@@ -60,18 +60,26 @@ class GetController extends MailController{
 		$tableaux = $fields[1];
 
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
-		$condition = $this->getLinesAndNewCondition($table, $champs, $condition);
+		$infos = $this->getLinesAndNewCondition($table, $champs, $condition);
+		$condition = $infos[0];
+		$ids = $infos[1];
 
 		// on envoit la boucle pour la recursivité
-		foreach ($tableaux as $tableau => $value) {
-			if($nb = count($data[$value]) == 1 && is_array($data[$value][0])){
-				echo $nb."<br/>";
-				// $this->mainTraintment($data[$value], $condition);
-			}elseif($nb = count($data[$value]) > 1){
-				echo $nb."<br/>";
-				for ($i=0; $i < $nb; $i++) { 
-					// $this->mainTraintment($data[$value][$i], $condition);
+		foreach ($ids as $id) {
+			echo $condition[1] = $id;
+
+			foreach ($tableaux as $tableau => $value) {
+
+				if($nb = count($data[$value]) == 1 && is_array($data[$value][0])){
+					echo $nb."<br/>";
+					// $this->mainTraintment($data[$value], $condition);
+				}elseif($nb = count($data[$value]) > 1){
+					echo $nb."<br/>";
+					for ($i=0; $i < $nb; $i++) { 
+						// $this->mainTraintment($data[$value][$i], $condition);
+					}
 				}
+
 			}
 
 		}
@@ -110,7 +118,7 @@ class GetController extends MailController{
 		print_r($condition);
 		echo "</pre>";
 
-		return $condition;
+		return array($condition, $ids);
 	}
 
 
