@@ -71,7 +71,7 @@ class GetController extends MailController{
 
 		// on envoit la boucle pour la recursivité
 		foreach ($ids as $id) {
-			echo "<br/>----------------------------<br/>ID DATA : ".$id."<pre>";
+			echo "<br/>----------------------------<br/>ID DATA : ".$id;
 			$condition[1] = $id;
 			echo "<bt/>";
 
@@ -79,7 +79,7 @@ class GetController extends MailController{
 				$nb = count($data[$tableau]);
 				echo $nb."<br/>";
 				for ($i=0; $i < $nb; $i++) { 
-					echo "<br/>----------------------------<br/>NEW : <pre>";
+					echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ";
 					$this->mainTraintment($data[$tableau][$i], $condition);
 				}
 
