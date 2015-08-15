@@ -94,6 +94,16 @@ class GetController extends MailController{
 		print_r($rep);
 		echo "</pre>";
 
+		// on doit retourner un tableau avec les ids du select.
+		$ids = array();
+		foreach ($rep as $line) {
+			$îds[] = $line['id'.$table];
+		}
+
+		echo "<br/>----------------------------<br/>IDS<pre>";
+		print_r($ids);
+		echo "</pre>";
+
 		// on construit la nouvelle condition
 		$condition = array(substr($condition[0], 2)."_".$condition[0], $condition[1]);
 		echo "<br/>----------------------------<br/>CONDITION : <pre>";
