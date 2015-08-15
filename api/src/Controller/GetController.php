@@ -67,6 +67,7 @@ class GetController extends MailController{
 			// foreach ($tableau as $eachTab => $value) {
 				if(is_array($data[$value]))
 					echo $value." - ";
+					print_r($data[$value]);
 				// $this->mainTraintment($data[$value][$eachTab], $condition);
 			// }
 		}
