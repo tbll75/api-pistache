@@ -59,7 +59,7 @@ class GetController extends MailController{
 		$fields = $this->compareDataSQL($data, $table);
 		$champs = $fields[0];
 		$tableaux = $fields[1];
-		echo "<br/>----------------------------<br/>DATA : <pre>";
+		echo "<br/>----------------------------<br/>CHAMPS ET TABLEAUX : <pre>";
 		print_r($champs);
 		print_r($tableaux);
 		echo "</pre>";
@@ -117,7 +117,7 @@ class GetController extends MailController{
 		echo "</pre>";
 
 		// on construit la nouvelle condition
-		$condition = array(substr($condition[0], 2)."_".$condition[0], $condition[1]);
+		$condition = array(substr($table, 4)."_id".$substr($table, 4), $condition[1]);
 		echo "<br/>----------------------------<br/>CONDITION : <pre>";
 		print_r($condition);
 		echo "</pre>";
