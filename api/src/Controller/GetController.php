@@ -76,7 +76,7 @@ class GetController extends MailController{
 			echo "<bt/>";
 
 			foreach ($tableaux as $tableau) {
-				$nb = count($data[$tableau])
+				$nb = count($data[$tableau]);
 				echo $nb."<br/>";
 				for ($i=0; $i < $nb; $i++) { 
 					// $this->mainTraintment($data[$tableau][$i], $condition);
