@@ -188,6 +188,7 @@ class GetController extends MailController{
 			die();
 		}else{
 			$table = "api_".substr($idKey, 2);
+			echo "TABLE : ".$table;
 			return array($table, $idKey, $idValue);
 		}
 	}
