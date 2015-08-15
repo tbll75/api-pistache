@@ -81,7 +81,6 @@ class GetController extends MailController{
 				for ($i=0; $i < $nb; $i++) { 
 					// $this->mainTraintment($data[$tableau][$i], $condition);
 				}
-				}
 
 			}
 
