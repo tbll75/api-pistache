@@ -49,7 +49,7 @@ class GetController extends MailController{
 		$this->mainTraintment($data, $condition);
 
 		// $this->callBack = substr($this->callBack, 0, -1);
-		$this->callBack;
+		echo $this->callBack;
 
 	}
 
