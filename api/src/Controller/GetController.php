@@ -111,7 +111,7 @@ class GetController extends MailController{
 			$rep = $this->select("SELECT TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE '%$entity%'");
 			if(!empty($rep))
 				foreach ($rep as $table) {
-					$entity = string($table['COLUMN_NAME'],"_id");
+					$entity = strstr($table['COLUMN_NAME'],"_id");
 					if(is_string($entity)){
 						$this->getAllStructure($entity);
 						echo "<br/>----------------------------<br/>SLQ STRUCT : ".$entity."<pre>";
