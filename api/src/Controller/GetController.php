@@ -23,6 +23,12 @@ class GetController extends MailController{
 		$data = json_decode($_POST['json'], true)['data']; 
 		$integratedDependences = json_decode($_POST['json'], true)['integratedDependences']; 
 
+		// On 'nettoie' la data, ou alors on cré la structure de la bdd par une jolie requete de folie.
+		/**
+
+		*/
+		$this->getAllStructure($entity);
+
 		// Si le tableau n'existe pas
 		if(!isset($this->switcher[$entity])){
 			$this->ids[] =  '"error'.$this->idError++.'":"Entity '.$entity.' unknown"';
@@ -92,6 +98,19 @@ class GetController extends MailController{
 
 		// on retourne notre json de folie
 		return true;
+
+	}
+
+
+
+	public function getAllStructure($entity){
+		// on chope toute les descendance de $entity.
+		// select structutre
+		$rep = $this->select("SELECT COLUMN_NAME, TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE '%$entity%'");
+
+		echo "<br/>----------------------------<br/>SLQ STRUCT : <pre>";
+		print_r($rep);
+		echo "</pre>";
 
 	}
 
