@@ -105,23 +105,21 @@ class GetController extends MailController{
 
 	public function getAllStructure($entity){
 		// on chope toute les descendance de $entity.
-		$entities = array(substr($entity, 4));
-		// select structutre
-		foreach ($entities as $entity) {
-			$rep = $this->select("SELECT TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE '%$entity%'");
-			echo "<br/>----------------------------<br/>SLQ STRUCT : ".$entity."<pre>";
-			print_r($rep);
-			echo "</pre>";
-			if(!empty($rep))
-				foreach ($rep as $table) {
-					$newEntity = strstr($table['COLUMN_NAME'],"_id");
-					if(is_string($newEntity)){
-						$this->getAllStructure($newEntity);
-					}
+		$entity = substr($entity, 4);
+		// on envoit la requete
+		$rep = $this->select("SELECT TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE '%$entity%'");
+		echo "<br/>----------------------------<br/>SLQ STRUCT : ".$entity."<pre>";
+		print_r($rep);
+		echo "</pre>";
+		if(!empty($rep))
+			foreach ($rep as $table) {
+				$newEntity = strstr($table['COLUMN_NAME'],"_id");
+				if(is_string($newEntity)){
+					$this->getAllStructure($newEntity);
 				}
-			else
-				echo '<br/>NO CHILD DATA TABLE<br/>';
-		}
+			}
+		else
+			echo '<br/>NO CHILD DATA TABLE<br/>';
 
 	}
 
