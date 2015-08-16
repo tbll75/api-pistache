@@ -140,10 +140,11 @@ class GetController extends MailController{
 			$this->callBack = substr($this->callBack, 0, -1);
 			$this->callBack .= '},{';
 		}
-		$this->callBack = substr($this->callBack, 0, -3);
+		$this->callBack = substr($this->callBack, 0, -2);
 
 		if(count($rep) > 1)
 			$this->callBack .= ']'; 
+		$this->callBack .= ','; 
 
 		// on doit retourner un tableau avec les ids du select.
 		$ids = '';
