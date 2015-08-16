@@ -48,7 +48,7 @@ class GetController extends MailController{
 
 		$this->mainTraintment($data, $condition);
 
-		$this->callBack = substr($this->callBack, 0, -1);
+		// $this->callBack = substr($this->callBack, 0, -1);
 		echo $this->callBack;
 
 	}
@@ -80,7 +80,6 @@ class GetController extends MailController{
 
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
 		echo $this->callBack .= '{';
-		echo "<br/>";
 		$infos = $this->getLinesAndNewCondition($table, $champs, $condition);
 		$condition = $infos[0];
 		$ids = $infos[1];
@@ -95,11 +94,8 @@ class GetController extends MailController{
 				foreach ($tableaux as $tableau) {
 					$nb = count($data[$tableau]);
 					echo $this->callBack .= ',"'.$tableau.'":';
-					echo "<br/>";
-					// for ($i=0; $i < $nb; $i++) { 
-						echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
-						$this->mainTraintment($data[$tableau], $condition);
-					// }
+					echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
+					$this->mainTraintment($data[$tableau], $condition);
 
 				}
 
@@ -107,7 +103,6 @@ class GetController extends MailController{
 		}
 
 		echo $this->callBack .= '}';
-		echo "<br/>";
 
 		// on retourne notre json de folie
 		return true;
@@ -137,21 +132,18 @@ class GetController extends MailController{
 		// let's start le CallBack
 		if(count($rep) > 1)
 			echo $this->callBack .= '[';
-		echo "<br/>";
 
 		foreach ($rep as $line) {
 			foreach ($line as $key => $value) {
 				echo $this->callBack .= '"'.$key.'":"'.$value.'",';
-				echo "<br/>";
 			}
 			$this->callBack = substr($this->callBack, 0, -1);
 			echo $this->callBack .= '},{';
-			echo "<br/>";
 		}
 		$this->callBack = substr($this->callBack, 0, -3);
 
 		if(count($rep) > 1)
-			echo $this->callBack .= ']'; echo "<br/>";
+			echo $this->callBack .= ']'; 
 
 		// on doit retourner un tableau avec les ids du select.
 		$ids = '';
