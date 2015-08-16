@@ -37,6 +37,8 @@ class GetController extends MailController{
 		*/
 		$this->getAllStructure($entity);
 
+		echo '<br/>************************************************************************************************<br/>';
+
 
 		// on définie les conditions
 		$infos = $this->findTable($data);
