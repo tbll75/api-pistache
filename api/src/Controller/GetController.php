@@ -39,7 +39,6 @@ class GetController extends MailController{
 
 		echo '<br/>************************************************************************************************<br/>';
 
-die();
 		// on définie les conditions
 		$infos = $this->findTable($data);
 		$condition = array($infos[1], $infos[2]);
@@ -106,22 +105,6 @@ die();
 
 
 	public function getAllStructure($entity){
-		// on chope toute les descendance de $entity.
-		$entity = substr($entity, 4);
-		// on envoit la requete
-		$rep = $this->select("SELECT TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE '%id".$entity."%'");
-		echo "<br/>----------------------------<br/>SLQ STRUCT : ".$entity."<pre>";
-		print_r($rep);
-		echo "</pre>";
-		if(count($rep) > 1)
-			foreach ($rep as $table) {
-				if(is_string(strstr($table['COLUMN_NAME'], "_id", true))){
-					$newEntity = $table['TABLE_NAME'];
-					$this->getAllStructure($newEntity);
-				}
-			}
-		else
-			echo '<br/>NO CHILD DATA TABLE<br/>';
 
 	}
 
