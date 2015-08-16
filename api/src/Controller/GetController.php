@@ -92,11 +92,12 @@ class GetController extends MailController{
 				echo "<br/>";
 
 				foreach ($tableaux as $tableau) {
-					// $nb = count($data[$tableau]);
-					// $this->callBack .= ',"'.$tableau.'":';
-					echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
-					$this->mainTraintment($data[$tableau], $condition);
-
+					$nb = count($data[$tableau]);
+					if(!empty($tableau)){
+						$this->callBack .= ',"'.$tableau.'":';
+						echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
+						$this->mainTraintment($data[$tableau], $condition);
+					}
 				}
 
 			}
