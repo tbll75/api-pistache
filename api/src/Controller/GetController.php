@@ -48,6 +48,7 @@ class GetController extends MailController{
 
 		$this->mainTraintment($data, $condition);
 
+		$this->callBack = substr($this->callBack, 0, -1);
 		echo $this->callBack;
 
 	}
@@ -91,7 +92,7 @@ class GetController extends MailController{
 
 				foreach ($tableaux as $tableau) {
 					$nb = count($data[$tableau]);
-					$this->callBack .= '"'.$tableau.'":';
+					$this->callBack .= ',"'.$tableau.'":';
 					// for ($i=0; $i < $nb; $i++) { 
 						echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
 						$this->mainTraintment($data[$tableau], $condition);
