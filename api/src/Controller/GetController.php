@@ -79,6 +79,8 @@ class GetController extends MailController{
 
 
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
+		echo $this->callBack .= '{';
+		echo "<br/>";
 		$infos = $this->getLinesAndNewCondition($table, $champs, $condition);
 		$condition = $infos[0];
 		$ids = $infos[1];
@@ -138,21 +140,18 @@ class GetController extends MailController{
 		echo "<br/>";
 
 		foreach ($rep as $line) {
-			echo $this->callBack .= '{';
-			echo "<br/>";
 			foreach ($line as $key => $value) {
 				echo $this->callBack .= '"'.$key.'":"'.$value.'",';
 				echo "<br/>";
 			}
 			$this->callBack = substr($this->callBack, 0, -1);
-			echo $this->callBack .= '}';
+			echo $this->callBack .= '},{';
 			echo "<br/>";
 		}
-		$this->callBack = substr($this->callBack, 0, -1);
+		$this->callBack = substr($this->callBack, 0, -3);
 
 		if(count($rep) > 1)
-			echo $this->callBack .= ']';
-		echo "<br/>";
+			echo $this->callBack .= ']'; echo "<br/>";
 
 		// on doit retourner un tableau avec les ids du select.
 		$ids = '';
