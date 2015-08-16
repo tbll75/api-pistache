@@ -39,7 +39,7 @@ class GetController extends MailController{
 
 		echo '<br/>************************************************************************************************<br/>';
 
-
+die();
 		// on définie les conditions
 		$infos = $this->findTable($data);
 		$condition = array($infos[1], $infos[2]);
