@@ -133,7 +133,7 @@ class GetController extends MailController{
 		// let's start le CallBack
 		if(count($rep) > 1)
 			$this->callBack .= '[';
-
+		if(count($rep) == 1)
 		foreach ($rep as $line) {
 			foreach ($line as $key => $value) {
 				$this->callBack .= '"'.$key.'":"'.$value.'",';
@@ -143,7 +143,7 @@ class GetController extends MailController{
 		}
 		if(count($rep) > 1)
 			$this->callBack = substr($this->callBack, 0, -2);
-		else
+		elseif(count($rep) == 1)
 			$this->callBack = substr($this->callBack, 0, -3);
 
 		if(count($rep) > 1)
