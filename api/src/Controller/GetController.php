@@ -109,14 +109,14 @@ class GetController extends MailController{
 		// select structutre
 		foreach ($entities as $entity) {
 			$rep = $this->select("SELECT TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE '%$entity%'");
+			echo "<br/>----------------------------<br/>SLQ STRUCT : ".$newEntity."<pre>";
+			print_r($rep);
+			echo "</pre>";
 			if(!empty($rep))
 				foreach ($rep as $table) {
-					$entity = strstr($table['COLUMN_NAME'],"_id");
-					if(is_string($entity)){
-						$this->getAllStructure($entity);
-						echo "<br/>----------------------------<br/>SLQ STRUCT : ".$entity."<pre>";
-						print_r($rep);
-						echo "</pre>";
+					$newEntity = strstr($table['COLUMN_NAME'],"_id");
+					if(is_string($newEntity)){
+						$this->getAllStructure($newEntity);
 					}
 				}
 			else
