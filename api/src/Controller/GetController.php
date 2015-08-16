@@ -111,7 +111,7 @@ class GetController extends MailController{
 		echo "<br/>----------------------------<br/>SLQ STRUCT : ".$entity."<pre>";
 		print_r($rep);
 		echo "</pre>";
-		if(!empty($rep))
+		if(count($rep) > 1)
 			foreach ($rep as $table) {
 				$newEntity = strstr($table['COLUMN_NAME'],"_id");
 				if(is_string($newEntity)){
