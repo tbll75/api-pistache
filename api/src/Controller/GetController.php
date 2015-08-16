@@ -5,6 +5,8 @@ namespace App\Controller;
 class GetController extends MailController{
 
 	private $poubelle;
+	private $callBack = '';
+
 	private $idError = 0;
 	private $switcher = array(
 				"FamilyData" => "api_Family",
@@ -45,6 +47,8 @@ class GetController extends MailController{
 
 
 		$this->mainTraintment($data, $condition);
+
+		echo $this->callBack;
 
 	}
 
@@ -87,6 +91,7 @@ class GetController extends MailController{
 
 				foreach ($tableaux as $tableau) {
 					$nb = count($data[$tableau]);
+					$this->callBack .= '"'.$tableau.'":'
 					// for ($i=0; $i < $nb; $i++) { 
 						echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
 						$this->mainTraintment($data[$tableau], $condition);
@@ -96,6 +101,8 @@ class GetController extends MailController{
 
 			}
 		}
+
+		$this->callBack .= '}';
 
 		// on retourne notre json de folie
 		return true;
@@ -120,6 +127,24 @@ class GetController extends MailController{
 		echo "<br/>----------------------------<br/>REP : ".$table." -> ".$whereClaused."<pre>";
 		print_r($rep);
 		echo "</pre>";
+
+
+		// let's start le CallBack
+		if(count($rep) > 1)
+			$this->callBack .= '[';
+
+		foreach ($rep as $line) {
+			$this->callBack .= '{';
+			foreach ($line as $key => $value) {
+				$this->callBack .= '"'.$key.'":"'.$value.'",';
+			}
+			$this->callBack = substr($this->callBack, 0, -1);
+			$this->callBack .= '},';
+		}
+		$this->callBack = substr($this->callBack, 0, -1);
+
+		if(count($rep) > 1)
+			$this->callBack .= ']';
 
 		// on doit retourner un tableau avec les ids du select.
 		$ids = '';
