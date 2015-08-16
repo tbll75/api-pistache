@@ -115,8 +115,7 @@ class GetController extends MailController{
 			foreach ($rep as $table) {
 				if(is_string(strstr($table['COLUMN_NAME'], "_id", true))){
 					$newEntity = $table['TABLE_NAME'];
-					echo $newEntity."<br/>";
-					// $this->getAllStructure($newEntity);
+					$this->getAllStructure($newEntity);
 				}
 			}
 		else
