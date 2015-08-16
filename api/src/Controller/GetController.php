@@ -105,6 +105,7 @@ class GetController extends MailController{
 
 	public function getAllStructure($entity){
 		// on chope toute les descendance de $entity.
+		$entity = substr($entity, 4);
 		// select structutre
 		$rep = $this->select("SELECT COLUMN_NAME, TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE '%$entity%'");
 
