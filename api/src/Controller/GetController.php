@@ -23,12 +23,6 @@ class GetController extends MailController{
 		$data = json_decode($_POST['json'], true)['data']; 
 		$integratedDependences = json_decode($_POST['json'], true)['integratedDependences']; 
 
-		// On 'nettoie' la data, ou alors on cré la structure de la bdd par une jolie requete de folie.
-		/**
-
-		*/
-		$this->getAllStructure($entity);
-
 		// Si le tableau n'existe pas
 		if(!isset($this->switcher[$entity])){
 			$this->ids[] =  '"error'.$this->idError++.'":"Entity '.$entity.' unknown"';
@@ -36,6 +30,12 @@ class GetController extends MailController{
 		}else{
 			$entity = $this->switcher[$entity];
 		}
+
+		// On 'nettoie' la data, ou alors on cré la structure de la bdd par une jolie requete de folie.
+		/**
+
+		*/
+		$this->getAllStructure($entity);
 
 
 		// on définie les conditions
