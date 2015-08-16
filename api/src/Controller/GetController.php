@@ -140,7 +140,7 @@ class GetController extends MailController{
 				$this->callBack .= '"'.$key.'":"'.$value.'",';
 			}
 			$this->callBack = substr($this->callBack, 0, -1);
-			$this->callBack .= '},';
+			$this->callBack .= '}, ';
 		}
 		$this->callBack = substr($this->callBack, 0, -1);
 
