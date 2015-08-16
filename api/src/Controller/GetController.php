@@ -108,7 +108,7 @@ class GetController extends MailController{
 		// select structutre
 		$rep = $this->select("SELECT COLUMN_NAME, TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE '%$entity%'");
 
-		echo "<br/>----------------------------<br/>SLQ STRUCT : <pre>";
+		echo "<br/>----------------------------<br/>SLQ STRUCT : ".$entity."<pre>";
 		print_r($rep);
 		echo "</pre>";
 
