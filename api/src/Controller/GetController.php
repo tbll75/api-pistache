@@ -4,6 +4,8 @@ namespace App\Controller;
 
 class GetController extends MailController{
 
+	private $callBack = '';
+
 
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
@@ -34,25 +36,30 @@ class GetController extends MailController{
 			return false;
 
 		// Requete
-		echo '<br/><b>SELECT DANS TALBLE : </b>'.$table."<br/>";
 		$rep = $this->select("SELECT * FROM $table WHERE $parentField = '$parentId'");
 		$idKey = '';
 		$idValue = '';
+
+		if(count($rep) > 1)
+			$this->callBack .= '[';
+
 
 		// traitement
 		foreach ($rep as $result) {
 			$idKey = '';
 			$idValue = '';
+			$this->callBack .= '{';
 			foreach ($result as $key => $value) {
 				// Si le champ est demandé
 				if(in_array($key, $struct))
-					echo '<br/>'.$key." : ".$value;
+					$this->callBack .= '"'.$key.":".$value.'", ';
 				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
 					$idKey = substr($table, 4)."_".$key;
 					$idValue = $value;
 					echo "<br/><b>Futur clause :</b> ".$idKey." -> ".$idValue;
 				}
+				$this->callBack = substr($this->callBack, 0, -2);
 			}
 			if(empty($idKey) && empty($idValue)){
 				echo 'No condition for futur clause.';
@@ -72,7 +79,12 @@ class GetController extends MailController{
 						$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
 					}
 			}
+			$this->callBack .= '}';
 		}
+
+
+		if(count($rep) > 1)
+			$this->callBack .= ']';
 	}
 
 
