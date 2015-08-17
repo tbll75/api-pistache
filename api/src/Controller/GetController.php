@@ -112,6 +112,13 @@ class GetController extends MailController{
 		// on construit la nouvelle condition
 		$condition = array(substr($table, 4)."_id".substr($table, 4), $condition[1]);
 
+		echo "<br/>----------------------------<br/>RETURN SELECT <pre>";
+		print_r($rep);
+		echo "</pre>";
+		echo "<br/>----------------------------<br/>CONDITION : <pre>";
+		print_r($condition);
+		echo "</pre>";
+
 		// on envoit la boucle pour la recursivité
 		if(!empty($rep)){
 			foreach ($rep as $line) {
@@ -130,13 +137,6 @@ class GetController extends MailController{
 				}
 			}
 		}
-
-		echo "<br/>----------------------------<br/>IDS<pre>";
-		print_r($ids);
-		echo "</pre>";
-		echo "<br/>----------------------------<br/>CONDITION : <pre>";
-		print_r($condition);
-		echo "</pre>";
 
 		return array($condition, $ids);
 	}
