@@ -49,7 +49,7 @@ class GetController extends MailController{
 		$this->mainTraintment($data, $condition);
 
 		// $this->callBack = substr($this->callBack, 0, -1);
-		echo json_decode($_POST['json'], true)['data']; 
+		echo $_POST['json'];
 		echo "<br/>";
 		echo $this->callBack;
 
@@ -112,6 +112,12 @@ class GetController extends MailController{
 		print_r($rep);
 		echo "</pre>";
 
+		// on doit retourner un tableau avec les ids du select.
+		$ids = '';
+		foreach ($rep as $line) {
+			$ids[] = $line['id'.substr($table, 4)];
+		}
+
 
 		// let's start le CallBack
 		if(count($rep) > 1)
@@ -139,7 +145,7 @@ class GetController extends MailController{
 
 					}
 				}
-				
+
 			}
 			$this->callBack = substr($this->callBack, 0, -1);
 			$this->callBack .= '},{';
@@ -152,12 +158,6 @@ class GetController extends MailController{
 		if(count($rep) > 1)
 			$this->callBack .= ']'; 
 		// $this->callBack .= ','; 
-
-		// on doit retourner un tableau avec les ids du select.
-		$ids = '';
-		foreach ($rep as $line) {
-			$ids[] = $line['id'.substr($table, 4)];
-		}
 
 		echo "<br/>----------------------------<br/>IDS<pre>";
 		print_r($ids);
