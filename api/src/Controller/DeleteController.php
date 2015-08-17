@@ -6,20 +6,20 @@ class DeleteController extends SQLController{
 
 	public function entity(){
 
-		$json = json_decode($_POST['json'], true);
+		$data = json_decode($_POST['json'], true)['data'];
 
-		foreach ($json as $key => $value) {
+		$table = $this->switcher(json_decode($_POST['json'], true)['entity'])
+
+		foreach ($data as $key => $value) {
 			if(preg_match('/^id/', $key))
 				$entity = $key;
 		}
 
-		// non de l'entité
-		$entity = substr($entity, 2);
 		// valeur de l'id
-		$id = $json['id'.$entity];
+		$id = $data['id'.$entity];
 
 		if(!empty($id)){
-			$sql = "DELETE FROM api_".$entity." WHERE id".$entity." = ".$id;
+			$sql = "DELETE FROM $table WHERE $key = '".$id."'";
 			$result = $this->delete($sql);
 			if($result){ echo 'ok'; }else{ echo '{"error":"Probleme inconnu"}'; }
 		}else{
@@ -27,6 +27,29 @@ class DeleteController extends SQLController{
 			echo $error;
 			die();
 		}
+	}
+
+
+
+	public function switcher($table){
+		$switcher = array(
+				"FamilyData" => "api_Family",
+				"FamilyMember" => "api_Children",
+				"Chore" => "api_ChoreRec",
+				"ChoreChild" => "api_ChoreDone", 
+				"Settings" => "api_Settings",
+				"hero" => "api_Hero",
+				"MemberList" => "api_Children",
+				"deviceList" => "api_Support",
+				"settings" => "api_Settings",
+				"chore" => "api_ChoreDone",
+				// "listeDebloque" => "api_ObjectUnlock"
+			);
+		if(is_string($switcher[$table])){
+			echo "<br/>New Table : ".$switcher[$table];
+			return $switcher[$table];
+		}else
+			return false;
 	}
 
 }
