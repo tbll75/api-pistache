@@ -137,7 +137,7 @@ class GetController extends MailController{
 						foreach ($tableaux as $tableau) {
 							$nb = count($data[$tableau]);
 							if(!empty($tableau)){
-								$this->callBack .= ',"'.$tableau.'":';
+								$this->callBack .= '"'.$tableau.'":';
 								echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
 								$this->mainTraintment($data[$tableau], $condition);
 							}
@@ -177,6 +177,7 @@ class GetController extends MailController{
 	public function getTableStruct($table, $parentColumn){
 
 		// petite requete sql
+		echo 'GET TABLE STRUCT : '.$table;
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$table."'");
 
 		// on filtre les infos intéressante
