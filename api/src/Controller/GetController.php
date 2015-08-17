@@ -82,28 +82,9 @@ class GetController extends MailController{
 
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
 		$this->callBack .= '{';
-		$infos = $this->getLinesAndNewCondition($table, $champs, $condition);
+		$infos = $this->getLinesAndNewCondition($table, $champs, $condition, $tableaux);
 		$condition = $infos[0];
 		$ids = $infos[1];
-
-		// on envoit la boucle pour la recursivité
-		if(!empty($ids) && !empty($tableaux)){
-			foreach ($ids as $id) {
-				echo "<br/>----------------------------<br/>ID DATA : ".$id;
-				$condition[1] = $id;
-				echo "<br/>";
-
-				foreach ($tableaux as $tableau) {
-					$nb = count($data[$tableau]);
-					if(!empty($tableau)){
-						$this->callBack .= ',"'.$tableau.'":';
-						echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
-						$this->mainTraintment($data[$tableau], $condition);
-					}
-				}
-
-			}
-		}
 
 		$this->callBack .= '}';
 
@@ -120,7 +101,7 @@ class GetController extends MailController{
 
 
 
-	public function getLinesAndNewCondition($table, $champs, $condition){
+	public function getLinesAndNewCondition($table, $champs, $condition, $tableaux){
 		// on prépare les variables
 		$champs = implode(', ', $champs);
 		$whereClaused = implode(' = ', $condition);
@@ -139,6 +120,26 @@ class GetController extends MailController{
 		foreach ($rep as $line) {
 			foreach ($line as $key => $value) {
 				$this->callBack .= '"'.$key.'":"'.$value.'",';
+
+				// on envoit la boucle pour la recursivité
+				if(!empty($ids) && !empty($tableaux)){
+					foreach ($ids as $id) {
+						echo "<br/>----------------------------<br/>ID DATA : ".$id;
+						$condition[1] = $id;
+						echo "<br/>";
+
+						foreach ($tableaux as $tableau) {
+							$nb = count($data[$tableau]);
+							if(!empty($tableau)){
+								$this->callBack .= ',"'.$tableau.'":';
+								echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
+								$this->mainTraintment($data[$tableau], $condition);
+							}
+						}
+
+					}
+				}
+				
 			}
 			$this->callBack = substr($this->callBack, 0, -1);
 			$this->callBack .= '},{';
