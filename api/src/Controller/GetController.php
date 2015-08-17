@@ -63,11 +63,12 @@ class GetController extends MailController{
 						$tableaux[] = $key; echo '<br/>'.$key;
 					}
 				}
-				foreach ($tableaux as $tableau) {
-					// on récursive pour les tableaux voulu.
-					echo '<br/><br/>Go Traitment : '.$tableau.' -> '.$idKey.' = '.$idValue.'<br>';
-					$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
-				}
+				if(!empty($tableaux))
+					foreach ($tableaux as $tableau) {
+						// on récursive pour les tableaux voulu.
+						echo '<br/><br/>Go Traitment : '.$tableau.' -> '.$idKey.' = '.$idValue.'<br>';
+						$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
+					}
 			}
 		}
 	}
