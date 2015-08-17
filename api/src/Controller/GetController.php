@@ -34,7 +34,7 @@ class GetController extends MailController{
 			return false;
 
 		// Requete
-		echo '<br/>SELECT DANS TALBLE : '.$table;
+		echo '<br/>SELECT DANS TALBLE : '.$table."<br/>";
 		$rep = $this->select("SELECT * FROM $table WHERE $parentField = '$parentId'");
 		$idKey = '';
 		$idValue = '';
@@ -49,7 +49,7 @@ class GetController extends MailController{
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
 					$idKey = $key;
 					$idValue = $value;
-					echo "<br/><b>Futur clause :</b> ".$idKey."->".$idValue;
+					echo "<br/><b>Futur clause :</b> ".substr($table, 4)."_".$idKey."->".$idValue;
 				}
 			}
 			if(empty($idKey) && empty($idValue)){
@@ -87,7 +87,7 @@ class GetController extends MailController{
 				// "listeDebloque" => "api_ObjectUnlock"
 			);
 		if(is_string($switcher[$table])){
-			echo "<br/>".$switcher[$table];
+			echo "<br/>New Table : ".$switcher[$table];
 			return $switcher[$table];
 		}else
 			return false;
