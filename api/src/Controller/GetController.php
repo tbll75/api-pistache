@@ -82,6 +82,8 @@ class GetController extends MailController{
 				"ChoreChild" => "api_ChoreDone", 
 				"Settings" => "api_Settings",
 				"hero" => "api_Hero",
+				"MemberList" => "api_Children",
+				"deviceList" => "api_Support",
 				// "listeDebloque" => "api_ObjectUnlock"
 			);
 		if(is_string($switcher[$table])){
