@@ -50,7 +50,7 @@ class GetController extends MailController{
 
 		// $this->callBack = substr($this->callBack, 0, -1);
 		echo $_POST['json'];
-		echo "<br/>";
+		echo "<br/><br/>";
 		echo $this->callBack;
 
 	}
