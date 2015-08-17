@@ -25,6 +25,8 @@ class GetController extends MailController{
 			$this->mainTraitment($table, $parentField, $parentId, $struct);
 		else
 			echo 'No traitment to do.';
+
+		echo "<br/></br>".$this->callBack;
 	}
 
 
