@@ -56,8 +56,9 @@ class GetController extends MailController{
 				$tableau = '';
 				echo "<br/><br/>TABLEAU(X) :";
 				foreach ($struct as $key => $value) {
-					if(is_array($value) && !empty($value))
+					if(is_array($value) && !empty($value)){
 						$tableau[] = $key; echo '<br/>'.$key;
+					}
 				}
 				foreach ($tableau as $key) {
 					// on récursive pour les tableaux voulu.
