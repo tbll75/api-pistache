@@ -34,7 +34,7 @@ class GetController extends MailController{
 			return false;
 
 		// Requete
-		echo '<br/>SELECT DANS TALBLE : '.$table."<br/>";
+		echo '<br/><b>SELECT DANS TALBLE : </b>'.$table."<br/>";
 		$rep = $this->select("SELECT * FROM $table WHERE $parentField = '$parentId'");
 		$idKey = '';
 		$idValue = '';
