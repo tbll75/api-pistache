@@ -49,6 +49,8 @@ class GetController extends MailController{
 		$this->mainTraintment($data, $condition);
 
 		// $this->callBack = substr($this->callBack, 0, -1);
+		echo json_decode($_POST['json'], true)['data']; 
+		echo "<br/>";
 		echo $this->callBack;
 
 	}
