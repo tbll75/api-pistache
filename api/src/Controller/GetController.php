@@ -33,18 +33,19 @@ class GetController extends MailController{
 
 		// Requete
 		$rep = $this->select("SELECT * FROM $table WHERE $parentField = '$parentId'");
+		$idKey = '';
+		$idValue = '';
 
 		// traitement
 		foreach ($rep as $result) {
 			foreach ($result as $key => $value) {
 				echo '<br/>'.$key." : ".$value;
-				if(preg_match('/^id[a-zA-Z]+/', $key)){
+				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
 					$idKey = $key;
 					$idValue = $value;
-				}
-				if(!empty($idKey) && !empty($idValue))
 					echo "<br/> Futur clause : ".$idKey."->".$idValue;
-				else
+				}
+				if(empty($idKey) && empty($idValue))
 					echo 'No condition for futur clause.';
 			}
 		}
