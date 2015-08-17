@@ -27,7 +27,7 @@ class GetController extends MailController{
 
 
 
-	public function mainTraitment($table, $parentField, $parentId){
+	public function mainTraitment($table, $parentField, $parentId, $struct){
 		// on switch le nom de la table avec celui qui correspond en bdd
 		$table = $this->switcher($table);
 
@@ -39,7 +39,8 @@ class GetController extends MailController{
 		// traitement
 		foreach ($rep as $result) {
 			foreach ($result as $key => $value) {
-				echo '<br/>'.$key." : ".$value;
+				if(in_array($key, $struct))
+					echo '<br/>'.$key." : ".$value;
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
 					$idKey = $key;
 					$idValue = $value;
