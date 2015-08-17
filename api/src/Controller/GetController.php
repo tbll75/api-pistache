@@ -125,7 +125,7 @@ class GetController extends MailController{
 						$nb = count($data[$tableau]);
 						if(!empty($tableau)){
 							echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." -> ".$condition[0]." = ".$condition[1];
-							// $this->mainTraintment($data[$tableau], $condition);
+							$this->mainTraintment($data[$tableau], $condition);
 						}
 					}
 				}
