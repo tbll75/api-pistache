@@ -42,7 +42,7 @@ class GetController extends MailController{
 		echo '<br/>************************************************************************************************<br/>';
 
 		// on définie les conditions
-		// $infos = $this->findTable($data);
+		$infos = $this->findTable($data);
 		$condition = array($infos[1], $infos[2]);
 
 
@@ -66,6 +66,7 @@ class GetController extends MailController{
 		$infos = $this->findTable($data);
 		if(!$infos){ return false; }
 		$table = $infos[0];
+		$condition = array($infos[1], $infos[2]);
 
 		// On compare les colonne de notre data avec celle du SQL pour ne garder que le meilleur
 		$fields = $this->compareDataSQL($data, $table, $condition[0]);
