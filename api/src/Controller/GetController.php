@@ -48,10 +48,8 @@ class GetController extends MailController{
 
 		$this->mainTraintment($data, $condition);
 
-		// $this->callBack = substr($this->callBack, 0, -1);
 		echo $_POST['json'];
 		echo "<br/><br/>";
-		echo $this->callBack;
 
 	}
 
@@ -81,12 +79,10 @@ class GetController extends MailController{
 
 
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
-		$this->callBack .= '{';
 		$infos = $this->getLinesAndNewCondition($table, $data, $champs, $condition, $tableaux);
 		$condition = $infos[0];
 		$ids = $infos[1];
 
-		$this->callBack .= '}';
 
 		// on retourne notre json de folie
 		return true;
@@ -123,12 +119,8 @@ class GetController extends MailController{
 
 
 		// let's start le CallBack
-		if(count($rep) > 1)
-			$this->callBack .= '[';
-		if(count($rep) == 1 || count($rep) > 1)
 		foreach ($rep as $line) {
 			foreach ($line as $key => $value) {
-				$this->callBack .= '"'.$key.'":"'.$value.'",';
 
 				// on envoit la boucle pour la recursivité
 				if(!empty($ids) && !empty($tableaux)){
@@ -140,7 +132,6 @@ class GetController extends MailController{
 						foreach ($tableaux as $tableau) {
 							$nb = count($data[$tableau]);
 							if(!empty($tableau)){
-								$this->callBack .= '"'.$tableau.'":';
 								echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
 								$this->mainTraintment($data[$tableau], $condition);
 							}
@@ -150,17 +141,7 @@ class GetController extends MailController{
 				}
 
 			}
-			$this->callBack = substr($this->callBack, 0, -1);
-			$this->callBack .= '},{';
 		}
-		if(count($rep) > 1)
-			$this->callBack = substr($this->callBack, 0, -2);
-		elseif(count($rep) == 1 || count($rep) > 1)
-			$this->callBack = substr($this->callBack, 0, -3);
-
-		if(count($rep) > 1)
-			$this->callBack .= ']'; 
-		// $this->callBack .= ','; 
 
 		echo "<br/>----------------------------<br/>IDS<pre>";
 		print_r($ids);
