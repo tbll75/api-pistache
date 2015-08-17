@@ -133,7 +133,7 @@ class GetController extends MailController{
 							$nb = count($data[$tableau]);
 							if(!empty($tableau)){
 								echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
-								$this->mainTraintment($data[$tableau], $condition);
+								// $this->mainTraintment($data[$tableau], $condition);
 							}
 						}
 
