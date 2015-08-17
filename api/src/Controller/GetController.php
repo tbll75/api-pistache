@@ -22,7 +22,7 @@ class GetController extends MailController{
 		if(!empty($parentField) && !empty($parentId))
 			$this->mainTraitment($table, $parentField, $parentId, $struct);
 		else
-			echo 'No traitmet to do.';
+			echo 'No traitment to do.';
 	}
 
 
@@ -39,15 +39,31 @@ class GetController extends MailController{
 		// traitement
 		foreach ($rep as $result) {
 			foreach ($result as $key => $value) {
+				// Si le champ est demandé
 				if(in_array($key, $struct))
 					echo '<br/>'.$key." : ".$value;
+				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
 					$idKey = $key;
 					$idValue = $value;
-					echo "<br/> Futur clause : ".$idKey."->".$idValue;
+					echo "<br/><b>Futur clause :</b> ".$idKey."->".$idValue;
 				}
-				if(empty($idKey) && empty($idValue))
-					echo 'No condition for futur clause.';
+			}
+			if(empty($idKey) && empty($idValue)){
+				echo 'No condition for futur clause.';
+			// si il a les futur conditions, on véirifie si des tableau sont demandés.
+			}else{
+				$tableau = '';
+				echo "<br/>TABLEAU(X) :";
+				foreach ($struct as $key => $value) {
+					if(is_array($value) && !empty($value))
+						$tableau[] = $key; echo '<br/>'.$key;
+				}
+				foreach ($tableau as $key) {
+					// on récursive pour les tableaux voulu.
+					echo 'Go Traitment : '.$tableau.' -> '.$idKey.' = '.$idValue;
+					$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
+				}
 			}
 		}
 	}
