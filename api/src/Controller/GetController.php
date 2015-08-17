@@ -53,17 +53,17 @@ class GetController extends MailController{
 				echo 'No condition for futur clause.';
 			// si il a les futur conditions, on véirifie si des tableau sont demandés.
 			}else{
-				$tableau = '';
+				$tableaux = '';
 				echo "<br/><br/>TABLEAU(X) :";
 				foreach ($struct as $key => $value) {
 					if(is_array($value) && !empty($value)){
-						$tableau[] = $key; echo '<br/>'.$key;
+						$tableaux[] = $key; echo '<br/>'.$key;
 					}
 				}
-				foreach ($tableau as $key) {
+				foreach ($tableaux as $tableau) {
 					// on récursive pour les tableaux voulu.
-					echo '<br/><br/>Go Traitment : '.$key.' -> '.$idKey.' = '.$idValue;
-					$this->mainTraitment($tableau, $idKey, $idValue, $struct[$key]);
+					echo '<br/><br/>Go Traitment : '.$tableau.' -> '.$idKey.' = '.$idValue;
+					$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
 				}
 			}
 		}
