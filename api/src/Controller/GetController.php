@@ -109,38 +109,25 @@ class GetController extends MailController{
 		print_r($rep);
 		echo "</pre>";
 
-		// on doit retourner un tableau avec les ids du select.
-		$ids = '';
-		foreach ($rep as $line) {
-			$ids[] = $line['id'.substr($table, 4)];
-		}
-
 		// on construit la nouvelle condition
 		$condition = array(substr($table, 4)."_id".substr($table, 4), $condition[1]);
 
+		// on envoit la boucle pour la recursivité
+		if(!empty($rep)){
+			foreach ($rep as $id) {
+				echo "<br/>----------------------------<br/>ID DATA : ".$id;
+				$condition[1] = $id;
+				echo "<br/>";
 
-		// let's start le CallBack
-		foreach ($rep as $line) {
-			foreach ($line as $key => $value) {
-
-				// on envoit la boucle pour la recursivité
-				if(!empty($ids) && !empty($tableaux)){
-					foreach ($ids as $id) {
-						echo "<br/>----------------------------<br/>ID DATA : ".$id;
-						$condition[1] = $id;
-						echo "<br/>";
-
-						foreach ($tableaux as $tableau) {
-							$nb = count($data[$tableau]);
-							if(!empty($tableau)){
-								echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
-								// $this->mainTraintment($data[$tableau], $condition);
-							}
+				if(!empty($tableaux)){
+					foreach ($tableaux as $tableau) {
+						$nb = count($data[$tableau]);
+						if(!empty($tableau)){
+							echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
+							// $this->mainTraintment($data[$tableau], $condition);
 						}
-
 					}
 				}
-
 			}
 		}
 
