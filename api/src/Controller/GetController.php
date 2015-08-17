@@ -177,7 +177,7 @@ class GetController extends MailController{
 	public function getTableStruct($table, $parentColumn){
 
 		// petite requete sql
-		echo '<br/>GET TABLE STRUCT : '.$table;
+		echo '<br/>PARENT : '.$$parentColumn;
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$table."'");
 
 		// on filtre les infos intéressante
