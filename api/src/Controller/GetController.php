@@ -30,6 +30,8 @@ class GetController extends MailController{
 	public function mainTraitment($table, $parentField, $parentId, $struct){
 		// on switch le nom de la table avec celui qui correspond en bdd
 		$table = $this->switcher($table);
+		if($table == false)
+			return false;
 
 		// Requete
 		$rep = $this->select("SELECT * FROM $table WHERE $parentField = '$parentId'");
@@ -81,8 +83,10 @@ class GetController extends MailController{
 				"hero" => "api_Hero",
 				// "listeDebloque" => "api_ObjectUnlock"
 			);
-
-		return $switcher[$table];
+		if(in_array($table, $switcher))
+			return $switcher[$table];
+		else
+			return false;
 	}
 
 }
