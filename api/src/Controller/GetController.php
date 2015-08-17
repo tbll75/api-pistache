@@ -83,9 +83,10 @@ class GetController extends MailController{
 				"hero" => "api_Hero",
 				// "listeDebloque" => "api_ObjectUnlock"
 			);
-		if(in_array($table, $switcher))
+		if(in_array($table, $switcher)){
+			echo "<br/><i>".$switcher[$table]."</i>";
 			return $switcher[$table];
-		else
+		}else
 			return false;
 	}
 
