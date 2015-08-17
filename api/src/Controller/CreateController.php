@@ -11,7 +11,8 @@ class CreateController extends MailController{
 		// On récupère la data sous forme de tableaux.
 		$entity = json_decode($_POST['json'], true)['entity']; 
 		$data = json_decode($_POST['json'], true)['data']; 
-		$savedDateTime = json_decode($_POST['json'], true)['savedDateTime']; 
+		$data = json_decode($_POST['json'], true)['data']; 
+		$allOrStruct = json_decode($_POST['json'], true)['savedDateTime']; 
 
 		echo $this->mainTraitment($entity, $data);
 	}
@@ -155,7 +156,7 @@ class CreateController extends MailController{
 		foreach ($data as $key => $value) {
 			if(!is_array($value) && in_array($key, $columns)){
 				$keys .= $key.", ";
-				$values .= "'".$value."', ";
+				$values .= "'".htmlentities($value)."', ";
 			}else
 				$subValues = true;
 		}
