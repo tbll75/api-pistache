@@ -115,8 +115,8 @@ class GetController extends MailController{
 		// on envoit la boucle pour la recursivité
 		if(!empty($rep)){
 			foreach ($rep as $line) {
-				echo "<br/>----------------------------<br/>ID DATA : ".$line['id'.$table];
-				$condition[1] = $line['id'.$table];
+				echo "<br/>----------------------------<br/>ID DATA : ".$line['id'.substr($table,4)];
+				$condition[1] = $line['id'.substr($table,4)];
 				echo "<br/>";
 
 				if(!empty($tableaux)){
