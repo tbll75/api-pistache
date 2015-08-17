@@ -11,7 +11,18 @@ class GetController extends MailController{
 		$struct = json_decode($_POST['json'], true)['data']; 
 		$integratedDependences = json_decode($_POST['json'], true)['integratedDependences']; 
 
-		$this->mainTraitment($table, $parentField, $parentId, $struct);
+		foreach ($struct as $key => $value) {
+			if(preg_match('/^id[a-zA-Z]+/', $key)){
+				$parentField = $key;
+				$parentId = $value;
+				break;
+			}
+		}
+
+		if(!empty($parentField) && !empty($parentId))
+			$this->mainTraitment($table, $parentField, $parentId, $struct);
+		else
+			echo 'No traitmet to do.';
 	}
 
 
