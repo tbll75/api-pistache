@@ -47,9 +47,9 @@ class GetController extends MailController{
 					echo '<br/>'.$key." : ".$value;
 				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
-					$idKey = $key;
+					$idKey = substr($table, 4)."_".$key;
 					$idValue = $value;
-					echo "<br/><b>Futur clause :</b> ".substr($table, 4)."_".$idKey."->".$idValue;
+					echo "<br/><b>Futur clause :</b> ".$idKey."->".$idValue;
 				}
 			}
 			if(empty($idKey) && empty($idValue)){
