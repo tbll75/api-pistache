@@ -16,10 +16,10 @@ class DeleteController extends SQLController{
 		}
 
 		// valeur de l'id
-		$id = $data['id'.$entity];
+		$id = $data[$entity];
 
 		if(!empty($id)){
-			$sql = "DELETE FROM $table WHERE $key = '".$id."'";
+			$sql = "DELETE FROM $table WHERE $entity = '".$id."'";
 			$result = $this->delete($sql);
 			if($result){ echo 'ok'; }else{ echo '{"error":"Probleme inconnu"}'; }
 		}else{
@@ -46,7 +46,6 @@ class DeleteController extends SQLController{
 				// "listeDebloque" => "api_ObjectUnlock"
 			);
 		if(is_string($switcher[$table])){
-			echo "<br/>New Table : ".$switcher[$table];
 			return $switcher[$table];
 		}else
 			return false;
