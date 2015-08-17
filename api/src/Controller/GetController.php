@@ -82,7 +82,7 @@ class GetController extends MailController{
 
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
 		$this->callBack .= '{';
-		$infos = $this->getLinesAndNewCondition($table, $champs, $condition, $tableaux);
+		$infos = $this->getLinesAndNewCondition($table, $data, $champs, $condition, $tableaux);
 		$condition = $infos[0];
 		$ids = $infos[1];
 
@@ -101,7 +101,7 @@ class GetController extends MailController{
 
 
 
-	public function getLinesAndNewCondition($table, $champs, $condition, $tableaux){
+	public function getLinesAndNewCondition($table, $data, $champs, $condition, $tableaux){
 		// on prépare les variables
 		$champs = implode(', ', $champs);
 		$whereClaused = implode(' = ', $condition);
