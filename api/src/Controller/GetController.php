@@ -107,6 +107,7 @@ class GetController extends MailController{
 		print_r($rep);
 		echo "</pre>";
 
+
 		// on construit la nouvelle condition
 		$condition = array(substr($table, 4)."_id".substr($table, 4), $condition[1]);
 		echo "<br/>----------------------------<br/>CONDITION : <pre>";
@@ -118,6 +119,7 @@ class GetController extends MailController{
 			foreach ($rep as $line) {
 				echo "<br/>----------------------------<br/>ID DATA : ".$line['id'.substr($table,4)];
 				$condition[1] = $line['id'.substr($table,4)];
+				echo '<br/>id'.substr($table,4);
 				echo "<br/>";
 
 				if(!empty($tableaux)){
