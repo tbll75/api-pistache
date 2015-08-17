@@ -222,7 +222,7 @@ class GetController extends MailController{
 			return false;
 		}else{
 			$table = "api_".substr($idKey, 2);
-			echo "TABLE : ".$table;
+			echo "<font color='red'>TABLE : ".$table."</font>";
 			return array($table, $idKey, $idValue);
 		}
 	}
