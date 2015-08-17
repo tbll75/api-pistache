@@ -8,7 +8,7 @@ class DeleteController extends SQLController{
 
 		$data = json_decode($_POST['json'], true)['data'];
 
-		$table = $this->switcher(json_decode($_POST['json'], true)['entity'])
+		$table = $this->switcher(json_decode($_POST['json'], true)['entity']);
 
 		foreach ($data as $key => $value) {
 			if(preg_match('/^id/', $key))
