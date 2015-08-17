@@ -212,7 +212,7 @@ class UpdateController extends MailController{
 		$subValues = false;
 		foreach ($data as $key => $value) {
 			if(!is_array($value) && in_array($key, $columns)){
-				$str .= $key." = '".htmlentities($value)."', ";
+				$str .= $key." = '".htmlentities($value, ENT_QUOTES)."', ";
 			}else
 				$subValues = true;
 		}
