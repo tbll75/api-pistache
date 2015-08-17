@@ -46,7 +46,7 @@ class GetController extends MailController{
 		$condition = array($infos[1], $infos[2]);
 
 
-		$this->mainTraintment($data, $condition);
+		$this->mainTraintment($data, $condition, $table = $condition[0]);
 
 		echo $_POST['json'];
 		echo "<br/><br/>";
@@ -55,7 +55,7 @@ class GetController extends MailController{
 
 
 
-	public function mainTraintment($data, $condition){
+	public function mainTraintment($data, $condition, $table = null){
 
 
 		echo "<br/>----------------------------<br/>DATA : <pre>";
@@ -127,7 +127,7 @@ class GetController extends MailController{
 						$nb = count($data[$tableau]);
 						if(!empty($tableau)){
 							echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." -> ".$condition[0]." = ".$condition[1];
-							$this->mainTraintment($data[$tableau], $condition);
+							$this->mainTraintment($data[$tableau], $condition, $tableau);
 						}
 					}
 				}
