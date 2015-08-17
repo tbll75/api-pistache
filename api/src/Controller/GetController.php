@@ -80,9 +80,7 @@ class GetController extends MailController{
 
 
 		// on execute le requete pour les champs connus et on retourne la condition pour les recursifs
-		$infos = $this->getLinesAndNewCondition($table, $data, $champs, $condition, $tableaux);
-		$condition = $infos[0];
-		$ids = $infos[1];
+		$condition = $this->getLinesAndNewCondition($table, $data, $champs, $condition, $tableaux);
 
 
 		// on retourne notre json de folie
@@ -126,7 +124,7 @@ class GetController extends MailController{
 					foreach ($tableaux as $tableau) {
 						$nb = count($data[$tableau]);
 						if(!empty($tableau)){
-							echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." : ";
+							echo "<br/>----------------------------------------------------------------------------------------------------------------<br/>NEW : ".$tableau." -> ".$condition[0]." = ".$condition[1];
 							// $this->mainTraintment($data[$tableau], $condition);
 						}
 					}
@@ -134,7 +132,7 @@ class GetController extends MailController{
 			}
 		}
 
-		return array($condition, $ids);
+		return array($condition);
 	}
 
 
