@@ -30,10 +30,11 @@ class GetController extends MailController{
 	public function mainTraitment($table, $parentField, $parentId, $struct){
 		// on switch le nom de la table avec celui qui correspond en bdd
 		$table = $this->switcher($table);
-		// if($table == false)
-		// 	return false;
+		if($table == false)
+			return false;
 
 		// Requete
+		echo '<br/>SELECT DANS TALBLE : '.$table;
 		$rep = $this->select("SELECT * FROM $table WHERE $parentField = '$parentId'");
 		$idKey = '';
 		$idValue = '';
