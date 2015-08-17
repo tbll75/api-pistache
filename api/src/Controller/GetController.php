@@ -75,7 +75,6 @@ class GetController extends MailController{
 
 
 	public function switcher($table){
-			echo "<br/>".$switcher[$table];
 		$switcher = array(
 				"FamilyData" => "api_Family",
 				"FamilyMember" => "api_Children",
@@ -85,6 +84,7 @@ class GetController extends MailController{
 				"hero" => "api_Hero",
 				// "listeDebloque" => "api_ObjectUnlock"
 			);
+		echo "<br/>".$switcher[$table];
 		if(in_array($table, $switcher)){
 			echo "<br/>".$switcher[$table];
 			return $switcher[$table];
