@@ -118,6 +118,9 @@ class GetController extends MailController{
 			$ids[] = $line['id'.substr($table, 4)];
 		}
 
+		// on construit la nouvelle condition
+		$condition = array(substr($table, 4)."_id".substr($table, 4), $condition[1]);
+
 
 		// let's start le CallBack
 		if(count($rep) > 1)
@@ -162,9 +165,6 @@ class GetController extends MailController{
 		echo "<br/>----------------------------<br/>IDS<pre>";
 		print_r($ids);
 		echo "</pre>";
-
-		// on construit la nouvelle condition
-		$condition = array(substr($table, 4)."_id".substr($table, 4), $condition[1]);
 		echo "<br/>----------------------------<br/>CONDITION : <pre>";
 		print_r($condition);
 		echo "</pre>";
@@ -177,7 +177,7 @@ class GetController extends MailController{
 	public function getTableStruct($table, $parentColumn){
 
 		// petite requete sql
-		echo '<br/>PARENT : '.$$parentColumn;
+		echo '<br/>PARENT : '.$parentColumn;
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$table."'");
 
 		// on filtre les infos intéressante
