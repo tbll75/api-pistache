@@ -41,6 +41,8 @@ class GetController extends MailController{
 
 		// traitement
 		foreach ($rep as $result) {
+			$idKey = '';
+			$idValue = '';
 			foreach ($result as $key => $value) {
 				// Si le champ est demandé
 				if(in_array($key, $struct))
@@ -49,7 +51,7 @@ class GetController extends MailController{
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
 					$idKey = substr($table, 4)."_".$key;
 					$idValue = $value;
-					echo "<br/><b>Futur clause :</b> ".$idKey."->".$idValue;
+					echo "<br/><b>Futur clause :</b> ".$idKey." -> ".$idValue;
 				}
 			}
 			if(empty($idKey) && empty($idValue)){
