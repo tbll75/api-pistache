@@ -75,6 +75,7 @@ class GetController extends MailController{
 
 
 	public function switcher($table){
+			echo "<br/>".$switcher[$table];
 		$switcher = array(
 				"FamilyData" => "api_Family",
 				"FamilyMember" => "api_Children",
