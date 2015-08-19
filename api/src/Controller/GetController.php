@@ -27,9 +27,10 @@ class GetController extends MailController{
 		else
 			echo 'No traitment to do.';
 
-		echo "<br/></br>".$this->callBack."<pre>";
-		print_r(json_decode($this->callBack, true));
-		echo '</pre>';
+		echo $this->callBack;
+		// echo "<pre>";
+		// print_r(json_decode($this->callBack, true));
+		// echo '</pre>';
 	}
 
 
@@ -44,10 +45,6 @@ class GetController extends MailController{
 			echo 'No equivalent table for '.$table.' in switcher';
 			return false;
 		}			
-
-		echo '<br/><b><font color="red">mainTraitment :</font></b> <br>table : '.$table.'<br/>parentField : '.$parentField.'<br/>parentId : '.$parentId.'<br/>struct :';
-		print_r($struct);
-		echo '<br/><br/>';
 
 		// Requete
 		$rep = $this->select("SELECT * FROM $table WHERE $parentField = '$parentId'");
@@ -76,7 +73,6 @@ class GetController extends MailController{
 
 				// Si le champ est demandé
 				if(array_key_exists($key, $struct)){
-					echo '&nbsp;&nbsp;&nbsp; ->"'.$key.'":"'.$value.'"<br/>';
 					$this->callBack .= '"'.$key.'":"'.$value.'",';
 				}
 				// Si id il y a on le chope pour construire les conditions des enfants
