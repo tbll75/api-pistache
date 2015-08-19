@@ -46,19 +46,16 @@ class GetController extends MailController{
 		$idKey = '';
 		$idValue = '';
 
-		if(count($rep) > 1)
-			$this->callBack .= '[';
-
 
 		// traitement
 		foreach ($rep as $result) {
 			$idKey = '';
 			$idValue = '';
-			$this->callBack .= '{';
+
 			foreach ($result as $key => $value) {
 				// Si le champ est demandé
 				if(in_array($key, $struct))
-					$this->callBack .= '"'.$key.":".$value.'", ';
+					echo '!';
 				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
 					$idKey = substr($table, 4)."_".$key;
