@@ -163,7 +163,7 @@ class GetController extends MailController{
 		// find line en db.
 		$rep = $this->select("SELECT idFamily, masterPassword FROM api_Family WHERE mail = '$mail'");
 		// hash le mot de passe
-		echo $tryPass = hash_hmac('sha256', $password, 'pistache').' - ';
+		echo $tryPass = hash_hmac('sha256', $password, 'pistache');
 		// compare
 		foreach ($rep as $result) {
 			echo $result['idFamily'].' - '.$result['masterPassword'];
