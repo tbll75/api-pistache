@@ -21,14 +21,9 @@ class GetController extends MailController{
 			}
 		}
 
-		if(!empty($parentField) && !empty($parentId)){
-		// on switch le nom de la table avec celui qui correspond en bdd
-			$table = $this->switcher($table);
-			if($table == false)
-				return false;
-			else
-				$this->mainTraitment($table, $parentField, $parentId, $struct);
-		}else
+		if(!empty($parentField) && !empty($parentId))
+			$this->mainTraitment($table, $parentField, $parentId, $struct);
+		else
 			echo 'No traitment to do.';
 
 		echo "<br/></br>".$this->callBack;
@@ -37,6 +32,13 @@ class GetController extends MailController{
 
 
 	public function mainTraitment($table, $parentField, $parentId, $struct){
+
+		// on switch le nom de la table avec celui qui correspond en bdd
+		$table = $this->switcher($table);
+		if($table == false){
+			echo 'No equivalent table for '.$tableau.' in switcher';
+			return false;
+		}			
 
 		echo '<br/><b><font color="red">mainTraitment :</font></b> <br>table : '.$table.'<br/>parentField : '.$parentField.'<br/>parentId : '.$parentId.'<br/>struct :';
 		print_r($struct);
@@ -66,7 +68,7 @@ class GetController extends MailController{
 					$idValue = $value;
 				}
 			}
-			echo substr($fields, 0, -1);
+			echo '<b>'.substr($fields, 0, -1).'</b>';
 
 			if(empty($idKey) && empty($idValue)){
 				echo 'No condition for futur clause.';
@@ -82,13 +84,9 @@ class GetController extends MailController{
 					foreach ($tableaux as $tableau) {
 						// on récursive pour les tableaux voulu.
 						if(!empty($tableau)){
-							$tableauApi = $this->switcher($tableau);
-							if($tableauApi == false)
-								echo 'No equivalent table for '.$tableau.' in switcher';
-							else{
-								echo '"'.$tableauApi.'":';
-								$this->mainTraitment($tableauApi, $idKey, $idValue, $struct[$tableau]);
-							}
+							echo '<b>"'.$tableau.'":</b>';
+							$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
+							echo ",";
 						}
 					}
 			}
