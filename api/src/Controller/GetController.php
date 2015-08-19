@@ -28,7 +28,7 @@ class GetController extends MailController{
 			echo 'No traitment to do.';
 
 		echo "<br/></br>".$this->callBack."<pre>";
-		print_r(json_decode($this->callBack), true);
+		print_r(json_decode($this->callBack, true));
 		echo '</pre>';
 	}
 
