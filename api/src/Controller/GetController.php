@@ -58,7 +58,7 @@ class GetController extends MailController{
 
 			foreach ($result as $key => $value) {
 				// Si le champ est demandé
-				if(in_array($key, $struct))
+				if(array_key_exists($key, $struct))
 					echo '!'.$key;
 				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
