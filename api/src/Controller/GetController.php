@@ -36,10 +36,10 @@ class GetController extends MailController{
 		$table = $this->switcher($table);
 		if($table == false)
 			return false;
-		
+
 		echo '<b>mainTraitment :</b> <br>table : '.$table.'<br/>parentField : '.$parentField.'<br/>parentId : '.$parentField.'<br/>struct :';
 		print_r($struct);
-		echo '<br/>';
+		echo '<br/><br/>';
 
 		// Requete
 		$rep = $this->select("SELECT * FROM $table WHERE $parentField = '$parentId'");
