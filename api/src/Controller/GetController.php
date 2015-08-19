@@ -72,6 +72,7 @@ class GetController extends MailController{
 				foreach ($struct as $key => $value) {
 					if(is_array($value) && !empty($value)){
 						$tableaux[] = $key; echo '<br/>'.$key;
+						$this->callBack .= '"'.$key.'":';
 					}
 				}
 				if(!empty($tableaux))
