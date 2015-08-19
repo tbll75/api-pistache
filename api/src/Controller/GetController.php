@@ -69,6 +69,8 @@ class GetController extends MailController{
 
 		$mainTableau = $table;
 
+		echo $table.' - '.$parentField.' - '.$parentId.'\n';
+
 		// on switch le nom de la table avec celui qui correspond en bdd
 		$table = $this->switcher($table);
 		if($table == false){
