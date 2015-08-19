@@ -11,9 +11,10 @@ class GetController extends MailController{
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
 		$table = json_decode($_POST['json'], true)['entity']; 
-		$struct = json_decode($_POST['json'], true)['data']; 
+		$jsonStruct = json_decode($_POST['json'], true)['data']; 
 		$integrateDependences = json_decode($_POST['json'], true)['integrateDependences']; 
 
+		// GET CONDITION
 		foreach ($struct as $key => $value) {
 			if(preg_match('/^id[a-zA-Z]+/', $key)) {
 				$parentFieldId = $key;
@@ -39,6 +40,18 @@ class GetController extends MailController{
 			}
 		}
 
+		// GET STRUCTURE
+		if($integrateDependences){
+			$allStruct = $this->getAllStructForEntity($table);
+			if(!$allStruct)
+				echo 'No data structure for '.$table;
+			else
+				$struct = $allStruct;
+		}else
+			$struct = $jsonStruct;
+
+
+		// Check if conditions field.
 		if(!empty($parentField) && !empty($parentId)){
 			$this->mainTraitment($table, $parentField, $parentId, $struct);
 		}else
@@ -130,6 +143,29 @@ class GetController extends MailController{
 			$this->callBack .= ']';
 
 
+	}
+
+
+
+
+	public function getAllStructForEntity($entity){
+		$switcher = array(
+				"FamilyData" => '{"idFamily":null,"mail":null,"masterPassword":null,"name":null,"activateTuto":null,"chore":{"idChoreRec":null,"Family_idFamily":null,"childId":null,"xpToWin":null,"name":null,"text":null,"state":null,"imageName":null,"date":null,"energy":null,"lundi":null,"mardi":null,"mercredi":null,"jeudi":null,"vendredi":null,"samedi":null,"dimanche":null,"matin":null,"dejeuner":null,"gouter":null,"diner":null,"isRecurrent":null,"isActive":null},"device":{"idSupport":null,"Family_idFamily":null,"os":null,"deviceToken":null},"MemberList":{"idChildren":null,"Family_idFamily":null,"name":null,"birthday":null,"sex":null,"photo":null,"level":null,"xp":null,"energy":null,"nbBanana":null,"activateTuto":null,"settings":{"idSettings":null,"Children_idChildren":null,"validation":null,"MaxPlayTime":null},"choreChildren":{"idChoreDone":null,"ChoreRec_idChoreRec":null,"Children_idChildren":null,"momentOfDay":null,"momentOfWeek":null,"isValidated":null,"dueDate":null,"isCompleted":null,"timeCompleted":null},"hero":{"idHero":null,"Children_idChildren":null,"yeux":null,"chapeau":null,"pantalon":null,"collier":null,"chaussureDroite":null,"chaussureGauche":null,"gantDroit":null,"gantGauche":null,"colorR":null,"colorB":null,"colorG":null,"colorA":null},"listeDebloque":{"Children_idChildren":null,"ObjectList_idObjectList":null}}}',
+				"FamilyMember" => "api_Children",
+				"Chore" => "api_ChoreRec",
+				"ChoreChild" => "api_ChoreDone", 
+				"Settings" => "api_Settings",
+				"hero" => "api_Hero",
+				"MemberList" => "api_Children",
+				"device" => "api_Support",
+				"settings" => "api_Settings",
+				"chore" => "api_ChoreDone",
+				// "listeDebloque" => "api_ObjectUnlock"
+			);
+		if(is_string($switcher[$table])){
+			return $switcher[$table];
+		}else
+			return false;
 	}
 
 
