@@ -175,16 +175,19 @@ class GetController extends MailController{
 	public function switcher($table){
 		$switcher = array(
 				"FamilyData" => "api_Family",
-				"FamilyMember" => "api_Children",
+				"RecurentChoreList" => "api_ChoreRec",
 				"Chore" => "api_ChoreRec",
+				"FamilyMember" => "api_Children",
+				"MemberList" => "api_Children",
+				"choreChildren" => "api_ChoreDone", 
 				"ChoreChild" => "api_ChoreDone", 
 				"Settings" => "api_Settings",
+				"Setting" => "api_Settings",
 				"hero" => "api_Hero",
-				"MemberList" => "api_Children",
+				"Hero" => "api_Hero",
 				"device" => "api_Support",
-				"settings" => "api_Settings",
-				"chore" => "api_ChoreDone",
-				// "listeDebloque" => "api_ObjectUnlock"
+				"Device" => "api_Support",
+				"listeDebloque" => "api_ObjectUnlock"
 			);
 		if(is_string($switcher[$table])){
 			return $switcher[$table];
