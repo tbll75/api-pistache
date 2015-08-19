@@ -21,8 +21,6 @@ class GetController extends MailController{
 			}
 		}
 
-		print_r($struct);
-
 		if(!empty($parentField) && !empty($parentId))
 			$this->mainTraitment($table, $parentField, $parentId, $struct);
 		else
@@ -34,6 +32,10 @@ class GetController extends MailController{
 
 
 	public function mainTraitment($table, $parentField, $parentId, $struct){
+		echo '<br/>';
+		print_r($struct);
+		echo '<br/>';
+
 		// on switch le nom de la table avec celui qui correspond en bdd
 		$table = $this->switcher($table);
 		if($table == false)
