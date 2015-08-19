@@ -101,7 +101,7 @@ class GetController extends MailController{
 			$this->callBack .= '<b>},</b><br/>';
 		
 		}
-		substr(string, 0, -1);
+		$this->callBack = substr($this->callBack, 0, -1);
 
 		if(count($rep) > 1)
 			$this->callBack .= '<b>]</b><br/>';
