@@ -95,12 +95,11 @@ class GetController extends MailController{
 							$this->callBack .= ",";
 						}
 					}
-					$this->callBack = substr($this->callBack, 0, -1);
 
 				}
 			}
 
-			$this->callBack .= '},';
+			$this->callBack = substr($this->callBack, 0, -1).'},';
 		
 		}
 		$this->callBack = substr($this->callBack, 0, -1);
