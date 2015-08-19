@@ -163,10 +163,15 @@ class GetController extends MailController{
 
 		print_r($rep);
 
-		die();
-		foreach ($rep as $key => $value) {
-			# code...
+		$tryPass = hash_hmac('sha256', $password, 'pistache');
+
+		foreach ($rep as $result) {
+			if($tryPass == $result['masterPassword'])
+				echo $result['idFamily'];
+			else
+				echo 'false';
 		}
+
 	}
 
 
