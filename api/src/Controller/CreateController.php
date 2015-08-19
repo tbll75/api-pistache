@@ -11,7 +11,6 @@ class CreateController extends MailController{
 		// On récupère la data sous forme de tableaux.
 		$entity = json_decode($_POST['json'], true)['entity']; 
 		$data = json_decode($_POST['json'], true)['data']; 
-		$data = json_decode($_POST['json'], true)['data']; 
 		$allOrStruct = json_decode($_POST['json'], true)['savedDateTime']; 
 
 		echo $this->mainTraitment($entity, $data);
@@ -39,7 +38,7 @@ class CreateController extends MailController{
 			$entity = $switcher[$entity];
 
 		// on vérfie que le mail n'existe pas déjà.
-		if($this->checkMailExistAllready($data['mail'])) {
+		if(isset($data['mail']) && $this->checkMailExistAllready($data['mail'])) {
 			$this->ids[] =  '"error'.$this->idError++.'":"Mail '.$data['mail'].' allready exist"';
 			return "{".implode(",", $this->ids)."}";
 		}
