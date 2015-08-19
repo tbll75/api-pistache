@@ -32,9 +32,9 @@ class GetController extends MailController{
 
 
 	public function mainTraitment($table, $parentField, $parentId, $struct){
-		echo '<b>mainTraitment : <br>table : '.$table.'<br/>parentField : '.$parentField.'<br/>parentId : '.$parentField.'<br/>struct : <pre>';
+		echo '<b>mainTraitment :</b> <br>table : '.$table.'<br/>parentField : '.$parentField.'<br/>parentId : '.$parentField.'<br/>struct :';
 		print_r($struct);
-		echo '</pre><b><br/>';
+		echo '<br/>';
 		// on switch le nom de la table avec celui qui correspond en bdd
 		$table = $this->switcher($table);
 		if($table == false)
