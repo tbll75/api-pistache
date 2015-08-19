@@ -57,9 +57,8 @@ class GetController extends MailController{
 					$this->callBack .= '"'.$key.":".$value.'", ';
 				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
-					$idKey = /*substr($table, 4)."_".*/$key;
+					$idKey = substr($table, 4)."_".$key;
 					$idValue = $value;
-					echo "<br/><b>Futur clause :</b> ".$idKey." -> ".$idValue;
 				}
 			}
 			if(empty($idKey) && empty($idValue)){
@@ -67,16 +66,14 @@ class GetController extends MailController{
 			// si il a les futur conditions, on véirifie si des tableau sont demandés.
 			}else{
 				$tableaux = '';
-				echo "<br/><br/>TABLEAU(X) :";
 				foreach ($struct as $key => $value) {
 					if(is_array($value) && !empty($value)){
-						$tableaux[] = $key; echo '<br/>'.$key;
+						$tableaux[] = $key;
 					}
 				}
 				if(!empty($tableaux))
 					foreach ($tableaux as $tableau) {
 						// on récursive pour les tableaux voulu.
-						echo '<br/><br/>Go Traitment : '.$tableau.' -> '.$idKey.' = '.$idValue.'<br>';
 						$this->callBack .= '"'.$key.'":';
 						$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
 					}
@@ -107,7 +104,6 @@ class GetController extends MailController{
 				// "listeDebloque" => "api_ObjectUnlock"
 			);
 		if(is_string($switcher[$table])){
-			echo "<br/>New Table : ".$switcher[$table];
 			return $switcher[$table];
 		}else
 			return false;
