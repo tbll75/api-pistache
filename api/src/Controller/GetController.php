@@ -85,6 +85,7 @@ class GetController extends MailController{
 			}
 			$this->callBack = substr($this->callBack, 0, -2);
 			$this->callBack .= '}';
+			echo '<br/>';
 		}
 
 
