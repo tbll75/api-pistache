@@ -39,10 +39,10 @@ class GetController extends MailController{
 			}
 		}
 
-		if(!empty($parentField) && !empty($parentId))
+		if(!empty($parentField) && !empty($parentId)){
 			echo $parentField.' -> '.$parentId;
 			$this->mainTraitment($table, $parentField, $parentId, $struct);
-		else
+		}else
 			echo 'No traitment to do.';
 
 		echo $this->callBack;
