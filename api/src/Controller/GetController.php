@@ -36,7 +36,7 @@ class GetController extends MailController{
 				// on a un mail valable et pas d'id valable
 				// on check le mdp
 				$idFamily = $this->checkPassForConnection($parentValueMail, $jsonStruct['masterPassword']);
-				echo ' '.$idFamily.' ';
+				echo ' ! '.$idFamily.' ! ';
 				// on traite le resultat
 				if($idFamily > 0){
 					// si on a un id
