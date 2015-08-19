@@ -5,6 +5,7 @@ namespace App\Controller;
 class GetController extends MailController{
 
 	private $callBack = '';
+	private $nbRecursive = 0;
 
 
 	public function dispatch(){
@@ -35,6 +36,8 @@ class GetController extends MailController{
 
 	public function mainTraitment($table, $parentField, $parentId, $struct){
 
+		$mainTableau = $table;
+
 		// on switch le nom de la table avec celui qui correspond en bdd
 		$table = $this->switcher($table);
 		if($table == false){
@@ -51,6 +54,12 @@ class GetController extends MailController{
 		$idKey = '';
 		$idValue = '';
 
+		if(count($rep) > 0 && $this->nbRecursive > 0){
+			// name le tableau si necessaire
+			$this->callBack .= '"'.$mainTableau.'":';
+		}
+		// prépare l'affichage du nom dans le json.
+		$this->nbRecursive++;
 
 		// traitement
 		if(count($rep) > 1)
@@ -91,7 +100,6 @@ class GetController extends MailController{
 					foreach ($tableaux as $tableau) {
 						// on récursive pour les tableaux voulu.
 						if(!empty($tableau)){
-							$this->callBack .= '"'.$tableau.'":';
 							$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
 							$this->callBack .= ",";
 						}
