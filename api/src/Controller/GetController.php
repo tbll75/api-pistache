@@ -76,7 +76,6 @@ class GetController extends MailController{
 					$idValue = $value;
 				}
 			}
-			$this->callBack = substr($this->callBack, 0, -1);
 
 			if(empty($idKey) && empty($idValue)){
 				echo 'No condition for futur clause.';
