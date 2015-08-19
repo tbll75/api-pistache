@@ -38,6 +38,12 @@ class CreateController extends MailController{
 		}else
 			$entity = $switcher[$entity];
 
+		// on vérfie que le mail n'existe pas déjà.
+		if($this->checkMailExistAllready($data['mail'])) {
+			$this->ids[] =  '"error'.$this->idError++.'":"Mail '.$data['mail'].' allready exist"';
+			return "{".implode(",", $this->ids)."}";
+		}
+
 		// On vérifie les cas particuliers
 		if(isset($data['recMomentOfWeek']) || isset($data['recMomentOfWeek']))
 			$data = $this->modifyDataForMoment($data);
@@ -82,6 +88,16 @@ class CreateController extends MailController{
 		}
 
 		return "{".implode(",", $this->ids)."}";
+	}
+
+
+
+	public function checkMailExistAllready($mail){
+		$rep = $this->select("SELECT mail FROM api_Family WHERE mail = '$mail'");
+		if(!empty($rep))
+			return true;
+		else
+			return false;
 	}
 
 
