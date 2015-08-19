@@ -74,7 +74,7 @@ class GetController extends MailController{
 					$idValue = $value;
 				}
 			}
-			$this->callBack = substr($this->callBack, 0, -1);
+			$this->callBack = substr($this->callBack, 0, -1).'<br/>';
 
 			if(empty($idKey) && empty($idValue)){
 				echo 'No condition for futur clause.';
@@ -90,14 +90,13 @@ class GetController extends MailController{
 					foreach ($tableaux as $tableau) {
 						// on récursive pour les tableaux voulu.
 						if(!empty($tableau)){
-							$this->callBack .= '<b>"'.$tableau.'":</b>';
+							$this->callBack .= '<b>"'.$tableau.'":</b><br/>';
 							$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
-							$this->callBack .= ",";
+							$this->callBack .= ",<br/>";
 						}
 					}
 			}
 
-			echo '<br/>';
 			$this->callBack .= '<b>},</b><br/>';
 		
 		}
