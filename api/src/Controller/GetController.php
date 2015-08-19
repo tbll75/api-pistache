@@ -59,13 +59,12 @@ class GetController extends MailController{
 			foreach ($result as $key => $value) {
 				// Si le champ est demandé
 				if(array_key_exists($key, $struct))
-					echo '!'.$key;
+					echo '&nbsp;&nbsp;&nbsp; ->"'.$key.'":"'.$value.'"<br/>';
 				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
 					$idKey = substr($table, 4)."_".$key;
 					$idValue = $value;
 				}
-				echo '&nbsp;&nbsp;&nbsp; ->"'.$key.'":"'.$value.'"<br/>';
 			}
 			if(empty($idKey) && empty($idValue)){
 				echo 'No condition for futur clause.';
