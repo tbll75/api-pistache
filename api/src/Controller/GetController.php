@@ -36,7 +36,6 @@ class GetController extends MailController{
 				// on a un mail valable et pas d'id valable
 				// on check le mdp
 				$idFamily = $this->checkPassForConnection($parentValueMail, $jsonStruct['masterPassword']);
-				echo ' ! '.$idFamily.' ! ';
 				// on traite le resultat
 				if($idFamily > 0){
 					// si on a un id
@@ -163,12 +162,10 @@ class GetController extends MailController{
 		// find line en db.
 		$rep = $this->select("SELECT idFamily, masterPassword FROM api_Family WHERE mail = '$mail'");
 		// hash le mot de passe
-		echo $tryPass = hash_hmac('sha256', $password, 'pistache');
+		$tryPass = hash_hmac('sha256', $password, 'pistache');
 		// compare
 		foreach ($rep as $result) {
-			echo $result['idFamily'].' - '.$result['masterPassword'];
 			if($tryPass == $result['masterPassword']){
-				echo 'BONJOUR';
 				return $result['idFamily'];
 			}else
 				return false;
