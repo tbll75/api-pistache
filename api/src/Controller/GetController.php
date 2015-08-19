@@ -52,22 +52,21 @@ class GetController extends MailController{
 
 		// traitement
 		if(count($rep) > 1)
-			echo '<b>[</b><br/>';
+			$this->callBack .= '<b>[</b><br/>';
 
 		foreach ($rep as $result) {
 
-			echo '<b>{</b><br/>';
+			$this->callBack .= '<b>{</b><br/>';
 			
 			$idKey = '';
 			$idValue = '';
-			$fields = '';
 
 			foreach ($result as $key => $value) {
 
 				// Si le champ est demandé
 				if(array_key_exists($key, $struct)){
 					echo '&nbsp;&nbsp;&nbsp; ->"'.$key.'":"'.$value.'"<br/>';
-					$fields .= '"'.$key.'":"'.$value.',"';
+					$this->callBack .= '"'.$key.'":"'.$value.',"';
 				}
 				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
@@ -75,7 +74,7 @@ class GetController extends MailController{
 					$idValue = $value;
 				}
 			}
-			echo '<b>'.substr($fields, 0, -1).'</b>';
+			$this->callBack = substr($fields, 0, -1);
 
 			if(empty($idKey) && empty($idValue)){
 				echo 'No condition for futur clause.';
@@ -91,20 +90,21 @@ class GetController extends MailController{
 					foreach ($tableaux as $tableau) {
 						// on récursive pour les tableaux voulu.
 						if(!empty($tableau)){
-							echo '<b>"'.$tableau.'":</b>';
+							$this->callBack .= '<b>"'.$tableau.'":</b>';
 							$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
-							echo ",";
+							$this->callBack .= ",";
 						}
 					}
 			}
 
 			echo '<br/>';
-			echo '<b>}</b><br/>';
+			$this->callBack .= '<b>},</b><br/>';
 		
 		}
+		substr(string, 0, -1);
 
 		if(count($rep) > 1)
-			echo '<b>]</b><br/>';
+			$this->callBack .= '<b>]</b><br/>';
 
 
 	}
