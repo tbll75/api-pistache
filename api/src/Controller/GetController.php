@@ -15,9 +15,26 @@ class GetController extends MailController{
 		$integratedDependences = json_decode($_POST['json'], true)['integratedDependences']; 
 
 		foreach ($struct as $key => $value) {
-			if(preg_match('/^id[a-zA-Z]+/', $key)){
-				$parentField = $key;
-				$parentId = $value;
+			if(preg_match('/^id[a-zA-Z]+/', $key)) {
+				$parentFieldId = $key;
+				$parentValueId = $value;
+			}
+			if($key == 'mail'){
+				$parentFieldMail = $key;
+				$parentValueMail = $value;
+			}
+
+			if(!empty($parentValueId) && $parentValueId != -1){
+				// on a un id valable
+				$parentField = $parentFieldId;
+				$parentId = $parentValueId;
+				break;
+			}
+
+			if(!empty($parentValueMail) && $parentValueId == -1){
+				// on a un mail valable et pas d'id valable
+				$parentField = $parentFieldMail;
+				$parentId = $parentValueMail;
 				break;
 			}
 		}
