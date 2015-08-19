@@ -37,7 +37,7 @@ class GetController extends MailController{
 				// on check le mdp
 				$idFamily = $this->checkPassForConnection($parentValueMail, $jsonStruct['masterPassword']);
 				// on traite le resultat
-				if($idFamily > 0)){
+				if($idFamily > 0){
 					// si on a un id
 					$parentField = 'idFamily';
 					$parentId = $idFamily;
