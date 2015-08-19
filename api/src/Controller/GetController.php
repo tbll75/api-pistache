@@ -31,7 +31,7 @@ class GetController extends MailController{
 				break;
 			}
 
-			if(!empty($parentValueMail) && $parentValueId == -1){
+			if(!empty($parentValueMail) && !empty($parentValueId) && $parentValueId == -1){
 				// on a un mail valable et pas d'id valable
 				$parentField = $parentFieldMail;
 				$parentId = $parentValueMail;
@@ -40,6 +40,7 @@ class GetController extends MailController{
 		}
 
 		if(!empty($parentField) && !empty($parentId))
+			echo $parentField.' -> '.$parentId;
 			$this->mainTraitment($table, $parentField, $parentId, $struct);
 		else
 			echo 'No traitment to do.';
@@ -143,7 +144,7 @@ class GetController extends MailController{
 				"Settings" => "api_Settings",
 				"hero" => "api_Hero",
 				"MemberList" => "api_Children",
-				"deviceList" => "api_Support",
+				"device" => "api_Support",
 				"settings" => "api_Settings",
 				"chore" => "api_ChoreDone",
 				// "listeDebloque" => "api_ObjectUnlock"
