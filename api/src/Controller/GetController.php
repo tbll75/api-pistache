@@ -159,12 +159,11 @@ class GetController extends MailController{
 
 
 	public function checkPassForConnection($mail, $password){
+		// find line en db.
 		$rep = $this->select("SELECT idFamily, masterPassword FROM api_Family WHERE mail = '$mail'");
-
-		print_r($rep);
-
+		// hash le mot de passe
 		$tryPass = hash_hmac('sha256', $password, 'pistache');
-
+		// compare
 		foreach ($rep as $result) {
 			if($tryPass == $result['masterPassword'])
 				return $result['idFamily'];
