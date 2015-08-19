@@ -37,7 +37,7 @@ class GetController extends MailController{
 				// on check le mdp
 				$idFamily = $this->checkPassForConnection($parentValueMail, $jsonStruct['masterPassword']);
 				// on traite le resultat
-				if(is_numeric($idFamily)){
+				if($idFamily > 0)){
 					// si on a un id
 					$parentField = 'idFamily';
 					$parentId = $idFamily;
@@ -165,7 +165,7 @@ class GetController extends MailController{
 		echo $tryPass = hash_hmac('sha256', $password, 'pistache').' - ';
 		// compare
 		foreach ($rep as $result) {
-			echo $result['masterPassword'];
+			echo $result['idFamily'].' - '.$result['masterPassword'];
 			if($tryPass == $result['masterPassword'])
 				return $result['idFamily'];
 			else
