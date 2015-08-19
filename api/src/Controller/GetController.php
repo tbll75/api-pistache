@@ -167,9 +167,9 @@ class GetController extends MailController{
 
 		foreach ($rep as $result) {
 			if($tryPass == $result['masterPassword'])
-				echo $result['idFamily'].' - '.$tryPass;
+				echo $result['idFamily'];
 			else
-				echo 'false';
+				echo $tryPass;
 		}
 
 	}
