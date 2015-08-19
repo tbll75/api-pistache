@@ -58,7 +58,7 @@ class GetController extends MailController{
 				// Si le champ est demandé
 				if(array_key_exists($key, $struct)){
 					echo '&nbsp;&nbsp;&nbsp; ->"'.$key.'":"'.$value.'"<br/>';
-					$fields .= "'.$key.'":"'.$value.',";
+					$fields .= '"'.$key.'":"'.$value.',"';
 				}
 				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
@@ -67,6 +67,7 @@ class GetController extends MailController{
 				}
 			}
 			echo substr($fields, 0, -1);
+			
 			if(empty($idKey) && empty($idValue)){
 				echo 'No condition for futur clause.';
 			// si il a les futur conditions, on véirifie si des tableau sont demandés.
