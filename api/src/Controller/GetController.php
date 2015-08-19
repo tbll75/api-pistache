@@ -41,7 +41,7 @@ class GetController extends MailController{
 		// on switch le nom de la table avec celui qui correspond en bdd
 		$table = $this->switcher($table);
 		if($table == false){
-			echo 'No equivalent table for '.$tableau.' in switcher';
+			echo 'No equivalent table for '.$table.' in switcher';
 			return false;
 		}			
 
