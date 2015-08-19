@@ -37,7 +37,7 @@ class GetController extends MailController{
 		if($table == false)
 			return false;
 
-		echo '<b>mainTraitment :</b> <br>table : '.$table.'<br/>parentField : '.$parentField.'<br/>parentId : '.$parentId.'<br/>struct :';
+		echo '<br/><b><font color="red">mainTraitment :</font></b> <br>table : '.$table.'<br/>parentField : '.$parentField.'<br/>parentId : '.$parentId.'<br/>struct :';
 		print_r($struct);
 		echo '<br/><br/>';
 
@@ -64,6 +64,7 @@ class GetController extends MailController{
 					$idKey = substr($table, 4)."_".$key;
 					$idValue = $value;
 				}
+				echo '&nbsp;&nbsp;&nbsp; ->"'.$key.'":"'.$value.'"<br/>';
 			}
 			if(empty($idKey) && empty($idValue)){
 				echo 'No condition for futur clause.';
