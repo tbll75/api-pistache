@@ -51,12 +51,19 @@ class GetController extends MailController{
 
 
 		// traitement
+		if(count($rep) > 1)
+			echo '<b>[</b><br/>';
+
 		foreach ($rep as $result) {
+
+			echo '<b>{</b><br/>';
+			
 			$idKey = '';
 			$idValue = '';
 			$fields = '';
 
 			foreach ($result as $key => $value) {
+
 				// Si le champ est demandé
 				if(array_key_exists($key, $struct)){
 					echo '&nbsp;&nbsp;&nbsp; ->"'.$key.'":"'.$value.'"<br/>';
@@ -92,7 +99,12 @@ class GetController extends MailController{
 			}
 
 			echo '<br/>';
+			echo '<b>}</b><br/>';
+		
 		}
+
+		if(count($rep) > 1)
+			echo '<b>]</b><br/>';
 
 
 	}
