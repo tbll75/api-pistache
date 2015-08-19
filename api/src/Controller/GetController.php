@@ -12,7 +12,7 @@ class GetController extends MailController{
 		// On récupère la data sous forme de tableaux.
 		$table = json_decode($_POST['json'], true)['entity']; 
 		$struct = json_decode($_POST['json'], true)['data']; 
-		$integratedDependences = json_decode($_POST['json'], true)['integratedDependences']; 
+		// $integratedDependences = json_decode($_POST['json'], true)['integratedDependences']; 
 
 		foreach ($struct as $key => $value) {
 			if(preg_match('/^id[a-zA-Z]+/', $key)) {
@@ -59,7 +59,7 @@ class GetController extends MailController{
 		// on switch le nom de la table avec celui qui correspond en bdd
 		$table = $this->switcher($table);
 		if($table == false){
-			echo 'No equivalent table for '.$table.' in switcher';
+			echo 'No equivalent table for '.$mainTableau.' in switcher';
 			return false;
 		}			
 
