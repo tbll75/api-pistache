@@ -76,18 +76,14 @@ class GetController extends MailController{
 				if(!empty($tableaux))
 					foreach ($tableaux as $tableau) {
 						// on récursive pour les tableaux voulu.
-						$this->callBack .= '"'.$key.'":';
 						$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
 					}
 			}
-			$this->callBack = substr($this->callBack, 0, -2);
-			$this->callBack .= '}';
+
 			echo '<br/>';
 		}
 
 
-		if(count($rep) > 1)
-			$this->callBack .= ']';
 	}
 
 
