@@ -61,8 +61,8 @@ class GetController extends MailController{
 					$idValue = $value;
 					echo "<br/><b>Futur clause :</b> ".$idKey." -> ".$idValue;
 				}
-				$this->callBack = substr($this->callBack, 0, -2);
 			}
+			$this->callBack = substr($this->callBack, 0, -2);
 			if(empty($idKey) && empty($idValue)){
 				echo 'No condition for futur clause.';
 			// si il a les futur conditions, on véirifie si des tableau sont demandés.
