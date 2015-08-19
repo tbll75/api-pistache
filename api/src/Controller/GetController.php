@@ -42,7 +42,7 @@ class GetController extends MailController{
 
 		// GET STRUCTURE
 		if($integrateDependences){
-			$allStruct = $this->getAllStructForEntity($table);
+			$allStruct = json_decode($this->getAllStructForEntity($table), true);
 			if(!$allStruct)
 				echo 'No data structure for '.$table;
 			else
