@@ -68,7 +68,7 @@ class GetController extends MailController{
 				// Si le champ est demandé
 				if(array_key_exists($key, $struct)){
 					echo '&nbsp;&nbsp;&nbsp; ->"'.$key.'":"'.$value.'"<br/>';
-					$this->callBack .= '"'.$key.'":"'.$value.',"';
+					$this->callBack .= '"'.$key.'":"'.$value.'",';
 				}
 				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
