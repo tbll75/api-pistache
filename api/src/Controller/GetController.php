@@ -52,17 +52,21 @@ class GetController extends MailController{
 		foreach ($rep as $result) {
 			$idKey = '';
 			$idValue = '';
+			$fields = '';
 
 			foreach ($result as $key => $value) {
 				// Si le champ est demandé
-				if(array_key_exists($key, $struct))
+				if(array_key_exists($key, $struct)){
 					echo '&nbsp;&nbsp;&nbsp; ->"'.$key.'":"'.$value.'"<br/>';
+					$fields .= "'.$key.'":"'.$value.',";
+				}
 				// Si id il y a on le chope pour construire les conditions des enfants
 				if(empty($idKey) && empty($idValue) && preg_match('/^id[a-zA-Z]+/', $key)){
 					$idKey = substr($table, 4)."_".$key;
 					$idValue = $value;
 				}
 			}
+			echo substr($fields, 0, -1);
 			if(empty($idKey) && empty($idValue)){
 				echo 'No condition for futur clause.';
 			// si il a les futur conditions, on véirifie si des tableau sont demandés.
@@ -76,7 +80,10 @@ class GetController extends MailController{
 				if(!empty($tableaux))
 					foreach ($tableaux as $tableau) {
 						// on récursive pour les tableaux voulu.
-						$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
+						if(!empty($tableau)){
+							echo '"'.$tableau.'":';
+							$this->mainTraitment($tableau, $idKey, $idValue, $struct[$tableau]);
+						}
 					}
 			}
 
