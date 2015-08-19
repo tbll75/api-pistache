@@ -21,6 +21,8 @@ class GetController extends MailController{
 			}
 		}
 
+		print_r($struct);
+
 		if(!empty($parentField) && !empty($parentId))
 			$this->mainTraitment($table, $parentField, $parentId, $struct);
 		else
