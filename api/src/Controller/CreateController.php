@@ -48,7 +48,10 @@ class CreateController extends MailController{
 			$data = $this->modifyDataForMoment($data);
 
 		/* On hash les mots de passe */ 
-		if(isset($data['masterPassword'])){ $data['masterPassword'] = hash_hmac('sha256', $data['masterPassword'], 'pistache'); }
+		if(isset($data['masterPassword'])){ 
+			$this->welcome($data['mail'], $data['masterPassword']);
+			$data['masterPassword'] = hash_hmac('sha256', $data['masterPassword'], 'pistache'); 
+		}
 	
 
 		// Ajouter les champ pour le dateTimeFormat.
@@ -173,7 +176,7 @@ class CreateController extends MailController{
 			if(!is_array($value) && in_array($key, $columns)){
 				$keys .= $key.", ";
 				$values .= "'".htmlentities($value, ENT_QUOTES)."', ";
-			}else
+			}elseif(is_array($value))
 				$subValues = true;
 		}
 		$keys = substr($keys, 0, -2).")";

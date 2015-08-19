@@ -45,7 +45,12 @@ class UpdateController extends MailController{
 		// Ajouter les champ pour le dateTimeFormat.
 		if(isset($data['dueDate'])) { $data['dueDate'] = $this->modifyTimeStampFormat($data['dueDate']); }
 		if(isset($data['timeCompleted'])) { $data['timeCompleted'] = $this->modifyTimeStampFormat($data['timeCompleted']); }
-		if(isset($data['date'])) { $data['date'] = $this->modifyTimeStampFormat($data['date']); }
+		if(isset($data['date'])) { $data['date'] = $this->modifyTimeStampFormat($data['date']); }		
+
+
+		/* On hash les mots de passe */ 
+		if(isset($data['masterPassword'])){ $data['masterPassword'] = hash_hmac('sha256', $data['masterPassword'], 'pistache'); }
+	
 
 		// CAS PARTICULIER 
 		if($entity == 'api_ObjectUnlock' && count($data) > 1){ 
