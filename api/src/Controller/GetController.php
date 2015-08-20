@@ -123,7 +123,7 @@ class GetController extends MailController{
 			}
 
 			if(empty($idKey) && empty($idValue)){
-				echo 'No condition for futur clause.';
+				//echo 'No condition for futur clause.';
 			// si il a les futur conditions, on véirifie si des tableau sont demandés.
 			}else{
 				$tableaux = '';
