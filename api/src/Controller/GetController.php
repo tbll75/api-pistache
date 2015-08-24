@@ -58,7 +58,7 @@ class GetController extends MailController{
 			else
 				$struct = $allStruct;
 		}else
-			$struct = $jsonStruct;
+			$struct = $this->cleanJsonStruct($jsonStruct);
 
 
 		// Check if conditions field.
@@ -174,6 +174,34 @@ class GetController extends MailController{
 	}
 
 
+
+
+	function cleanJsonStruct($array){
+		$arraySize = '';
+		foreach ($array as $key => $value) {
+			if(is_numeric($key) && is_array($value)){
+				$arraySize[$key] = count($value, COUNT_RECURSIVE);
+			}elseif(!is_numeric($key) && is_array($value)){
+				$array[$key] = $this->cleanJsonStruct($array[$key]);
+			}
+		}
+		if(!empty($arraySize)){
+			$keyMaxWeight = array_search(max($arraySize), $arraySize);
+			foreach ($array as $key => $value) {
+				if($key != $keyMaxWeight)
+					unset($array[$key]);
+				elseif($key == $keyMaxWeight){
+					$array = $this->cleanJsonStruct($value);
+				}
+			}
+		}	
+
+		return $array;	
+	}
+
+
+
+
 	public function getAllStructForEntity($table){
 		$switcher = array(
 				"FamilyData" => '{"idFamily":null,"mail":null,"masterPassword":null,"name":null,"activateTuto":null,"Chore":{"idChoreRec":null,"Family_idFamily":null,"childId":null,"xpToWin":null,"name":null,"text":null,"state":null,"imageName":null,"date":null,"energy":null,"lundi":null,"mardi":null,"mercredi":null,"jeudi":null,"vendredi":null,"samedi":null,"dimanche":null,"matin":null,"dejeuner":null,"gouter":null,"diner":null,"isRecurrent":null,"isActive":null},"device":{"idSupport":null,"Family_idFamily":null,"os":null,"deviceToken":null},"MemberList":{"idChildren":null,"Family_idFamily":null,"name":null,"birthday":null,"sex":null,"photo":null,"level":null,"xp":null,"energy":null,"nbBanana":null,"activateTuto":null,"Settings":{"idSettings":null,"Children_idChildren":null,"validation":null,"MaxPlayTime":null},"choreChildren":{"idChoreDone":null,"ChoreRec_idChoreRec":null,"Children_idChildren":null,"momentOfDay":null,"momentOfWeek":null,"isValidated":null,"dueDate":null,"isCompleted":null,"timeCompleted":null},"hero":{"idHero":null,"Children_idChildren":null,"yeux":null,"chapeau":null,"pantalon":null,"collier":null,"chaussureDroite":null,"chaussureGauche":null,"gantDroit":null,"gantGauche":null,"colorR":null,"colorB":null,"colorG":null,"colorA":null},"listeDebloque":{"Children_idChildren":null,"ObjectList_idObjectList":null}}}',
@@ -193,6 +221,7 @@ class GetController extends MailController{
 		}else
 			return false;
 	}
+
 
 
 	public function switcher($table){
