@@ -24,8 +24,17 @@ class PartnerController extends SQLController{
 		$famille['nb'] = $this->select($sqlnb)[0]['nbChildren'];
 		// Qui sont-ils ?
 		if($famille['nb'] > 0){
+		
 			$sql = "SELECT idChildren, name, photo, level, xp, energy FROM api_Children WHERE Family_idFamily = ".$condition;
 			$famille['children'] = $this->select($sql);
+			
+			
+			for ($i=0 ; $i<count($famille['children']) ; $i++)
+			{
+				$sqlHero = "SELECT * FROM api_Hero WHERE Children_idChildren = ".$famille['children'][$i]['idChildren'];
+				$famille['children'][$i]['hero'] = $this->select($sqlHero)[0];
+			}
+		
 		}
 		// On retourne l'objet json.
 		echo json_encode($famille);
