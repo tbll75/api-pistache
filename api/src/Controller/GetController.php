@@ -33,7 +33,7 @@ class GetController extends MailController{
 			}
 
 			if(!empty($parentValueMail) && !empty($parentValueId) && $parentValueId == -1){
-				// on a un mail valable et pas d'id valable
+
 				// on check le mdp
 				$idFamily = $this->checkPassForConnection($parentValueMail, $jsonStruct['masterPassword']);
 				// on traite le resultat
@@ -42,7 +42,14 @@ class GetController extends MailController{
 					$parentField = 'idFamily';
 					$parentId = $idFamily;
 					break;
-				}else{
+				}
+				else if ($idFamily == -1)
+				{
+					// sinon error.
+					echo '{"error1":"Wrong mail"}';
+					die();
+				}
+				else{
 					// sinon error.
 					echo '{"error":"Wrong password for '.$parentValueMail.'"}';
 					die();
@@ -170,6 +177,8 @@ class GetController extends MailController{
 			}else
 				return false;
 		}
+		
+		return -1;
 
 	}
 
