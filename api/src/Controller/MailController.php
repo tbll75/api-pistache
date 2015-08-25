@@ -117,7 +117,7 @@ class MailController extends SQLController{
 		if(!empty($result['publish_text'])) { $text = $result['publish_text']; }elseif(!empty($result['text'])) { $text = $result['text']; }
 
 		// Génération du lien.
-		$key = hash_hmac('sha256', $mail, 'secret', false);
+		$key = hash_hmac('sha256', $mail, 'pistache', false);
 		$pistacheURL = "http://pistache-app.com";
 		$link = $pistacheURL."/settings/parent?hash=".$key;
 
@@ -150,7 +150,7 @@ class MailController extends SQLController{
 		$api = "/templates/info.json"; // lien de l'api pour chercher les infos du template 
 		$fields = array(
 			"key" => $this->mandrillKey,
-			"name" => "nouveau-mot-de-passe-2" // Template Slug dans Mandrill->Outbound->Templates-> etle template
+			"name" => "nouveau-mot-de-passe-etape-2" // Template Slug dans Mandrill->Outbound->Templates-> etle template
 			);
 
 		$result = $this->curlMail($api, $fields); // en gros c'est la requete pour choper les infos
