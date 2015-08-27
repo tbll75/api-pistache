@@ -119,7 +119,7 @@ class MailController extends SQLController{
 		// Génération du lien.
 		$key = hash_hmac('sha256', $mail, 'pistache', false);
 		$pistacheURL = "http://pistache-app.com";
-		$link = $pistacheURL."/settings/parent?hash=".$key;
+		$link = $pistacheURL."/settings/key?hash=".$key;
 
 		// Toutes les infos dynamique doivent se retrouver dans un tableau comme celui-ci.
 		$mergeTo = array(

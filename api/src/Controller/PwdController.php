@@ -12,6 +12,7 @@ class PwdController extends MailController{
 		//echo "HI";
 	
 		$hashmail = $_POST['hash'];
+		$pass = $_POST['pass'];
 
 		// on récupere les mails
 		$req = $this->select("SELECT mail, idFamily FROM api_Family");
@@ -30,8 +31,7 @@ class PwdController extends MailController{
 			
 			//echo "</br>ID ".$idFamily;
 			
-			$pass = "apor14";
-			$passCrypt = hash_hmac('sha256', "apor14", 'pistache', false);
+			$passCrypt = hash_hmac('sha256', $pass, 'pistache', false);
 			
 			$this->update("UPDATE api_Family SET masterPassword='".$passCrypt."' WHERE idFamily = '".$idFamily."'");
 			$rep = $this->select("SELECT mail FROM api_Family WHERE idFamily = '".$idFamily."'");

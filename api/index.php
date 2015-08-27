@@ -60,6 +60,9 @@
 
 //  Getters Partenaire
 	$router->get('/partner/familychildren/', "Partner#familychildren");
+	$router->get('/partner/addticks/:idChild', "Partner#addticks");
+	$router->get('/partner/eraseticks/', "Partner#eraseticks");
+	
 	$router->get('/partner/familychildren/:idFamily', "Partner#familychildren")->with('idFamily', '[0-9]+');
 	$router->get('/partner/familychildren/:mailFamily', "Partner#familychildren");//->with('mailFamily', '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$');
 	$router->get('/partner/isabletoplay/:idChild', "Partner#isAbleToPlay")->with('idChild', '[0-9]+');

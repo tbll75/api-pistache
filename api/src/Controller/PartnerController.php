@@ -87,7 +87,23 @@ class PartnerController extends SQLController{
 		$reqSelect = $this->select($sqlSelect);
 		// le petit echo qui va bien ^
 		echo json_encode($reqSelect[0]);
-
 	}
+	
+	public function addticks($idChild){
+		
+		$sqlInsert = "UPDATE api_Children SET nbTicksPlay = nbTicksPlay +1 WHERE idChildren = ".$idChild;
+		$reqInsert = $this->update($sqlInsert);
 
+		// le petit echo qui va bien ^
+		echo json_encode(true);
+	}
+	
+	public function eraseticks(){
+		
+		$sqlInsert = "UPDATE api_Children SET nbTicksPlay = 0";
+		$reqInsert = $this->update($sqlInsert);
+
+		// le petit echo qui va bien ^
+		echo json_encode(true);
+	}
 }
