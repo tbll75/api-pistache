@@ -213,17 +213,19 @@ class GetController extends MailController{
 
 	public function getAllStructForEntity($table){
 		$switcher = array(
-				"FamilyData" => '{"idFamily":null,"mail":null,"masterPassword":null,"name":null,"activateTuto":null,"Chore":{"idChoreRec":null,"Family_idFamily":null,"childId":null,"xpToWin":null,"name":null,"text":null,"state":null,"imageName":null,"date":null,"energy":null,"lundi":null,"mardi":null,"mercredi":null,"jeudi":null,"vendredi":null,"samedi":null,"dimanche":null,"matin":null,"dejeuner":null,"gouter":null,"diner":null,"isRecurrent":null,"isActive":null},"device":{"idSupport":null,"Family_idFamily":null,"os":null,"deviceToken":null},"MemberList":{"idChildren":null,"Family_idFamily":null,"name":null,"birthday":null,"sex":null,"photo":null,"level":null,"xp":null,"energy":null,"nbBanana":null,"activateTuto":null,"Settings":{"idSettings":null,"Children_idChildren":null,"validation":null,"MaxPlayTime":null},"choreChildren":{"idChoreDone":null,"ChoreRec_idChoreRec":null,"Children_idChildren":null,"momentOfDay":null,"momentOfWeek":null,"isValidated":null,"dueDate":null,"isCompleted":null,"timeCompleted":null},"hero":{"idHero":null,"Children_idChildren":null,"yeux":null,"chapeau":null,"pantalon":null,"collier":null,"chaussureDroite":null,"chaussureGauche":null,"gantDroit":null,"gantGauche":null,"colorR":null,"colorB":null,"colorG":null,"colorA":null},"listeDebloque":{"Children_idChildren":null,"ObjectList_idObjectList":null}}}',
+				"FamilyData" => '{"idFamily":null,"mail":null,"masterPassword":null,"name":null,"activateTuto":null,"parentData":{"idParentData":null,"Family_idFamily":null, "unlockModules":{"idUnlockModules":null, "ParentData_idParentData":null, "package":null, "id":null}, "countChoreValidated":null,"countChoreCreated":null,"countBuyDownloadClic":null,"countBuyInfoClic":null,"countSceneParentChore":null,"countSceneEspaceParent":null,"countSceneBuy":null,"countSceneStart":null},"Chore":{"idChoreRec":null,"Family_idFamily":null,"childId":null,"xpToWin":null,"name":null,"text":null,"state":null,"imageName":null,"date":null,"energy":null,"lundi":null,"mardi":null,"mercredi":null,"jeudi":null,"vendredi":null,"samedi":null,"dimanche":null,"matin":null,"dejeuner":null,"gouter":null,"diner":null,"isRecurrent":null,"isActive":null},"device":{"idSupport":null,"Family_idFamily":null,"os":null,"deviceToken":null},"MemberList":{"idChildren":null,"Family_idFamily":null,"name":null,"birthday":null,"sex":null,"photo":null,"level":null,"xp":null,"energy":null,"nbBanana":null,"activateTuto":null,"Settings":{"idSettings":null,"Children_idChildren":null,"validation":null,"MaxPlayTime":null},"choreChildren":{"idChoreDone":null,"ChoreRec_idChoreRec":null,"Children_idChildren":null,"momentOfDay":null,"momentOfWeek":null,"isValidated":null,"dueDate":null,"isCompleted":null,"timeCompleted":null,"isRewarded":null},"hero":{"idHero":null,"Children_idChildren":null,"yeux":null,"chapeau":null,"pantalon":null,"collier":null,"chaussureDroite":null,"chaussureGauche":null,"gantDroit":null,"gantGauche":null,"colorR":null,"colorB":null,"colorG":null,"colorA":null, "imgProfil":null},"listeDebloque":{"Children_idChildren":null,"ObjectList_idObjectList":null}}}',
+				"parentData" => '{"idParentData":null,"Family_idFamily":null,"countChoreValidated":null,"countChoreCreated":null,"countBuyDownloadClic":null,"countBuyInfoClic":null,"countSceneParentChore":null,"countSceneEspaceParent":null,"countSceneBuy":null,"countSceneStart":null}',
 				"FamilyMember" => '{"idChildren":null,"Family_idFamily":null,"name":null,"birthday":null,"sex":null,"photo":null,"level":null,"xp":null,"energy":null,"nbBanana":null,"activateTuto":null,"settings":{"idSettings":null,"Children_idChildren":null,"validation":null,"MaxPlayTime":null},"choreChildren":{"idChoreDone":null,"ChoreRec_idChoreRec":null,"Children_idChildren":null,"momentOfDay":null,"momentOfWeek":null,"isValidated":null,"dueDate":null,"isCompleted":null,"timeCompleted":null},"hero":{"idHero":null,"Children_idChildren":null,"yeux":null,"chapeau":null,"pantalon":null,"collier":null,"chaussureDroite":null,"chaussureGauche":null,"gantDroit":null,"gantGauche":null,"colorR":null,"colorB":null,"colorG":null,"colorA":null},"listeDebloque":{"Children_idChildren":null,"ObjectList_idObjectList":null}}',
 				"Chore" => '{"idChoreRec":null,"Family_idFamily":null,"childId":null,"xpToWin":null,"name":null,"text":null,"state":null,"imageName":null,"date":null,"energy":null,"lundi":null,"mardi":null,"mercredi":null,"jeudi":null,"vendredi":null,"samedi":null,"dimanche":null,"matin":null,"dejeuner":null,"gouter":null,"diner":null,"isRecurrent":null,"isActive":null}',
-				"ChoreChild" => '{"idChoreDone":null,"ChoreRec_idChoreRec":null,"Children_idChildren":null,"momentOfDay":null,"momentOfWeek":null,"isValidated":null,"dueDate":null,"isCompleted":null,"timeCompleted":null}', 
+				"ChoreChild" => '{"idChoreDone":null,"ChoreRec_idChoreRec":null,"Children_idChildren":null,"momentOfDay":null,"momentOfWeek":null,"isValidated":null,"dueDate":null,"isCompleted":null,"timeCompleted":null,"isRewarded":null}', 
 				"Settings" => '{"idSettings":null,"Children_idChildren":null,"validation":null,"MaxPlayTime":null}',
-				"hero" => '{"idHero":null,"Children_idChildren":null,"yeux":null,"chapeau":null,"pantalon":null,"collier":null,"chaussureDroite":null,"chaussureGauche":null,"gantDroit":null,"gantGauche":null,"colorR":null,"colorB":null,"colorG":null,"colorA":null}',
+				"hero" => '{"idHero":null,"Children_idChildren":null,"yeux":null,"chapeau":null,"pantalon":null,"collier":null,"chaussureDroite":null,"chaussureGauche":null,"gantDroit":null,"gantGauche":null,"colorR":null,"colorB":null,"colorG":null,"colorA":null, "imgProfil":null}',
 				"MemberList" => '{"idChildren":null,"Family_idFamily":null,"name":null,"birthday":null,"sex":null,"photo":null,"level":null,"xp":null,"energy":null,"nbBanana":null,"activateTuto":null,"settings":{"idSettings":null,"Children_idChildren":null,"validation":null,"MaxPlayTime":null},"choreChildren":{"idChoreDone":null,"ChoreRec_idChoreRec":null,"Children_idChildren":null,"momentOfDay":null,"momentOfWeek":null,"isValidated":null,"dueDate":null,"isCompleted":null,"timeCompleted":null},"hero":{"idHero":null,"Children_idChildren":null,"yeux":null,"chapeau":null,"pantalon":null,"collier":null,"chaussureDroite":null,"chaussureGauche":null,"gantDroit":null,"gantGauche":null,"colorR":null,"colorB":null,"colorG":null,"colorA":null},"listeDebloque":{"Children_idChildren":null,"ObjectList_idObjectList":null}}',
 				"device" => '{"idSupport":null,"Family_idFamily":null,"os":null,"deviceToken":null}',
 				"settings" => '{"idSettings":null,"Children_idChildren":null,"validation":null,"MaxPlayTime":null}',
 				"chore" => '{"idChoreDone":null,"ChoreRec_idChoreRec":null,"Children_idChildren":null,"momentOfDay":null,"momentOfWeek":null,"isValidated":null,"dueDate":null,"isCompleted":null,"timeCompleted":null}',
-				"listeDebloque" => '{"Children_idChildren":null,"ObjectList_idObjectList":null}'
+				"listeDebloque" => '{"Children_idChildren":null,"ObjectList_idObjectList":null}',
+				"unlockModules" => '{"idUnlockModules":null, "ParentData_idParentData":null, "package":null, "id":null}'
 			);
 		if(is_string($switcher[$table])){
 			return $switcher[$table];
@@ -236,6 +238,10 @@ class GetController extends MailController{
 	public function switcher($table){
 		$switcher = array(
 				"FamilyData" => "api_Family",
+				"parentData" => "api_ParentData",
+				"ParentData" => "api_ParentData",
+				"UnlockModules" => "api_UnlockModules",
+				"unlockModules" => "api_UnlockModules",
 				"RecurentChoreList" => "api_ChoreRec",
 				"Chore" => "api_ChoreRec",
 				"FamilyMember" => "api_Children",
@@ -254,6 +260,11 @@ class GetController extends MailController{
 			return $switcher[$table];
 		}else
 			return false;
+	}
+	
+	public function videolist() {
+		$rep = $this->select("SELECT * FROM api_VideoList");
+		echo '{"json":'. (json_encode($rep)) .'}';
 	}
 
 }

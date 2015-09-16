@@ -23,6 +23,9 @@ class CreateController extends MailController{
 		$switcher = array(
 			"FamilyData" => "api_Family",
 			"FamilyMember" => "api_Children",
+			"UnlockModules" => "api_UnlockModules",
+			"parentData" => "api_ParentData",
+			"ParentData" => "api_ParentData",
 			"Chore" => "api_ChoreRec",
 			"ChoreChild" => "api_ChoreDone", 
 			"Settings" => "api_Settings",
@@ -198,9 +201,18 @@ class CreateController extends MailController{
 		}
 		// Maintenant on connait les champs de la table. On regarde si on les connais tous.
 		$missingField = array();
-		foreach ($fields as $field) {
-			if(empty($data[$field]) && $data[$field] != '0'){
-				$missingField[] = $field;
+		foreach ($fields as $key => $field) {
+		
+			// Liste des exceptions
+			if ($field == "nbTicksPlay" || $field == "savedDateTime")
+			{
+				unset($fields[$key]);
+				continue;
+			}
+		
+			if(empty($data[$field])/* && $data[$field] != '0'*/){
+				//$missingField[] = $field;
+				$data[$field] = '0';
 			}
 		}
 		if(!empty($missingField)){

@@ -9,9 +9,20 @@ class UpdateController extends MailController{
 	
 	public function dispatch(){
 		// On récupère la data sous forme de tableaux.
-		$entity = json_decode($_POST['json'], true)['entity']; 
-		$data = json_decode($_POST['json'], true)['data']; 
-		$savedDateTime = json_decode($_POST['json'], true)['savedDateTime']; 
+		
+		$json = json_decode($_POST['json'], true);
+		
+		$entity = $json['entity']; 
+		$data = $json['data']; 
+		
+		if (!empty($json['savedDateTime']) && !empty($json['idFamily']))
+		{
+			$savedDateTime = $this->modifyTimeStampFormat($json['savedDateTime']); 
+			$idFamily = $json['idFamily'];
+			
+			$this->update("UPDATE api_Family SET savedDateTime = '$savedDateTime' WHERE idFamily = $idFamily");
+		}
+		
 		echo $this->mainTraitment($entity, $data);
 	}
 	
@@ -20,12 +31,16 @@ class UpdateController extends MailController{
 		$switcher = array(
 			"FamilyData" => "api_Family",
 			"FamilyMember" => "api_Children",
+			"device" => "api_Support",
+			"ParentData" => "api_ParentData",
+			"UnlockModules" => "api_UnlockModules",
 			"Chore" => "api_ChoreRec",
 			"ChoreChild" => "api_ChoreDone", 
 			"Settings" => "api_Settings",
 			"hero" => "api_Hero",
 			"listeDebloque" => "api_ObjectUnlock"
 			);
+			
 		// Si le tableau n'existe pas
 		if(!isset($switcher[$entity])){
 			$this->ids[] =  '"error'.$this->idError++.'":"Entity '.$entity.' unknown"';
@@ -57,10 +72,10 @@ class UpdateController extends MailController{
 			$this->ids[] = '"listeDebloque":"No data"';
 			return "{".implode(",", $this->ids)."}";
 		}
-		// On vérifie que tous les champs sont saisies
+		// On vérifie que tous les champs sont saisis
 		$tableData = $this->entityTraitment($entity, $data);
 		// On envoit le traitement vers la fonction d'insert
-		$isUpdate = $this->dataUpdateTraitment($tableData[0], $tableData[1], $tableData[2], $data);
+		$isUpdate = $this->dataUpdateTraitment($tableData[0], $tableData[1], $tableData[2], $tableData[3], $data);
 		// Si l'update est bonne, on demande la ligne qui correspond a l'id.
 		if(!$isUpdate[0]){ // S'il y a eu une erreur
 			echo '{"error":"Update problem for '.$entity.'"}';
@@ -72,7 +87,7 @@ class UpdateController extends MailController{
 		// Si on a des sous data (Hero Settings ..) à insérer
 		if($isUpdate[1]){ // Si on a d'autre tableau de data a regarder.
 			foreach ($data as $key => $value) {
-				if(is_array($value)){
+				if(is_array($value) && count($value) > 0){
 					// on injecte l'id du référent
 					$entityProper = substr($entity, 4);
 					$keyConstruct = $entityProper."_id".$entityProper;
@@ -185,7 +200,7 @@ class UpdateController extends MailController{
 		}
 	}
 	
-	public function dataUpdateTraitment($table, $columns, $id, $data){
+	public function dataUpdateTraitment($table, $columns, $id, $ignoreFields, $data){
 		// on unpdate la data vers la bdd
 		$str = '';
 		$subValues = false;
@@ -205,6 +220,15 @@ class UpdateController extends MailController{
 	}
 	
 	public function entityTraitment($entity, $data){
+		
+		//print_r($data);
+		
+		/*
+		print_r ($data);
+		if (count($data) == 1)
+			return array($entity, $fields, $id, $ignoreField);
+		*/
+	
 		// On regarde que pour chaque colonne, on a bien une data.
 		$rep = $this->select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '".$entity."'");
 		$fields = array();
@@ -216,14 +240,34 @@ class UpdateController extends MailController{
 		}
 		// Maintenant on connait les champs de la table. On regarde si on les connais tous.
 		$missingField = array();
-		foreach ($fields as $field) {
-			if(empty($data[$field]) && $data[$field] != '0'){
-				$missingField[] = $field;
+		$ignoreField = array();
+		
+		//print_r($id);
+		
+		foreach ($fields as $key => $field) {
+		
+			// Liste des exceptions
+			if ($field == "nbTicksPlay" || $field == "savedDateTime")
+			{
+				unset($fields[$key]);
+				continue;
 			}
+			
+			if(empty($data[$field]) /*&& $data[$field] != '0'*/)
+			{
+				//$missingField[] = $field;
+				$data[$field] = '0';
+			}
+			
+			//echo "</br>".$field." ".$data[$field]."</br>";
+			
 			// on met de coté la valeur de l'id.
 			if($field == $id['key'] && !empty($data[$field]))
 				$id['value'] = $data[$field];
 		}
+		
+		//print_r($id);
+		
 		if(!empty($missingField)){
 			echo '{"error":"Missing data : '.implode(', ', $missingField).'"}';
 			die();
@@ -233,7 +277,7 @@ class UpdateController extends MailController{
 			// echo '<br/>';
 			// print_r($id);
 			// echo '<br/>';
-			return array($entity, $fields, $id);
+			return array($entity, $fields, $id, $ignoreField);
 		}
 	}
 }

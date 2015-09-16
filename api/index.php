@@ -1,5 +1,5 @@
 <?php 
-
+	header("Content-Type: application/json");
 	ini_set('display_errors', 1);
 
 	require 'vendor/autoload.php';
@@ -56,6 +56,8 @@
 
 // GETTERS
 	$router->post('/get', 'Get#dispatch');
+	$router->get('/get/videolist', 'Get#videolist');
+	$router->post('/get/newmdp', 'Pwd#getnewmdp');
 
 
 //  Getters Partenaire

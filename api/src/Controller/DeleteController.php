@@ -21,7 +21,7 @@ class DeleteController extends SQLController{
 		if(!empty($id)){
 			$sql = "DELETE FROM $table WHERE $entity = '".$id."'";
 			$result = $this->delete($sql);
-			if($result){ echo 'ok'; }else{ echo '{"error":"Probleme inconnu"}'; }
+			if($result){ echo '{"result":"1"}'; }else{ echo '{"error":"Probleme inconnu"}'; }
 		}else{
 			$error = '{"error":"Aucun id"}';
 			echo $error;
