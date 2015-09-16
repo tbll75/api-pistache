@@ -298,6 +298,7 @@ class NotificationController extends SQLController{
 			print_r($childChore);
 			echo '</pre>';
 			*/
+
 			// on envoit vers la bonne notif.
 			foreach ($childChore as $childToNotif) {
 				if($childToNotif['nbChore'] >= 2){
@@ -369,6 +370,13 @@ class NotificationController extends SQLController{
 			$notifInfo['text'] = str_replace($valeurs[0][1], $momentDay, $notifInfo['text']);
 			$notifInfo['text'] = str_replace($valeurs[0][2], $missionName, $notifInfo['text']);
 		}
+
+		// TEST
+		/*
+		echo '<pre>';
+		print_r($notifInfo);
+		echo '</pre>';
+		*/
 
 		// Une fois la notif prète, on récupère les infos de supports visés
 		$sqlsupp = "SELECT deviceToken, os FROM api_Support WHERE Family_idFamily = ".$idFamily;
