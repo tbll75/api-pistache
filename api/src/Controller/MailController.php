@@ -178,8 +178,57 @@ class MailController extends SQLController{
 		$result = $this->sendMessage($title, $html, $text, $from, $reply, $mergeTo);
 	}
 
+	public function daylyReport($mail, $nbMission)
+	{
 
-		public function welcome($mail, $pass){
+		// params mail
+		$title = "Des missions à valider !";
+		$from = "equipe@pistache-app.com";
+		$reply = "equipe@pistache-app.com";
+
+		// Requete vers le serveur pour avoir le template
+		$api = "/templates/info.json"; // lien de l'api pour chercher les infos du template
+		$templateFields = array(
+			"key" => $this->mandrillKey,
+			"name" => "dailyreport" // Template Slug dans Mandrill->Outbound->Templates-> etle template
+		);
+
+		$result = $this->curlMail($api, $templateFields); // en gros c'est la requete pour choper les infos
+
+		// récupération contenu Template
+		if (!empty($result['publish_code'])) {
+			$html = $result['publish_code'];
+		} elseif (!empty($result['code'])) {
+			$html = $result['code'];
+		}
+		if (!empty($result['publish_text'])) {
+			$text = $result['publish_text'];
+		} elseif (!empty($result['text'])) {
+			$text = $result['text'];
+		}
+
+		// prepare
+		$mergeTo = array(
+			array(
+				"rcpt" => $mail,
+				"vars" => array(
+					array(
+						"name" => "NBTACHECOMPLETE",
+						"content" => $nbMission
+					),
+					array(
+						"name" => "EXEMPLETACHE",
+						"content" => ""
+					)
+				)
+			)
+		);
+
+		$result = $this->sendMessage($title, $html, $text, $from, $reply, $mergeTo);
+	}
+
+
+	public function welcome($mail, $pass){
 
 		// params mail
 		$title = "Bienvenue chez Pistache";

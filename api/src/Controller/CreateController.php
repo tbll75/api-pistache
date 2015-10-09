@@ -178,6 +178,7 @@ class CreateController extends MailController{
 		foreach ($data as $key => $value) {
 			if(!is_array($value) && in_array($key, $columns)){
 				$keys .= $key.", ";
+				
 				$values .= "'".htmlentities($value, ENT_QUOTES)."', ";
 			}elseif(is_array($value))
 				$subValues = true;

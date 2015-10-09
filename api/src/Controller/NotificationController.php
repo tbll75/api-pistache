@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-class NotificationController extends SQLController{
+class NotificationController extends MailController{
 
 	/**
 	methode filtre temporel
@@ -41,11 +41,80 @@ class NotificationController extends SQLController{
 		}else{
 			echo 'Pas de notification lancée pour les tâches recurrentes !<br/><br/>Error : <i>momentOfDay</i> n\'est pas definie.<br/>Message : Ce n\'est pas le moment.';
 		}
+
+		/*
+		// SEND MAIL NOTIFICATION
+		if( 18 < $Hour && $Hour < 20){
+
+			$this->sendMailNotif();
+		}
+		*/
 	}
+
+	public function sendMailNotif()
+	{
+		$families = array();
+
+		$rep = $this->select("SELECT * FROM api_ChoreDone WHERE isCompleted = 1 AND isValidated = 0");
+
+		$done = '';
+		foreach ($rep as $choreDone){
+			//$done[] = array("idChild" => $choreDone['Children_idChildren'], "idChoreRec" => $choreDone['ChoreRec_idChoreRec'], "day" => $choreDone['momentOfWeek'], "moment" => $choreDone['momentOfDay']);
+
+			$repChoreRec = $this->select("SELECT * FROM api_ChoreRec WHERE idChoreRec = ".$choreDone['ChoreRec_idChoreRec']);
+
+			// CHORE REC
+			if (count($repChoreRec) == 0)
+				echo "NoChoreRec : ".$choreDone['ChoreRec_idChoreRec']."\n";
+			else
+			{
+				$choreDone['choreRec'] = $repChoreRec[0];
+				echo "ChoreRec : ".$choreDone['choreRec']['name']."\n";
+
+				$repFam = $this->select("SELECT * FROM api_Family WHERE idFamily = ".$choreDone['choreRec']['Family_idFamily']);
+
+				// FAMILY
+				if (count($repFam) == 0)
+					echo "NoFamily : ".$choreDone['choreRec']['Family_idFamily']."\n";
+				else
+				{
+					$choreDone['family'] = $repFam[0];
+
+					if ( ! array_key_exists($choreDone['family']['mail'], $families))
+					{
+						$families[$choreDone['family']['mail']] = array();
+						$families[$choreDone['family']['mail']]['nbToValidate'] = 1;
+						$families[$choreDone['family']['mail']]['mail'] = $choreDone['family']['mail'];
+					}
+					else
+					{
+						$families[$choreDone['family']['mail']]['nbToValidate'] ++;
+					}
+
+					echo "Family : ".$choreDone['family']['mail']."\n";
+				}
+			}
+		}
+
+		foreach ($families as $family){
+
+			echo "Fam : ".$family['mail']." nb : ".$family['nbToValidate']."\n";
+
+			$this->daylyReport($family['mail'], $family['nbToValidate']);
+		}
+
+
+
+	}
+
 	public function tryme(){
 		
 		date_default_timezone_set('Europe/Paris');
 
+		// SEND MAIL NOTIFICATION
+		$this->sendMailNotif();
+
+		/*
 		$momentOfWeek = date('N') - 1;
 		$Hour = date('G');
 
@@ -59,7 +128,7 @@ class NotificationController extends SQLController{
 			$momentOfDay = '1';
 		}if( 15 < $Hour && $Hour < 19){
 			$momentOfDay = '2';
-		}if( 18 < $Hour && $Hour < 20){
+		}if( 18 < $Hour && $Hour < 22){
 			$momentOfDay = '3';
 		}
 
@@ -71,6 +140,7 @@ class NotificationController extends SQLController{
 		curl_setopt( $ch,CURLOPT_POSTFIELDS, array('json' => $json) );
 		$result = curl_exec($ch );
 		curl_close( $ch );
+		*/
 	}
 
 	public function punctual(){
