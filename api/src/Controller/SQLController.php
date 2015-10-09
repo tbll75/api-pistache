@@ -30,6 +30,7 @@ class SQLController{
 
 		require './serveur.php'; // on importe la connexion bdd.
 		// Une fois la requete SQL bien écrite on envoie le tout vers la bdd.
+		//echo $sql;
 		$req = $bdd->prepare($sql);
 		if (!$req) {
 			   echo "\nPDO::errorInfo():\n";
